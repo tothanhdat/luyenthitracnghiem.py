@@ -1,0 +1,232 @@
+<%- include ('../dashboard/header') %>
+<main class="content">
+			<div class="container-fluid">
+				<div class="content-header">
+					<h1>Chức năng</h1>
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="dashboard-1.html">Chức năng</a></li>
+							<li class="breadcrumb-item active">Bộ đề</li>
+						</ol>
+					</nav>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6">
+						<form class="box needs-validation" novalidate>
+							<div class="box-header">
+								<h3>Tạo bộ đề</h3>
+							</div>
+							<div class="box-body">
+								<div class="form-group row">
+									<label for="jsValidationRequired" class="form-label col-3">Tên bộ đề</label>
+									<div class="col-9">
+										<input id="nameExam" class="form-control" placeholder="Bộ đề 1">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-9 offset-3">
+										<select id="level" required class="form-control">
+											<option value>Chọn lớp</option>
+										<% if (LEVEL_TYPES && LEVEL_TYPES.length) { %>
+                            				<% LEVEL_TYPES.forEach(level => { %>
+											<option value="<%=level.value%>">Lớp <%=level.text%></option>
+											<% }) %>
+                        				<% } %>
+										</select>
+										<span class="invalid-feedback">Сhoose option.</span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-9 offset-3">
+										<select id="subjectID" required class="form-control">
+											<option value>Chọn môn học</option>
+											<% if (listSubject && listSubject.length) { %>
+                            					<% listSubject.forEach(subject => { %>
+											<option value="<%=subject._id%>"><%=subject.name%></option>
+												<% }) %>
+                        					<% } %>
+										</select>
+										<span class="invalid-feedback">Сhoose option.</span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="jsValidationTypeEmail" class="form-label col-3">Mô tả</label>
+									<div class="col-9">
+										<input id="descriptionExam" class="form-control" placeholder='Viết gì đó..'>
+									</div>
+								</div>
+							</div>
+							<div class="box-footer">
+								<button class="btn btn-primary pull-right btnCreateExam">Thêm</button>
+							</div>
+						</form>
+					</div>
+					<div class="box">
+							<div class="box-header">
+								<h3 >Danh sách bộ đề</h3>
+							</div>
+							<div class="box-body">
+								<div class="table-responsive">
+									<table class="table table-noborder">
+										<tbody>
+											<tr>
+												<th>Tên bộ đề</th>
+												<th>Môn học</th>
+												<th>Lớp</th>
+												<th>Mô tả</th>
+											</tr>
+											<% if (listExam && listExam.length) { %>
+                            					<% listExam.forEach(exam => { %>
+											<tr>
+												<td><%=exam.name%></td>
+
+												<% listSubject.forEach(subject => { %>
+													<% if (subject._id.toString() == exam.subjects.toString()) { %>
+														<td><%=subject.name%></td>
+													<% } %>
+												<% }) %>
+
+												<% LEVEL_TYPES.forEach(level => { %>
+													<% if (level.value == exam.level) { %>
+														<td><%=level.text%></td>
+													<% } %>
+												<% }) %>
+
+												<% if (exam.description.toString().length < 20) { %>
+													<td><%=exam.description%></td>
+												<% } %>
+
+												<% if (exam.description.toString().length > 20) { %>
+													<td><%=exam.description.substring(0, 20).concat("...")%></td>
+												<% } %>
+												<td>
+													<div class="user-panel-actions">
+														<a href="#"></a>
+														<a href="#"><i class="fas fa-pencil-alt btnEditExam" _examID="<%=exam._id%>"></i></a>
+														<a href="#"></a>
+														<a href="#"><i class="fas fa-trash-alt btnRemoveExam" _examID="<%=exam._id%>"></i></a>
+													</div>
+												</td>
+											</tr>
+												<% }) %>
+                        					<% } %>
+											
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+				</div>
+				</div>
+			</div>
+		</main>
+<%- include ('../dashboard/footer') %>
+
+<script>
+    
+	//Thêm bộ đề -------------->
+    $(document).on('click', '.btnCreateExam', function(e) {
+
+		e.preventDefault();
+        let name        = $('#nameExam').val().trim();
+        let description = $('#descriptionExam').val().trim();
+        let level       = $('#level').val();
+        let subjectID   = $('#subjectID').val();
+
+		console.log({ name, description, level, subjectID})
+
+        if(name.length < 1){
+
+            return toastr['error']('Tên bộ đề không được để trống', 'Thông báo');
+
+        } else{
+            $.ajax({
+                url: `/exam/add-exam`,
+                method: 'POST',
+                data: { name, description, level, subjectID },
+                success: resp => {
+
+                    console.log({ resp })
+                    
+                    if(!resp.error){
+
+						toastr['success']('Thêm thành công', 'Thông báo');
+						window.location.reload();
+
+                    }else{
+
+                        return toastr['error']('Thêm thất bại', 'Thông báo');
+                    }
+                },
+                error: err => console.log({ err })
+            });
+        }
+    })
+
+	//Xóa bộ đề --------------->
+	$(document).on('click', '.btnRemoveExam', function(e) {
+
+		let examID = $(this).attr('_examID');
+		console.log({ examID })
+		if (window.confirm('Bạn có chắc chắn xóa không?')) {
+            $.ajax({
+				url: `/exam/remove-exam/${examID}`,
+				method: 'GET',
+				success: resp => {
+
+					if(!resp.error){
+
+						$(this).closest("tr").remove();
+						return toastr['success']('Xóa thành công', 'Thông báo');
+
+					}else{
+
+						return toastr['error']('Xóa thất bại', 'Thông báo');
+					}
+				},
+				error: err => console.log({ err })
+			});
+        }
+    })
+
+	//Truyền data cập nhật ------------>
+	$(document).on('click', '.btnEditExam', function () {
+
+        let examID = $(this).attr('_examID');
+		
+		if(examID && examID.length){
+			$.ajax({
+				url: `/exam/info-exam/${examID}`,
+				method: 'GET',
+				success: resp => {
+
+					console.log({ resp })
+
+					let { _id: id, name, description, level, subjects: subjectsID} = resp.data
+
+					console.log({ id, name, description, level, subjectsID })
+					
+					if(!resp.error){
+						$('#nameExam').val(name);
+						$('#descriptionExam').val(description);
+						
+						$('#level').val(level);
+						$('#level').select2().trigger('change');
+
+						$('#subjectID').val(subjectID);
+						$('#subjectID').select2().trigger('change');
+
+						$('.btnCreateExam').attr('_examID', id);
+
+					} else {
+
+						return toastr['error']('Thất bại', 'Thông báo');
+					}
+				},
+				error: err => console.log({ err })
+			});
+		}
+	});
+
+</script>

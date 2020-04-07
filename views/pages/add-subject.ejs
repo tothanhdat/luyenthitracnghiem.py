@@ -1,0 +1,105 @@
+<%- include ('../dashboard/header') %>
+<main class="content">
+			<div class="container-fluid">
+				<div class="content-header">
+					<h1>Chức năng</h1>
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="dashboard-1.html">Chức năng</a></li>
+							<li class="breadcrumb-item active">Môn học</li>
+						</ol>
+					</nav>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6">
+						<form class="box needs-validation" novalidate>
+							<div class="box-header">
+								<h3>Thêm môn học</h3>
+							</div>
+							<div class="box-body">
+								<div class="form-group row">
+									<label for="jsValidationLengthMin" class="form-label col-3">Tên môn học</label>
+									<div class="col-9">
+										<input id="name-subject" type="text" class="form-control" placeholder='Môn ...'>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="jsValidationLengthMax" class="form-label col-3">Giáo viên</label>
+									<div class="col-9">
+										<input id="name-teacher" type="text" class="form-control" placeholder='Nguyễn Văn A'>
+									</div>
+								</div>
+							</div>
+							<div class="box-footer">
+								<button class="btn btn-primary pull-right btnCreateSubject">Thêm</button>
+							</div>
+						</form>
+					</div>
+                    <div class="box">
+							<div class="box-header">
+								<h3 >Danh sách môn học</h3>
+							</div>
+							<div class="box-body">
+								<div class="table-responsive">
+									<table class="table table-noborder">
+										<tbody>
+											<tr>
+												<th>Môn học</th>
+												<th>Giáo viên</th>
+											</tr>
+											<% if (listSubject && listSubject.length) { %>
+                            					<% listSubject.forEach(subject => { %>
+											<tr>
+												<td><%=subject.name%></td>
+												<td><%=subject.teacher%></td>
+											</tr>
+												<% }) %>
+                        					<% } %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</main>
+<%- include ('../dashboard/footer') %>
+
+<script>
+       
+    $(document).on('click', '.btnCreateSubject', function(e) {
+		e.preventDefault();
+        let name        = $('#name-subject').val().trim();
+        let teacher 	= $('#name-teacher').val().trim();
+
+        if(name.length < 1 || teacher.length < 1){
+
+            return toastr['error']('Tên bộ đề không được để trống', 'Thông báo');
+
+        } else{
+            $.ajax({
+                url: `/subject/add-subject`,
+                method: 'POST',
+                data: { name, teacher },
+                success: resp => {
+
+                    console.log({ resp })
+                    
+                    if(!resp.error){
+
+                        toastr['success']('Thêm thành công', 'Thông báo');
+						window.location.reload();
+						
+
+                    }else{
+
+                        return toastr['error']('Thêm thất bại', 'Thông báo');
+                    }
+                },
+                error: err => console.log({ err })
+            });
+        }
+    })
+
+</script>

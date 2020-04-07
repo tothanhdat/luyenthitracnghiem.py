@@ -1,0 +1,49 @@
+.pageLogin{
+    background-color: #C9A8F1;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif !important;
+}
+.pageLogin .titleHeader{
+    font-size: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-family: 'Sirin Stencil', cursive !important;
+    color: #391053;
+}
+.inputLogin{
+    margin-top: 10.5vh;
+}
+.inputLogin span{
+    width: 90px !important;
+    font-size: 18px;
+    color: #391053;
+}
+.inputLogin input{
+    color: rgba(57, 16, 83, 0.48);
+    font-size: 15px;
+    padding: 15px 0;
+    padding-left: 32px;
+    border: none;
+    background-color: white;
+    outline: none;
+    box-shadow: none;
+    width: 374px;
+    border-radius: 32px;
+    margin-left: 21px;
+}
+.inputPass{
+    margin-top: 5.18vh;
+}
+.pageLogin .button{
+    width: 485px;
+    margin-top: 5.96vh;
+}
+.pageLogin .button span{
+    float: right;
+    padding: 12px 25px;
+    background-color: #5A2675;
+    border-radius: 28px;
+    color: white;
+    font-size: 15px;
+}

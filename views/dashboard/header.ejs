@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Oxios - Responsive Scalable Admin Template</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../dashboard/images/favicon/apple-touch-icon-144x144.png" />
+	<link rel="icon" type="image/png" href="../dashboard/images/favicon/favicon-16x16.png" sizes="16x16" />
+	<link rel="icon" type="image/png" href="../dashboard/images/favicon/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="../dashboard/images/favicon/favicon-128x128.png" sizes="128x128" />
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+	<link rel="stylesheet" href="../dashboard/assets/css/main.css">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="wrapper theme-inverse">
+		<div class="loader text-primary">
+			<i class="i-spinner loading"></i>
+		</div>
+		<aside class="sidebar">
+			<a href="dashboard-1.html" class="logo">
+				<img src="../dashboard/images/logo-primary.png" alt=""> <b>Oxios</b>
+			</a>
+			<nav>
+				<ul class="sidebar-list">
+					<li>
+						<form class="input-group">
+							<div class="input-group-icon"><i class="fas fa-search"></i></div>
+							<input type="text" class="form-control" placeholder="Search...">
+						</form>
+					</li>
+					<li class="sidebar-list-item"><i class="fe fe-sliders"></i> <span>Dashboards</span> <i class="fas fa-chevron-down pull-right"></i></li>
+					<li>
+						<ul>
+							<li><a class="sidebar-list-item" href="dashboard-1.html">Dashboard 1</a></li>
+							<li><a class="sidebar-list-item" href="dashboard-2.html">Dashboard 2 (v.1)</a></li>
+							<li><a class="sidebar-list-item" href="dashboard-2-1.html">Dashboard 2 (v.2)</a></li>
+							<li><a class="sidebar-list-item" href="dashboard-3.html">Dashboard 3</a></li>
+						</ul>
+					</li>
+					<li><span class="sidebar-list-header">Pages and extra</span></li>
+					<li><a class="sidebar-list-item" href="page-profile.html"><i class="fe fe-user"></i> <span>Cá nhân</span></a></li>
+					<li class="sidebar-list-item"><i class="fe fe-folder-plus"></i> <span>Chức năng</span> <i class="fas fa-chevron-down pull-right"></i></li>
+					<li>
+						<ul>
+							<li><a class="sidebar-list-item" href="/create-subject">Môn học</a></li>
+							<li><a href="/create-exam" class="sidebar-list-item">Bộ đề</a></li>
+						</ul>
+					</li>
+					<li><a class="sidebar-list-item" href="page-chat.html"><i class="fe fe-message-square"></i> <span>Chat</span></a></li>
+					
+					<li><a class="sidebar-list-item" href="page-faq.html"><i class="fe fe-help-circle"></i> <span>FAQ</span></a></li>
+					<li class="sidebar-list-item"><i class="fe fe-layout"></i> <span>Access pages</span> <i class="fas fa-chevron-down pull-right"></i></li>
+					<li>
+						<ul>
+							<li><a class="sidebar-list-item" href="page-signin.html">Sign In</a></li>
+							<li><a class="sidebar-list-item" href="page-signup.html">Sign Up</a></li>
+							<li><a class="sidebar-list-item" href="page-lockscreen.html">Lockscreen</a></li>
+							<li><a class="sidebar-list-item" href="page-under-construction.html">Under Construction</a></li>
+							<li><a class="sidebar-list-item" href="page-404.html">404 Error</a></li>
+							<li><a class="sidebar-list-item" href="page-500.html">500 Error</a></li>
+						</ul>
+					</li>
+                    
+					
+					<li><span class="sidebar-list-header">User interface</span></li>
+					<li class="sidebar-list-item"><i class="fe fe-layers"></i> <span>Layouts</span> <i class="fas fa-chevron-down pull-right"></i></li>
+					<li>
+						<ul>
+							<li><a class="sidebar-list-item" href="dashboard-1.html">Standart</a></li>
+							<li><a class="sidebar-list-item" href="layout-horizontal-fluid.html">Horizontal fluid</a></li>
+							<li><a class="sidebar-list-item" href="layout-horizontal-boxed.html">Horizontal boxed</a></li>
+							<li><a class="sidebar-list-item" href="layout-inverse-horizontal-fluid.html">Inversed horizontal fluid</a></li>
+							<li><a class="sidebar-list-item" href="layout-inverse-horizontal-boxed.html">Inversed horizontal boxed</a></li>
+						</ul>
+					</li>
+					<li class="sidebar-list-item"><i class="fe fe-box"></i> <span>Components</span> <i class="fas fa-chevron-down pull-right"></i></li>
+					<li>
+						<ul>
+							<li><a class="sidebar-list-item" href="component-alerts.html">Alerts</a></li>
+							<li><a class="sidebar-list-item" href="component-buttons.html">Buttons and pagination</a></li>
+							<li><a class="sidebar-list-item" href="component-box.html">Box</a></li>
+							<li><a class="sidebar-list-item" href="component-card.html">Card</a></li>
+							<li><a class="sidebar-list-item" href="component-tables.html">Tables</a></li>
+							<li><a class="sidebar-list-item" href="component-events.html">Events</a></li>
+							<li><a class="sidebar-list-item" href="component-widgets.html">Widgets</a></li>
+							<li><a class="sidebar-list-item" href="component-charts.html">Charts</a></li>
+							<li><a class="sidebar-list-item" href="component-avatar.html">Avatar</a></li>
+							<li><a class="sidebar-list-item" href="component-user-panel.html">User panel</a></li>
+							<li><a class="sidebar-list-item" href="component-image.html">Image</a></li>
+							<li><a class="sidebar-list-item" href="component-icons.html">Icons</a></li>
+						</ul>
+					</li>
+					<li class="sidebar-list-item"><i class="fe fe-edit"></i><span>Form</span><i class="fas fa-chevron-down pull-right"></i></li>
+					<li>
+						<ul>
+							<li><a class="sidebar-list-item" href="/admin/add-subject-exam">Thêm</a></li>
+							<li><a class="sidebar-list-item" href="form-wizzard.html">Form wizzard</a></li>
+							<li><a class="sidebar-list-item" href="form-validation.html">Form validation</a></li>
+							<li><a class="sidebar-list-item" href="form-editor.html">Form editor</a></li>
+						</ul>
+					</li>
+					<li><a class="sidebar-list-item" href="typography.html"><i class="fe fe-type"></i> <span>Typography</span></a></li>
+				</ul>
+			</nav>
+		</aside>
+		<header class="header">
+			<ul class="header-nav">
+				<li>
+					<button id="js-toggle-sidebar" class="header-nav-item">
+						<i class="fas fa-bars"></i>
+					</button>
+				</li>
+			</ul>
+			<ul class="header-nav d-none d-sm-flex">
+				<li>
+					<a href="#" data-dropdown class="header-nav-item">Dashboard</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="dashboard-1.html">Dashboard 1</a></li>
+						<li><a class="dropdown-item" href="dashboard-2.html">Dashboard 2 (v.1)</a></li>
+						<li><a class="dropdown-item" href="dashboard-2-1.html">Dashboard 2 (v.2)</a></li>
+						<li><a class="dropdown-item" href="dashboard-3.html">Dashboard 3</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" data-dropdown class="header-nav-item">Layout</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="dashboard-1.html">Standart</a></li>
+						<li><a class="dropdown-item" href="layout-horizontal-fluid.html">Horizontal fluid</a></li>
+						<li><a class="dropdown-item" href="layout-horizontal-boxed.html">Horizontal boxed</a></li>
+						<li><a class="dropdown-item" href="layout-inverse-horizontal-fluid.html">Inversed horizontal fluid</a></li>
+						<li><a class="dropdown-item" href="layout-inverse-horizontal-boxed.html">Inversed horizontal boxed</a></li>
+					</ul>
+				</li>
+			</ul>
+			
+			<ul class="header-nav pull-right">
+				<li>
+					<a href="#" data-dropdown class="header-nav-item">
+						<i class="far fa-envelope"></i>
+						<span class="badge badge-pill badge-success">2</span>
+					</a>
+					<ul class="dropdown-menu px-20 py-10">
+						<li class="message">
+							<div class="avatar avatar-sm">
+								<img src="../dashboard/images/avatar-3.jpg" alt="">
+							</div>
+							<div class="message-content">
+								<div class="message-bubble">
+									<p>Hello, John!</p>
+								</div>
+								<small class="text-secondary text-sm">Today, 10:31</small>
+							</div>
+							<div class="message-actions">
+								<button><i class="far fa-trash-alt"></i></button>
+								<button><i class="far fa-flag"></i></button>
+							</div>
+						</li>
+						<li class="message">
+							<div class="avatar avatar-sm">
+								<img src="../dashboard/images/avatar-3.jpg" alt="">
+							</div>
+							<div class="message-content">
+								<div class="message-bubble">
+									<p>What about our project?</p>
+								</div>
+								<small class="text-secondary text-sm">Today, 10:32</small>
+							</div>
+							<div class="message-actions">
+								<button><i class="far fa-trash-alt"></i></button>
+								<button><i class="far fa-flag"></i></button>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" data-dropdown class="header-nav-item">
+						<i class="far fa-bell"></i>
+						<span class="badge badge-pill badge-primary">3</span>
+					</a>
+					<ul class="dropdown-menu px-20 py-10">
+						<li class="event-column event-column-success">
+							<div class="event-content">
+								<small class="text-secondary"><i class="far fa-envelope"></i> From example@gmail.com</small>
+								<p><a href="#">Alex White</a> sent you an email.</p>
+							</div>
+							<small class="text-secondary pull-right">1 hr.</small>
+						</li>
+						<li class="event-column event-column-primary">
+							<div class="event-content">
+								<small class="text-secondary"><i class="fas fa-thumbtack"></i> New task</small>
+								<p><b>To <a href="#">John Doe</a>: new API methods.</b></p>
+								<p class="text-secondary text-sm">Implement new API methods for mobile app.</p>
+							</div>
+							<small class="text-secondary pull-right">7 min.</small>
+						</li>
+						<li class="event-column event-column-secondary">
+							<div class="event-content">
+								<small class="text-secondary"><i class="far fa-bell"></i> Notification</small>
+								<p><a href="#">Alex White</a> joined to project</p>
+							</div>
+							<small class="text-secondary pull-right">now</small>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" id="js-enter-fullscreen" class="header-nav-item">
+						<i class="fas fa-expand-arrows-alt"></i>
+					</a>
+				</li>
+				<li>
+					<a href="#" data-dropdown class="user-panel">
+						<div class="user-panel-image">
+							<div class="avatar avatar-sm">
+								<img src="../dashboard/images/avatar-1.jpg" alt="">
+							</div>
+						</div>
+						<div class="user-panel-info">
+							<p>John Doe</p>
+							<small class="text-black-50">Administrator</small>
+						</div>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="page-profile.html"><i class="far fa-user"></i> Profile</a></li>
+						<li class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="/logout"><i class="fas fa-power-off"></i> Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+		</header>
+		<main class="content">
+			<div class="container-fluid">
+				<div class="content-header content-header-scene">
+					<h1>LTTN Trang chủ <small>Đăng nhập lần cuối: 03:00 21, July</small></h1>
+				</div>

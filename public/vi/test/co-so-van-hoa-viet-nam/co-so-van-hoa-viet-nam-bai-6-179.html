@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="" xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Hãy đợi...</title>
+		<style type="text/css">
+			.floodblocker {
+				font: normal 14px/25px Arial, Helvetica, sans-serif;
+				margin: 50px;
+				padding: 50px;
+				text-align: center
+			}
+
+			.floodblocker span {
+				font: bold 14px/25px Arial, Helvetica, sans-serif;
+			}
+
+			#secField {
+				color: #FF5B0D;
+				font: bold 18px/25px Arial, Helvetica, sans-serif
+			}
+		</style>
+	</head>
+	<body>
+		<div class="floodblocker">
+			<img alt="Hãy đợi..." src="/assets/images/load_bar.gif" width="33" height="8" />
+			<br/>
+			Hệ thống đang từ chối truy cập của bạn.
+			<br/>
+			<span>Hãy đợi <span id="secField">26</span> giây...</span>
+		</div>
+		<script type="text/javascript">
+			var Timeout = '26';
+			var timeBegin = new Date();
+			var msBegin = timeBegin.getTime();
+			function showSeconds() {
+				var timeCurrent = new Date();
+				var msCurrent = timeCurrent.getTime();
+				var ms = Math.round((msCurrent - msBegin) / 1000);
+				document.getElementById('secField').innerHTML = Timeout - ms;
+				if (Timeout <= ms)
+					location.reload();
+			}
+
+			timerID = setInterval("showSeconds()", 1000);
+		</script>
+	</body>
+</html>
