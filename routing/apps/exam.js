@@ -1,8 +1,10 @@
-const route = require('express').Router();
-const EXAM_MODEL = require('../../models/exam');
-const { renderToView } = require('../../utils/childRouting');
+const route             = require('express').Router();
+const EXAM_MODEL        = require('../../models/exam');
+const ROLE_ADMIN        = require('../../utils/checkRole');
+const { renderToView }  = require('../../utils/childRouting');
 
-route.post('/add-exam', async (req, res) => {
+
+route.post('/add-exam', ROLE_ADMIN, async (req, res) => {
     let { name, description, level, subjectID } = req.body;
 
     // Kiểm tra quyền/check về logic (nếu có)
@@ -12,12 +14,12 @@ route.post('/add-exam', async (req, res) => {
     return res.json(resultInsert);
 })
 
-route.get('/list-exam', async (req, res) => {
+route.get('/list-exam', ROLE_ADMIN, async (req, res) => {
     let listExam = await EXAM_MODEL.getList();
     return res.json(listExam);
 })
 
-route.get('/info-exam/:examID', async (req, res) => {
+route.get('/info-exam/:examID', ROLE_ADMIN, async (req, res) => {
     let { examID } = req.params;
     console.log(examID);
     
@@ -27,21 +29,23 @@ route.get('/info-exam/:examID', async (req, res) => {
     return res.json(infoExam);
 })
 
-route.get('/update-exam/:examID', async (req, res) => {
+route.get('/update-exam/:examID', ROLE_ADMIN, async (req, res) => {
     
 })
 
-route.post('/update-exam/:examID', async (req, res) => {
+route.post('/update-exam/:examID', ROLE_ADMIN, async (req, res) => {
     let { examID } = req.params;
-    let { name, description, level } = req.body;
+    let { name, description, level, subjectID } = req.body;
+
+    console.log({ subjectID })
 
     // Kiểm tra quyền/check về logic (nếu có)
 
-    let resultUpdate = await EXAM_MODEL.update({ name, description, level, userUpdate, examID});
+    let resultUpdate = await EXAM_MODEL.update({ name, description, level, subjectID, examID});
     return res.json(resultUpdate);
 })
 
-route.get('/remove-exam/:examID', async (req, res) => {
+route.get('/remove-exam/:examID', ROLE_ADMIN, async (req, res) => {
     let { examID } = req.params;
     let resultRemove = await EXAM_MODEL.remove({ examID });
     res.json(resultRemove);

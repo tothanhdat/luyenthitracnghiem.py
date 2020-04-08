@@ -1,0 +1,162 @@
+<%- include ('../dashboard/header') %>
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<main class="content">
+	<div class="container-fluid">
+		<div class="content-header">
+			<h1>Tạo câu hỏi</h1>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="dashboard-1.html">Chức năng</a></li>
+					<li class="breadcrumb-item active">Bộ đề</li>
+				</ol>
+			</nav>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-9">
+				<form class="box needs-validation" novalidate>
+					<div class="box-header">
+						<h3>Tạo câu hỏi</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group row">
+							<label for="jsValidationRequired" class="form-label col-2" >Bộ đề</label>
+							<div class="col-9">
+								<select id="level" required class="form-control">
+									<option value>Chọn bộ đề</option>
+								<% if (listExam && listExam.length) { %>
+									<% listExam.forEach(exam => { %>
+
+									<option value="<%=exam._id%>"><%=exam.name%> [ <%=exam.subjects.name%>
+                                    
+                                    <% LEVEL_TYPES.forEach(level => { %>
+											<% if (level.value == exam.level) { %>
+												<td><%=level.text%></td>
+											<% } %>
+										<% }) %>]
+                                    </option>
+
+									<% }) %>
+								<% } %>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="form-label col-2">Câu hỏi</label>
+							<div class="col-9">
+								<textarea name="editor1"></textarea>
+							</div>
+						</div>
+                        <div class="form-group row">
+							<label class="form-label col-2">Tải hình ảnh</label>
+                            <div class="col-9">
+							    <input id="fileInput" type="file" class="form-control">
+                            </div>
+						</div>
+                        <div class="form-group row">
+							<label class="form-label col-2" >Đáp án</label>
+                            <div class="form-group">
+                                <label class="form-radio-custom">
+                                    <input checked name="custom_radio" value="2" type="radio">
+                                    <span class="form-label"></span>
+                                </label>
+						    </div>
+							<div class="col-9">
+                            
+								<input id="answerA" type="text" class="form-control" autocomplete="off" placeholder='A.'>
+							</div>
+						</div>
+                        
+                        <div class="form-group row">
+							<label class="form-label col-2" ></label>
+                            <div class="form-group">
+                                <label class="form-radio-custom">
+                                    <input checked name="custom_radio" value="2" type="radio">
+                                    <span class="form-label"></span>
+                                </label>
+						    </div>
+							<div class="col-9">
+								<input id="answerB" type="text" class="form-control" autocomplete="off" placeholder='B.'>
+							</div>
+						</div>
+                        <div class="form-group row">
+							<label class="form-label col-2" ></label>
+                            <div class="form-group">
+                                <label class="form-radio-custom">
+                                    <input checked name="custom_radio" value="2" type="radio">
+                                    <span class="form-label"></span>
+                                </label>
+						    </div>
+							<div class="col-9">
+								<input id="answerC" type="text" class="form-control" autocomplete="off" placeholder='C.'>
+							</div>
+						</div>
+                        <div class="form-group row">
+							<label class="form-label col-2" ></label>
+                            <div class="form-group">
+                                <label class="form-radio-custom">
+                                    <input checked name="custom_radio" value="2" type="radio">
+                                    <span class="form-label"></span>
+                                </label>
+						    </div>
+							<div class="col-9">
+								<input id="answerD" type="text" class="form-control" autocomplete="off" placeholder='D.'>
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<button class="btn btn-primary pull-right btnCreateExam">Tạo câu hỏi</button>
+					</div>
+				</form>
+			</div>
+			<div class="box col-lg-9">
+					<div class="box-header">
+						<h3 >Danh sách bộ đề</h3>
+					</div>
+					<div class="box-body">
+						<div class="table-responsive">
+							<table class="table table-noborder">
+								<tbody>
+									<tr>
+										<th>STT</th>
+										<th>Câu hỏi</th>
+									</tr>
+									<tr>
+										<td>Câu 1</td>
+										<td>Cho dãy các chất sau: saccarozơ, glucozơ, fructozơ và axetilen. Số chất trong dãy có...</td>
+										<td>
+											<div class="user-panel-actions">
+												<a href="#"></a>
+												<a href="#"><i class="fas fa-pencil-alt btnEditExam" ></i></a>
+												<a href="#"></a>
+												<a href="#"><i class="fas fa-trash-alt btnRemoveExam"></i></a>
+											</div>
+										</td>
+									</tr>
+                                    <tr>
+										<td>Câu 2</td>
+										<td>Đối với dung dịch HF 0,01M, nếu bỏ qua sự điện li của nước thì đánh giá nào sau đây là đúng?</td>
+										<td>
+											<div class="user-panel-actions">
+												<a href="#"></a>
+												<a href="#"><i class="fas fa-pencil-alt btnEditExam" ></i></a>
+												<a href="#"></a>
+												<a href="#"><i class="fas fa-trash-alt btnRemoveExam"></i></a>
+											</div>
+										</td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+		</div>
+		</div>
+	</div>
+</main>
+<%- include ('../dashboard/footer') %>
+
+<script>
+    CKEDITOR.replace( 'editor1' );
+</script>

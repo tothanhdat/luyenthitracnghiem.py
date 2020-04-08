@@ -13,12 +13,23 @@
 	<link rel="icon" type="image/png" href="../dashboard/images/favicon/favicon-16x16.png" sizes="16x16" />
 	<link rel="icon" type="image/png" href="../dashboard/images/favicon/favicon-32x32.png" sizes="32x32" />
 	<link rel="icon" type="image/png" href="../dashboard/images/favicon/favicon-128x128.png" sizes="128x128" />
+	<link rel="stylesheet" href="../dashboard/assets/css/main.css">
+
+	<link rel="stylesheet" href="../lttnpy_core/css/fontawesome-all.min.css"/>
+	<link rel="stylesheet" href="../lttnpy_core/slick/slick.css">
+	<link rel="stylesheet" href="../lttnpy_core/slick/slick-theme.css">
+    <link rel="stylesheet" href="../lttnpy_core/css/select2.min.css"/>
+    <link rel="stylesheet" href="../lttnpy_core/css/quill.snow.css"/>
+	<link rel="stylesheet" href="../lttnpy_core/toastr/toastr.min.css"/>
+    <link rel="stylesheet" href="../lttnpy_core/css/fullcalendar.print.min.css" media='print'/>
+    <link rel="stylesheet" href="../lttnpy_core/css/jquery-ui-full.css"/>
+    <link rel="stylesheet" href="../lttnpy_core/css/jquery.timepicker.min.css"/>
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
-	<link rel="stylesheet" href="../dashboard/assets/css/main.css">
+	<!--
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+	-->
 </head>
 <body>
 	<div class="wrapper theme-inverse">
@@ -26,7 +37,7 @@
 			<i class="i-spinner loading"></i>
 		</div>
 		<aside class="sidebar">
-			<a href="dashboard-1.html" class="logo">
+			<a href="/dashboard" class="logo">
 				<img src="../dashboard/images/logo-primary.png" alt=""> <b>Oxios</b>
 			</a>
 			<nav>
@@ -47,7 +58,6 @@
 						</ul>
 					</li>
 					<li><span class="sidebar-list-header">Pages and extra</span></li>
-					<li><a class="sidebar-list-item" href="page-profile.html"><i class="fe fe-user"></i> <span>Cá nhân</span></a></li>
 					<li class="sidebar-list-item"><i class="fe fe-folder-plus"></i> <span>Chức năng</span> <i class="fas fa-chevron-down pull-right"></i></li>
 					<li>
 						<ul>
@@ -55,6 +65,8 @@
 							<li><a href="/create-exam" class="sidebar-list-item">Bộ đề</a></li>
 						</ul>
 					</li>
+					<li><a class="sidebar-list-item" href="/create-question"><i class="fe fe-user"></i> <span>Tạo câu hỏi</span></a></li>
+					
 					<li><a class="sidebar-list-item" href="page-chat.html"><i class="fe fe-message-square"></i> <span>Chat</span></a></li>
 					
 					<li><a class="sidebar-list-item" href="page-faq.html"><i class="fe fe-help-circle"></i> <span>FAQ</span></a></li>
@@ -220,12 +232,12 @@
 					<a href="#" data-dropdown class="user-panel">
 						<div class="user-panel-image">
 							<div class="avatar avatar-sm">
-								<img src="../dashboard/images/avatar-1.jpg" alt="">
+								<img src="../dashboard/images/avatar-0.jpg" alt="">
 							</div>
 						</div>
 						<div class="user-panel-info">
-							<p>John Doe</p>
-							<small class="text-black-50">Administrator</small>
+							<small>Xin chào</small>
+							<p><%= infoUser.email%></p>
 						</div>
 					</a>
 					<ul class="dropdown-menu">

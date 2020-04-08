@@ -1,8 +1,9 @@
-const route = require('express').Router();
-const SUBJECT_MODEL = require('../../models/subjects');
-const { renderToView } = require('../../utils/childRouting');
+const route             = require('express').Router();
+const SUBJECT_MODEL     = require('../../models/subjects');
+const ROLE_ADMIN        = require('../../utils/checkRole');
+const { renderToView }  = require('../../utils/childRouting');
 
-route.post('/add-subject', async (req, res) => {
+route.post('/add-subject', ROLE_ADMIN, async (req, res) => {
     let { name, teacher } = req.body;
 
     // Kiểm tra quyền/check về logic (nếu có)
@@ -13,12 +14,12 @@ route.post('/add-subject', async (req, res) => {
 
 })
 
-route.get('/list-subject', async (req, res) => {
+route.get('/list-subject', ROLE_ADMIN, async (req, res) => {
     let listSubject = await SUBJECT_MODEL.getList();
     return res.json(listSubject);
 })
 
-route.get('/info-subject/:subjectID', async (req, res) => {
+route.get('/info-subject/:subjectID', ROLE_ADMIN, async (req, res) => {
     let { subjectID } = req.params;
     console.log(subjectID);
     
@@ -28,7 +29,7 @@ route.get('/info-subject/:subjectID', async (req, res) => {
     return res.json(infoSubject);
 })
 
-route.get('/remove-subject/:subjectID', async (req, res) => {
+route.get('/remove-subject/:subjectID', ROLE_ADMIN, async (req, res) => {
     let { subjectID } = req.params;
     let resultRemove = await SUBJECT_MODEL.remove({ subjectID });
     res.json(resultRemove);

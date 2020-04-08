@@ -1,0 +1,1 @@
+1. Lỗi khi đăng nhập tài khoản thường.. vào trang dashboard không trả về được trang /home mà báo Lỗi (1:00AM - 4/9/2020)

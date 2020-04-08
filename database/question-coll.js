@@ -26,6 +26,8 @@ const QuestionSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "exam",
     },
+    
+    image: String,
 
     point: String,
 

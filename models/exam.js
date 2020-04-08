@@ -35,7 +35,7 @@ module.exports = class Exam extends EXAM_COLL {
     static getList() {
         return new Promise(async resolve => {
             try {
-                let listExam = await EXAM_COLL.find();
+                let listExam = await EXAM_COLL.find().populate("subjects");
 
                 if (!listExam) return resolve({ error: true, message: 'cannot_get_list_data' });
 
@@ -86,14 +86,16 @@ module.exports = class Exam extends EXAM_COLL {
         })
     }
 
-    static update({ examID, name, description, subjectsID, level }) {
+    static update({ examID, name, description, subjectID, level }) {
         return new Promise(async resolve => {
             try {
 
-                if (!ObjectID.isValid(examID))
+                console.log({ examID, name, description, subjectID, level })
+
+                if (!ObjectID.isValid(examID) || !ObjectID.isValid(subjectID))
                     return resolve({ error: true, message: 'params_invalid' });
                 
-                let infoAfterUpdate = await EXAM_COLL.findByIdAndUpdate(examID, { name, description, subjectsID, level } , 
+                let infoAfterUpdate = await EXAM_COLL.findByIdAndUpdate(examID, { name, description, subjects: subjectID, level } , 
                 { new: true });
                 
                 if (!infoAfterUpdate)
@@ -106,6 +108,4 @@ module.exports = class Exam extends EXAM_COLL {
             }
         })
     }
-
-    
 }

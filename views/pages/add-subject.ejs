@@ -21,7 +21,7 @@
 								<div class="form-group row">
 									<label for="jsValidationLengthMin" class="form-label col-3">Tên môn học</label>
 									<div class="col-9">
-										<input id="name-subject" type="text" class="form-control" placeholder='Môn ...'>
+										<input id="name-subject" type="text" class="form-control" autocomplete="off" placeholder='Môn ...'>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -46,12 +46,15 @@
 										<tbody>
 											<tr>
 												<th>Môn học</th>
+												<th>­    </th>
 												<th>Giáo viên</th>
+
 											</tr>
 											<% if (listSubject && listSubject.length) { %>
                             					<% listSubject.forEach(subject => { %>
 											<tr>
 												<td><%=subject.name%></td>
+												<td></td>
 												<td><%=subject.teacher%></td>
 											</tr>
 												<% }) %>
