@@ -21,7 +21,6 @@ route.get('/list-subject', ROLE_ADMIN, async (req, res) => {
 
 route.get('/info-subject/:subjectID', ROLE_ADMIN, async (req, res) => {
     let { subjectID } = req.params;
-    console.log(subjectID);
     
     // Kiểm tra quyền/check về logic (nếu có)
         

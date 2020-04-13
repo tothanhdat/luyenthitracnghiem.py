@@ -12,10 +12,10 @@ module.exports = class Question extends QUESTION_COLL {
                     return resolve({ error: true, message: 'params_invalid' });
 
                 let checkExistExamID = await EXAM_COLL.findById(examID)
-                if(!checkExistExamID) return resolve({ error: true, message: 'bo_de_khong_ton_tai' });
+                if(!checkExistExamID) return resolve({ error: true, message: 'exam_not_existed' });
 
                 let dataInsert = { 
-                    nameQuestion,
+                    name: nameQuestion,
                     answer,
                     correct,
                     image
@@ -24,9 +24,10 @@ module.exports = class Question extends QUESTION_COLL {
                 if(examID && ObjectID.isValid(examID)){
                     dataInsert.exam = examID;
                 }
-                console.log(dataInsert)
+                //console.log(dataInsert)
 
                 let infoAfterInsert = new QUESTION_COLL(dataInsert);
+                console.log({ infoAfterInsert })
                 let saveDataInsert = await infoAfterInsert.save();
 
                 if (!saveDataInsert) return resolve({ error: true, message: 'cannot_insert_data' });
@@ -86,8 +87,14 @@ module.exports = class Question extends QUESTION_COLL {
 
                 let infoAfterRemove = await QUESTION_COLL.findByIdAndDelete(questionID);
 
+                console.log({ infoAfterRemove })
+
                 if (!infoAfterRemove)
                     return resolve({ error: true, message: 'cannot_remove_data' });
+
+                // let deleteQuestionOfExam = await EXAM_COLL.findByIdAndUpdate(examID, {
+                //     $pull: { question: infoAfterRemove._id }
+                // }, {new: true})
 
                 return resolve({ error: false, data: infoAfterRemove, message: "remove_data_success" });
             } catch (error) {

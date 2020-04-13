@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-9">
 				<form class="box needs-validation" novalidate>
 					<div class="box-header">
 						<h3>Tạo bộ đề</h3>
@@ -62,7 +62,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="box">
+			<div class="box col-lg-9">
 					<div class="box-header">
 						<h3 >Danh sách bộ đề</h3>
 					</div>
@@ -79,27 +79,27 @@
 									<% if (listExam && listExam.length) { %>
 										<% listExam.forEach(exam => { %>
 									<tr>
-										<td><%=exam.name%></td>
+										<td><%=exam.name%></td> <!--Tên bộ đề-->
 
-										<% listSubject.forEach(subject => { %>
-											<% if (subject._id + "" == exam.subjects + "") { %>
-												<td><%=subject.name%></td>
-											<% } %>
-										<% }) %>
+											<% listSubject.forEach(subject => { %>
+												<% if (subject._id.toString() == exam.subjects._id.toString()) { %>
+													<td><%=subject.name%></td> <!--Môn học-->
+												<% } %>
+											<% }) %>
 
 										<% LEVEL_TYPES.forEach(level => { %>
 											<% if (level.value == exam.level) { %>
-												<td><%=level.text%></td>
+												<td><%=level.text%></td> <!--Lớp-->
 											<% } %>
 										<% }) %>
 
 										<% if (exam.description.toString().length <= 20) { %>
-											<td><%=exam.description%></td>
+											<td><%=exam.description%></td> <!--Mô tả-->
 										<% } %>
 
 										<% if (exam.description.toString().length > 20) { %>
 											<td><%=exam.description.substring(0, 20).concat("...")%></td>
-										<% } %>
+										<% } %> <!--Mô tả-->
 										<td>
 											<div class="user-panel-actions">
 												<a href="#"></a>

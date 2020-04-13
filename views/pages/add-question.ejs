@@ -14,15 +14,17 @@
 
 		<div class="row">
 			<div class="col-lg-9">
-				<form class="box needs-validation" novalidate>
+				<form class="box needs-validation" novalidate id="formCreateQuestion"
+					enctype="multipart/form-data" action="/question/add-question" method="POST"
+				>
 					<div class="box-header">
-						<h3>Tạo câu hỏi</h3>
+						<h3>Tạo câu hỏi <span class="numberCountQuestion">1</span></h3>
 					</div>
 					<div class="box-body">
 						<div class="form-group row">
 							<label for="jsValidationRequired" class="form-label col-2" >Bộ đề</label>
 							<div class="col-9">
-								<select id="level" required class="form-control">
+								<select id="examID" required class="form-control">
 									<option value>Chọn bộ đề</option>
 								<% if (listExam && listExam.length) { %>
 									<% listExam.forEach(exam => { %>
@@ -44,25 +46,24 @@
 						<div class="form-group row">
 							<label class="form-label col-2">Câu hỏi</label>
 							<div class="col-9">
-								<textarea name="editor1"></textarea>
+								<textarea name="editor1" id="editor1"></textarea>
 							</div>
 						</div>
                         <div class="form-group row">
 							<label class="form-label col-2">Tải hình ảnh</label>
                             <div class="col-9">
-							    <input id="fileInput" type="file" class="form-control">
+							    <input id="image_question" type="file" name="image" class="form-control">
                             </div>
 						</div>
                         <div class="form-group row">
 							<label class="form-label col-2" >Đáp án</label>
                             <div class="form-group">
                                 <label class="form-radio-custom">
-                                    <input checked name="custom_radio" value="2" type="radio">
+                                    <input checked name="custom_radio" class="selection" value="1" type="radio">
                                     <span class="form-label"></span>
                                 </label>
 						    </div>
 							<div class="col-9">
-                            
 								<input id="answerA" type="text" class="form-control" autocomplete="off" placeholder='A.'>
 							</div>
 						</div>
@@ -71,7 +72,7 @@
 							<label class="form-label col-2" ></label>
                             <div class="form-group">
                                 <label class="form-radio-custom">
-                                    <input checked name="custom_radio" value="2" type="radio">
+                                    <input checked name="custom_radio" class="selection" value="2" type="radio">
                                     <span class="form-label"></span>
                                 </label>
 						    </div>
@@ -83,7 +84,7 @@
 							<label class="form-label col-2" ></label>
                             <div class="form-group">
                                 <label class="form-radio-custom">
-                                    <input checked name="custom_radio" value="2" type="radio">
+                                    <input checked name="custom_radio" class="selection" value="3" type="radio">
                                     <span class="form-label"></span>
                                 </label>
 						    </div>
@@ -95,7 +96,7 @@
 							<label class="form-label col-2" ></label>
                             <div class="form-group">
                                 <label class="form-radio-custom">
-                                    <input checked name="custom_radio" value="2" type="radio">
+                                    <input checked name="custom_radio" value="4" class="selection" type="radio">
                                     <span class="form-label"></span>
                                 </label>
 						    </div>
@@ -105,7 +106,7 @@
 						</div>
 					</div>
 					<div class="box-footer">
-						<button class="btn btn-primary pull-right btnCreateExam">Tạo câu hỏi</button>
+						<button class="btn btn-primary pull-right btnCreateQuestion" type="submit">Tạo câu hỏi</button>
 					</div>
 				</form>
 			</div>
@@ -115,7 +116,7 @@
 					</div>
 					<div class="box-body">
 						<div class="table-responsive">
-							<table class="table table-noborder">
+							<table class="table table-noborder list-exam-temp">
 								<tbody>
 									<tr>
 										<th>STT</th>
@@ -133,30 +134,146 @@
 											</div>
 										</td>
 									</tr>
-                                    <tr>
-										<td>Câu 2</td>
-										<td>Đối với dung dịch HF 0,01M, nếu bỏ qua sự điện li của nước thì đánh giá nào sau đây là đúng?</td>
-										<td>
-											<div class="user-panel-actions">
-												<a href="#"></a>
-												<a href="#"><i class="fas fa-pencil-alt btnEditExam" ></i></a>
-												<a href="#"></a>
-												<a href="#"><i class="fas fa-trash-alt btnRemoveExam"></i></a>
-											</div>
-										</td>
-									</tr>
-									
 								</tbody>
 							</table>
 						</div>
 					</div>
+					<div class="box-footer">
+						<button class="btn btn-primary pull-right btnCompleteExam">Hoàn thành</button>
+					</div>
 				</div>
-		</div>
+			</div>
 		</div>
 	</div>
 </main>
 <%- include ('../dashboard/footer') %>
 
 <script>
+
     CKEDITOR.replace( 'editor1' );
+
+	//Tạo câu hỏi
+	$(document).on('click', '.btnCreateQuestion', function(e) {
+		e.preventDefault();
+
+		//Bộ đề
+        let examID = $('#examID').val();
+
+		//Câu hỏi
+		let nameQuestion = CKEDITOR.instances.editor1.getData().trim(); 
+
+        let answerA = $('#answerA').val();
+        let answerB = $('#answerB').val();
+        let answerC = $('#answerC').val();
+        let answerD = $('#answerD').val();
+
+        let answer = answerA + "," + answerB + "," + answerC + "," + answerD;
+
+        let correct = $("input[type='radio'].selection:checked").val();
+
+
+		let formData = new FormData();
+		let _imageDemo = $('#image_question')[0].files[0];
+		console.log({ _imageDemo })
+
+		formData.append('image', _imageDemo);
+		formData.append('nameQuestion', nameQuestion);
+		formData.append('answer', answer);
+		formData.append('correct', correct);
+		formData.append('examID', examID);
+
+		//Đáp án
+
+		//Đáp án đúng
+
+        if  (nameQuestion.length < 1 || answerA.length < 1 || 
+            answerB.length < 1 || answerC.length < 1 || answerD.length < 1){
+                return toastr['error']('Câu hỏi và đáp án không được để trống', 'Thông báo');
+                
+        } if(!correct){
+            return toastr['error']('Bạn chưa chọn đáp án', 'Thông báo');
+
+        } else{
+            $.ajax({
+                url: `/question/add-question`,
+                method: 'POST',
+                data: formData,
+				enctype: 'multipart/form-data',
+				processData: false,
+        		contentType: false,
+                success: resp => {
+
+                    if(!resp.error){
+
+						$('.list-exam-temp').append(`
+							<tbody>
+								<tr>
+									<td>Câu <span class="number-of-questions">1</span></td>
+									<td style="color:black">${nameQuestion}</td>
+									<td>
+										<div class="user-panel-actions">
+											<a href="#"></a>
+											<a href="#"><i class="fas fa-pencil-alt btnEditQuestion" ></i></a>
+											<a href="#"></a>
+											<a href="#"><i class="fas fa-trash-alt btnRemoveQuestion" _examID="${examID}" _questionID=${resp.data._id}></i></a>
+										</div>
+									</td>
+							</tbody>
+						</tr>`)
+						
+						//Tăng số câu hỏi 
+						let numberCountQuestion = $('.numberCountQuestion').text();
+						let formatNumberCountQuestion = parseInt(numberCountQuestion) + 1;
+						$('.numberCountQuestion').text(formatNumberCountQuestion);
+
+
+                        toastr['success']('Thêm thành công', 'Thông báo');
+                        
+                        $('#nameQuestion').val('')
+                        $('#answerA').val('');
+                        $('#answerB').val('');
+                        $('#answerC').val('');
+                        $('#answerD').val('');
+
+                    } else {
+
+                        return toastr['error']('Thêm thất bại', 'Thông báo');
+                    }
+                },
+
+                error: err => console.log({ err })
+            });
+				
+        }
+    })
+
+	//Xóa câu hỏi --------------->
+	$(document).on('click', '.btnRemoveQuestion', function(e) {
+
+		let examID = $(this).attr('_examID');
+		let questionID = $(this).attr('_questionID');
+		console.log({ examID, questionID})
+
+		if (window.confirm('Bạn có chắc chắn xóa không?')) {
+            $.ajax({
+				url: `/question/remove-question/${questionID}`,
+				method: 'GET',
+				success: resp => {
+
+					console.log({ resp })
+
+					if(!resp.error){
+
+						$(this).closest("tr").remove();
+						return toastr['success']('Xóa thành công', 'Thông báo');
+
+					}else{
+
+						return toastr['error']('Xóa thất bại', 'Thông báo');
+					}
+				},
+				error: err => console.log({ err })
+			});
+        }
+    })
 </script>

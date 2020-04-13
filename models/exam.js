@@ -90,7 +90,7 @@ module.exports = class Exam extends EXAM_COLL {
         return new Promise(async resolve => {
             try {
 
-                console.log({ examID, name, description, subjectID, level })
+                //console.log({ examID, name, description, subjectID, level })
 
                 if (!ObjectID.isValid(examID) || !ObjectID.isValid(subjectID))
                     return resolve({ error: true, message: 'params_invalid' });

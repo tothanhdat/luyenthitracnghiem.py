@@ -21,7 +21,6 @@ route.get('/list-exam', ROLE_ADMIN, async (req, res) => {
 
 route.get('/info-exam/:examID', ROLE_ADMIN, async (req, res) => {
     let { examID } = req.params;
-    console.log(examID);
     
     // Kiểm tra quyền/check về logic (nếu có)
         
@@ -36,8 +35,6 @@ route.get('/update-exam/:examID', ROLE_ADMIN, async (req, res) => {
 route.post('/update-exam/:examID', ROLE_ADMIN, async (req, res) => {
     let { examID } = req.params;
     let { name, description, level, subjectID } = req.body;
-
-    console.log({ subjectID })
 
     // Kiểm tra quyền/check về logic (nếu có)
 

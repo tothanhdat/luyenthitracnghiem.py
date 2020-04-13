@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = 'adhsbhdvadfraaifjisjijiaj';
+const SECRET_KEY = 'luyenthitracnghiempy';
 
 function sign(obj) {
     return new Promise((resolve, reject) => {

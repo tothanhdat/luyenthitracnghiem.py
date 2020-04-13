@@ -1,14 +1,15 @@
-const multer = require('multer');
-const path = require('path');
+const multer  = require('multer');
+const path    = require('path');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        let pathOrigin = path.resolve(__dirname, '../public/image/');
-      cb(null, pathOrigin);
+        let pathOrigin = path.resolve(__dirname, '../public/storage/images');
+        cb(null, pathOrigin);
     },
+    
     filename: function (req, file, cb) {
         console.log({ file });
-      cb(null, file.originalname)
+        cb(null, file.originalname)
     }
   })
    

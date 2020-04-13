@@ -3,10 +3,12 @@ const app               = express();
 const bodyParser        = require('body-parser');
 const mongoose          = require('mongoose');
 const expressSession    = require('express-session');
+const multer            = require('multer');
 
 const USER_ROUTER       = require('./routing/apps/user');
 const SUBJECT_ROUTER       = require('./routing/apps/subject');
 const EXAM_ROUTER       = require('./routing/apps/exam');
+const QUESTION_ROUTER      = require('./routing/apps/question');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -26,6 +28,7 @@ app.use(expressSession({
 app.use('/', USER_ROUTER);
 app.use('/subject', SUBJECT_ROUTER);
 app.use('/exam', EXAM_ROUTER);
+app.use('/question', QUESTION_ROUTER);
 // app.use('/san-pham', PRODUCT_ROUTER);
 // app.use('/danh-muc', CATEGORY_ROUTER);
 

@@ -29,7 +29,7 @@ route.get('/create-question', ROLE_ADMIN, async (req, res) => {
 })
 
 route.get('/dashboard', ROLE_ADMIN, (req, res) => {
-    res.render('pages/dashboard-admin');
+    renderToView(req, res, 'pages/dashboard-admin', { })
 })
 
 route.get('/home', async (req, res) => {
