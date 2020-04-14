@@ -31,6 +31,8 @@ const ExamSchema = new Schema({
      * Khối(lớp)
      */
     level: { type: Number, default: 1 },
+
+    createAt: { type: Date, required: true, default: Date.now }
 });
 
 const EXAM_MODEL = mongoose.model('exam', ExamSchema);

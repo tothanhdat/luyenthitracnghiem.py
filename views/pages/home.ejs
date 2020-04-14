@@ -1,3 +1,4 @@
+<% moment.locale('vi')%>
 <%- include ('../partials/header') %>
     </div>
     </div>
@@ -10,8 +11,16 @@
                     <div class="bg">
                         <div class="clearfix">
                             <div class="col-xs-24 col-sm-18 col-md-18">
-                                <span class="current-time">Thứ bảy, 04/04/2020, 12:14</span>
+                                <span id="dateTime" class="current-time">Thứ ba, 14/04/2020, 12:14</span>
                             </div>
+                            <script>
+                                var today = new Date();
+                                var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+                                var time = today.getHours() + ":" + today.getMinutes();
+                                var dateTime = 'Hiện tại: ' + date+' at '+time;
+                                
+                                document.getElementById("dateTime").innerHTML = dateTime;
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -27,15 +36,16 @@
             <div class="row" id="test">
                 <div class="col-sm-16 col-md-18">
                     <div class="test">
-
                         <div class="test viewlist">
+                        <% if (listExam && listExam.length) { %>
+                            <% listExam.forEach(exam => { %>
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <div class="border-bottom">
                                         <div class="pull-left cat-info">
                                             <em class="fa fa-folder-open-o">&nbsp;</em>
-                                            <a href="" title="Đại Cương">Đại Cương</a> »
-                                            <a href="" title="Mác - Lênin">Mác - Lênin</a>
+                                            <a style="text-transform: uppercase" href="" title="Môn học">Môn học</a> »
+                                            <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subjects.name%></a>
                                         </div>
                                         <ul class="exam-info list-inline pull-right form-tooltip">
                                             <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em>11<span class="hidden-xs"> câu hỏi</span></li>
@@ -44,292 +54,35 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="image pull-left">
-                                        <a href="" title="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu"><img src="./assets/ehutech.tech/test/2019/images/mac/dlmac-md.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
+                                        <a href="" title="&#91;MIỄN PHÍ&#93;"><img src="./assets/ehutech.tech/test/2019/images/mac/dlmac-md.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
                                     </div>
-                                    <h2>
-                <a href="" title="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu"><strong>&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu</strong></a>
-            </h2>
+                                    <h2 style="text-transform: uppercase">
+                                        <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%>: <%=exam.name%></strong></a>
+                                    </h2>
                                     <ul class="list-inline help-block">
-                                        <li><em class="fa fa-clock-o">&nbsp;</em>18:44 03/08/2019</li>
-                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: 3527</li>
+                                        <li><em class="fa fa-clock-o">&nbsp;</em><%= moment(exam.createAt).format('L');%></li>
+                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: 0</li>
                                         <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: 0</li>
-                                        <!-- <li><em class="fa fa-user-o">&nbsp;</em>Bùi Phú Khuyên</li> -->
                                     </ul>
-                                    <p class="hometext">CHƯƠNG MỞ ĐẦU: KHÁI NIỆM – KHÁI LƯỢC VỀ CHỦ NGHĨA MÁC – LÊNIN</p>
+                                    <p class="hometext" ><%=exam.name%>: <%=exam.description%></p>
                                 </div>
                             </div>
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="border-bottom">
-                                        <div class="pull-left cat-info">
-                                            <em class="fa fa-folder-open-o">&nbsp;</em>
-                                            <a href="" title="Đại Cương">Đại Cương</a> »
-                                            <a href="" title="Mác - Lênin">Mác - Lênin</a>
-                                        </div>
-                                        <ul class="exam-info list-inline pull-right form-tooltip">
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em>55<span class="hidden-xs"> câu hỏi</span></li>
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian"><em class="fa fa-clock-o">&nbsp;</em>45<span class="hidden-xs"> phút</span></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="image pull-left">
-                                        <a href="/vi/test/mac-lenin/mac-lenin-chuong-1-53.html" title="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương 1"><img src="./assets/ehutech.tech/test/2019/images/mac/dlmac-1-new.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương 1" /></a>
-                                    </div>
-                                    <h2>
-                <a href="/vi/test/mac-lenin/mac-lenin-chuong-1-53.html" title="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương 1"><strong>&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương 1</strong></a>
-            </h2>
-                                    <ul class="list-inline help-block">
-                                        <li><em class="fa fa-clock-o">&nbsp;</em>18:48 05/08/2019</li>
-                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: 2685</li>
-                                        <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: 0</li>
-                                        <!-- <li><em class="fa fa-user-o">&nbsp;</em>Bùi Phú Khuyên</li> -->
-                                    </ul>
-                                    <p class="hometext">CHƯƠNG 1: CHỦ NGHĨA DUY VẬT BIỆN CHỨNG</p>
-                                </div>
-                            </div>
-
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="border-bottom">
-                                        <div class="pull-left cat-info">
-                                            <em class="fa fa-folder-open-o">&nbsp;</em>
-                                            <a href="/vi/test/dai-cuong/" title="Đại Cương">Đại Cương</a> »
-                                            <a href="/vi/test/mac-lenin/" title="Mác - Lênin">Mác - Lênin</a>
-                                        </div>
-                                        <ul class="exam-info list-inline pull-right form-tooltip">
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em>21<span class="hidden-xs"> câu hỏi</span></li>
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian"><em class="fa fa-clock-o">&nbsp;</em>20<span class="hidden-xs"> phút</span></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="image pull-left">
-                                        <a href="/vi/test/mac-lenin/mac-lenin-chuong-8-109.html" title="&#91;CÓ PHÍ&#93; Mác-Lênin: Chương 8"><img src="./assets/ehutech.tech/test/2019/images/mac/dlmac-8.png" class="img-thumbnail" alt="&#91;CÓ PHÍ&#93; Mác-Lênin: Chương 8" /></a>
-                                    </div>
-                                    <h2>
-                <a href="/vi/test/mac-lenin/mac-lenin-chuong-8-109.html" title="&#91;CÓ PHÍ&#93; Mác-Lênin: Chương 8"><strong>&#91;CÓ PHÍ&#93; Mác-Lênin: Chương 8</strong></a>
-            </h2>
-                                    <ul class="list-inline help-block">
-                                        <li><em class="fa fa-clock-o">&nbsp;</em>15:55 22/08/2019</li>
-                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: 246</li>
-                                        <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: 0</li>
-                                        <!-- <li><em class="fa fa-user-o">&nbsp;</em>Bùi Phú Khuyên</li> -->
-                                    </ul>
-                                    <p class="hometext">CHƯƠNG 8: NHỮNG VẤN ĐỀ CHÍNH TRỊ, XÃ HỘI CÓ TÍNH QUY LUẬT TRONG TIẾN TRÌNH CÁCH MẠNG XHCN</p>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="border-bottom">
-                                        <div class="pull-left cat-info">
-                                            <em class="fa fa-folder-open-o">&nbsp;</em>
-                                            <a href="/vi/test/dai-cuong/" title="Đại Cương">Đại Cương</a> »
-                                            <a href="/vi/test/Duong-Loi-Cach-Mang-Cua-Dang-CS-Viet-Nam/" title="Đường Lối Cách Mạng Của Đảng CS Việt Nam">Đường Lối Cách Mạng Của Đảng CS Việt Nam</a>
-                                        </div>
-                                        <ul class="exam-info list-inline pull-right form-tooltip">
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em>40<span class="hidden-xs"> câu hỏi</span></li>
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian"><em class="fa fa-clock-o">&nbsp;</em>30<span class="hidden-xs"> phút</span></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="image pull-left">
-                                        <a href="/vi/test/Duong-Loi-Cach-Mang-Cua-Dang-CS-Viet-Nam/duong-loi-cach-mang-cua-dang-cs-viet-nam-luyen-phan-1-48.html" title="&#91;MIỄN PHÍ&#93; Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 1)"><img src="./assets/ehutech.tech/test/2019/images/duongloi/dldl1_1000_731.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 1)" /></a>
-                                    </div>
-                                    <h2>
-                <a href="/vi/test/Duong-Loi-Cach-Mang-Cua-Dang-CS-Viet-Nam/duong-loi-cach-mang-cua-dang-cs-viet-nam-luyen-phan-1-48.html" title="&#91;MIỄN PHÍ&#93; Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 1)"><strong>&#91;MIỄN PHÍ&#93; Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 1)</strong></a>
-            </h2>
-                                    <ul class="list-inline help-block">
-                                        <li><em class="fa fa-clock-o">&nbsp;</em>10:16 04/08/2019</li>
-                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: 5043</li>
-                                        <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: 0</li>
-                                        <!-- <li><em class="fa fa-user-o">&nbsp;</em>Bùi Phú Khuyên</li> -->
-                                    </ul>
-                                    <p class="hometext">Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 1)</p>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="border-bottom">
-                                        <div class="pull-left cat-info">
-                                            <em class="fa fa-folder-open-o">&nbsp;</em>
-                                            <a href="/vi/test/dai-cuong/" title="Đại Cương">Đại Cương</a> »
-                                            <a href="/vi/test/Duong-Loi-Cach-Mang-Cua-Dang-CS-Viet-Nam/" title="Đường Lối Cách Mạng Của Đảng CS Việt Nam">Đường Lối Cách Mạng Của Đảng CS Việt Nam</a>
-                                        </div>
-                                        <ul class="exam-info list-inline pull-right form-tooltip">
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em>40<span class="hidden-xs"> câu hỏi</span></li>
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian"><em class="fa fa-clock-o">&nbsp;</em>30<span class="hidden-xs"> phút</span></li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="image pull-left">
-                                        <a href="/vi/test/Duong-Loi-Cach-Mang-Cua-Dang-CS-Viet-Nam/duong-loi-cach-mang-cua-dang-cs-viet-nam-luyen-phan-2-49.html" title="&#91;MIỄN PHÍ&#93; Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 2)"><img src="./assets/ehutech.tech/test/2019/images/duongloi/dldl2_1000_731.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 2)" /></a>
-                                    </div>
-                                    <h2>
-                <a href="/vi/test/Duong-Loi-Cach-Mang-Cua-Dang-CS-Viet-Nam/duong-loi-cach-mang-cua-dang-cs-viet-nam-luyen-phan-2-49.html" title="&#91;MIỄN PHÍ&#93; Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 2)"><strong>&#91;MIỄN PHÍ&#93; Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 2)</strong></a>
-            </h2>
-                                    <ul class="list-inline help-block">
-                                        <li><em class="fa fa-clock-o">&nbsp;</em>11:38 04/08/2019</li>
-                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: 2424</li>
-                                        <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: 0</li>
-                                        <!-- <li><em class="fa fa-user-o">&nbsp;</em>Bùi Phú Khuyên</li> -->
-                                    </ul>
-                                    <p class="hometext">Đường Lối Cách Mạng Của Đảng CS Việt Nam (Luyện phần 2)</p>
-                                </div>
-                            </div>
+                            <% }) %>
+                        <% } %>
                         </div>
 
                         <div class="text-center">
                             <ul class="pagination">
                                 <li class="disabled"><a href="#">&laquo;</a></li>
                                 <li class="active"><a href="#">1</a></li>
-                                <li><a rel="next" title="Trắc nghiệm  -  Trang 2" href="/vi/test/page-2/">2</a></li>
+                                <li><a rel="next" title="Trắc nghiệm  -  Trang 2" href="">2</a></li>
                                 <li class="disabled"><span>...</span></li>
-                                <li><a rel="next" title="Trắc nghiệm  -  Trang 16" href="/vi/test/page-16/">16</a></li>
-                                <li><a rel="next" title="Trắc nghiệm  -  Trang 2" href="/vi/test/page-2/">&raquo;</a></li>
+                                <li><a rel="next" title="Trắc nghiệm  -  Trang 16" href="">16</a></li>
+                                <li><a rel="next" title="Trắc nghiệm  -  Trang 2" href="">&raquo;</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-8 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            Thống kê truy cập
-                        </div>
-                        <div class="panel-body">
-                            <ul class="counter list-none display-table">
-                                <li><span><em class="fa fa-bolt fa-lg fa-horizon"></em>Đang truy cập</span><span>18</span></li>
-                                <li><span><em class="fa fa-user fa-lg fa-horizon"></em>Thành viên online</span><span>1</span></li>
-                                <li><span><em class="fa fa-bullseye fa-lg fa-horizon"></em>Khách viếng thăm</span><span>17</span></li>
-                                <li><span><em class="fa fa-filter fa-lg fa-horizon margin-top-lg"></em>Hôm nay</span><span class="margin-top-lg">1,377</span></li>
-                                <li><span><em class="fa fa-calendar-o fa-lg fa-horizon"></em>Tháng hiện tại</span><span>11,535</span></li>
-                                <li><span><em class="fa fa-bars fa-lg fa-horizon"></em>Tổng lượt truy cập</span><span>375,767</span></li>
-                            </ul>
-
-                        </div>
-                    </div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <a href="/nhom-de-thi/de-thi-moi/">Đề luyện thi mới</a>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="block_groups">
-                                <li class="clearfix">
-                                    <a class="show" href="/vi/test/toan-cao-cap-1/co-phi-dai-so-tuyen-tinh-chuong-1-hang-cua-ma-tran-237.html">&#91;CÓ PHÍ&#93; Đại Số Tuyến Tính - Chương 1 - Hạng Của Ma Trận</a>
-                                </li>
-                                <li class="clearfix">
-                                    <a class="show" href="/vi/test/toan-cao-cap-1/dai-so-tuyen-tinh-chuong-1-ma-tran-cac-phep-toan-236.html">&#91;CÓ PHÍ&#93; Đại Số Tuyến Tính - Chương 1 - Ma trận & Các phép toán</a>
-                                </li>
-                                <li class="clearfix">
-                                    <a class="show" href="/vi/test/toan-cao-cap-1/dai-so-tuyen-tinh-chuong-1-dinh-thuc-235.html">&#91;CÓ PHÍ&#93; Đại Số Tuyến Tính - Chương 1 - Định thức</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            Danh sách học phần
-                        </div>
-                        <div class="panel-body">
-                            <ul id="navigation233">
-                                <li>
-                                    <a title="Toán Cao Cấp" href="/vi/test/toan-cao-cap/">Toán Cao Cấp</a>
-                                    <ul>
-                                        <li>
-                                            <li>
-                                                <a title="Xác Xuất Thống Kê" href="/vi/test/xac-xuat-thong-ke/">Xác Xuất Thống Kê</a>
-                                            </li>
-
-                                    </ul>
-                                    </li>
-                                    <li>
-                                        <a title="Tiếng Anh" href="/vi/test/tieng-anh/">Tiếng Anh</a>
-                                    </li>
-                                    <li>
-                                        <a title="Đại Cương" href="/vi/test/dai-cuong/">Đại Cương</a>
-                                        <ul>
-                                            <li>
-                                                <a title="Tư Tưởng Hồ Chí Minh" href="/vi/test/tu-tuong-ho-chi-minh/">Tư Tưởng Hồ Chí Minh</a>
-                                            </li>
-
-                                            <li>
-                                                <a title="Mác - Lênin" href="/vi/test/mac-lenin/">Mác - Lênin</a>
-                                            </li>
-                                            <li>
-                                                <a title="Đường Lối Cách Mạng Của Đảng CS Việt Nam" href="/vi/test/Duong-Loi-Cach-Mang-Cua-Dang-CS-Viet-Nam/">Đường Lối Cách Mạng Của Đảng CS Việt Nam</a>
-                                            </li>
-
-                                    </li>
-                                    <li>
-                                        <a title="Chuyên Ngành" href="">Chuyên Ngành</a>
-                                        <ul>
-                                            <li>
-                                                <a title="Công Nghệ Thông tin" href="">Công Nghệ Thông tin</a>
-                                                <ul>
-                                                    <li>
-                                                        <a title="Lập Trình Hướng Đối Tượng" href="">Lập Trình Hướng Đối Tượng</a>
-                                                </ul>
-                                                </li>
-                                        </ul>
-                                        </li>
-                                        </ul>
-                                        <div class="clear"></div>
-
-                        </div>
-                    </div>
-
-                    <!-- Ads_Square -->
-                    <div class="row">
-                        <!-- Global site tag (gtag.js) - Google Analytics -->
-                        <!-- Load Facebook SDK for JavaScript -->
-                        <div id="fb-root"></div>
-                        <!-- Your customer chat code -->
-                        <div class="fb-customerchat" attribution=setup_tool page_id="102478721259064" logged_in_greeting="Xin chào, chúng tôi có thể giúp gì cho bạn?" logged_out_greeting="Xin chào, chúng tôi có thể giúp gì cho bạn?">
-                        </div>
-                    </div>
-                </div>
-    </section>
-    </div>
-    <footer id="footer">
-        <div class="wraper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-24 col-sm-24 col-md-6">
-                    </div>
-                    <div class="col-xs-24 col-sm-24 col-md-7">
-                    </div>
-                    <div class="col-xs-24 col-sm-24 col-md-11">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    </div>
-    <!-- SiteModal Required!!! -->
-    <div id="sitemodal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <em class="fa fa-spinner fa-spin">&nbsp;</em>
-                </div>
-                <button type="button" class="close" data-dismiss="modal"><span class="fa fa-times"></span></button>
-            </div>
-        </div>
-    </div>
-    <div id="timeoutsess" class="chromeframe">
-        Bạn đã không sử dụng Site, <a href="#">Bấm vào đây để duy trì trạng thái đăng nhập</a>. Thời gian chờ: <span id="secField"> 60 </span> giây
-    </div>
-    <div id="openidResult" class="nv-alert" style="display: none"></div>
-    <div id="openidBt" data-result="" data-redirect=""></div>
-    <div class="fix_banner_left">
-
-        <!-- Ads_Vertical2 -->
-
-    </div>
-    <div class="fix_banner_right">
-
-        <!-- Ads_Vertical -->
-
-    </div>
-    <%- include ('../partials/footer') %>
-
-        <script>
-        </script>
+                
+<%- include ('../partials/sidebar') %>
+<%- include ('../partials/footer') %>

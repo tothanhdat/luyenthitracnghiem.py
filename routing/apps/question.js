@@ -10,14 +10,25 @@ route.post('/add-question', uploadMulter.single('image'), async (req, res) => {
     try {
         let { nameQuestion, examID, answer, correct } = req.body;
         console.log({ nameQuestion, examID, answer, correct })
+        
         let infoFile = req.file;
         
         console.log({ infoFile })
+        let infoQuestion;
 
-        let infoQuestion = await QUESTION_MODEL.insert({ nameQuestion, examID, answer, correct, image: infoFile.originalname });
+        if(infoFile) {
+
+            infoQuestion = await QUESTION_MODEL.insert({ nameQuestion, examID, answer, correct, image: infoFile.originalname });
+        
+        } else {
+
+            infoQuestion = await QUESTION_MODEL.insert({ nameQuestion, examID, answer, correct });
+        }
+
         return res.json(infoQuestion);
 
     } catch (error) {
+
         res.json(error.message);
     }
 })

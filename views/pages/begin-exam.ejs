@@ -1,0 +1,156 @@
+<%- include ('../partials/header') %>
+<div class="container-fluid" id="body">
+    <nav class="third-nav">
+        <div class="row">
+            <div class="bg">
+            <div class="clearfix">
+                <div class="col-xs-24 col-sm-18 col-md-18">
+                    <div class="breadcrumbs-wrap">
+                        <div class="display">
+                            <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
+                            <ul class="breadcrumbs list-none"></ul>
+                        </div>
+                        <ul class="subs-breadcrumbs"></ul>
+                        <ul class="temp-breadcrumbs hidden">
+                            <li><a href="" title="Trang nhất"><span>Trang nhất</span></a></li>
+                            <li><a href="" title="Trắc nghiệm"><span class="txt" itemprop="title">Trắc nghiệm</span></a></li>
+                            <li><a href="" title="<%=infoExam.subjects.name%>"><span class="txt" itemprop="title"><%=infoExam.subjects.name%></span></a></li>
+                            <li><a href="" title="<%=infoExam.name%>"><span class="txt" itemprop="title"><%=infoExam.name%></span></a></li>
+                            <li><a href="" title="&#91;MIỄN PHÍ&#93;"><span class="txt" itemprop="title">&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-xs-24 col-sm-15 col-md-15">
+        <!--Start of Tawk.to Script-->
+        <!--End of Tawk.to Script-->
+    </div>
+    <div class="col-xs-24 col-sm-9 col-md-9">
+    </div>
+</div>
+<div class="row" id="test">
+    <div class="col-sm-16 col-md-18">
+        <div id="breadcrumbs_mobile" class="col-xs-24 col-sm-24 box-coll hidden-lg hiddent-md ">
+            <div class="col-xs-20 col-sm-20 title"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="detail view-list">
+            <div class="panel panel-default result_width edit_panel">
+                <!--         <div class="panel-heading">Thông tin đề thi</div> -->
+                <div class="panel-body edit_panel">
+                    <h1 class="m-bottom affix_hidden">&#91;MIỄN PHÍ&#93; <%=infoExam.name%>: [<%=infoExam.subjects.name%>] <%=infoExam.description%></h1>
+                    <div class="row">
+                        <div class="col-lg-12 col-xs-24 col-sm-24 col-md-12 affix_hidden">
+                            <div class="row exam-info">
+                                <div class="col-xs-24 col-sm-12 col-md-8">
+                                    <label>Số câu</label>: 40
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-16">
+                                    <label>Thời gian</label>: 90 phút
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-xs-24 col-sm-12 col-md-12 text-center">
+                            <div class="col-lg-12 col-xs-12 col-sm-12 col-md-8 text-right">
+                                <button class="btn btn-success col-lg-24 col-xs-24" id="btn-save" style="margin-top: 5px;">Lưu đề thi</button>
+                            </div>
+                            <div class="col-lg-12 col-xs-12 col-sm-12 col-md-8 text-left m-bottom">
+                                <a href="/test-exam?examID=<%=infoExam._id%>">
+                                    <button class="btn btn-primary col-lg-24 col-xs-24" id="btn-start" _examID="<%=infoExam._id%>" style="margin-top: 5px;">Bắt đầu làm bài
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-xs-10 col-sm-24 col-md-8 text-center" style="position: absolute; right: 0;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default get_width">
+                <div class="panel-body">
+                    <em><%=infoExam.name%>: <%=infoExam.description%></em>
+                    <div class="text-center imgposition">
+                        <img src="../assets/ehutech.tech/test/2019/images/duongloi/dldl1_1000_731.png" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu">
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Hướng dẫn làm bài</div>
+                <div class="panel-body">
+                    <h2>Hướng dẫn làm bài thi trắc nghiệm:</h2> 1. Đợi đến khi đến thời gian làm bài
+                    <br /> 2. Click vào nút &quot;Bắt đầu làm bài&quot; để tiến hành làm bài thi
+                    <br /> 3. Ở mỗi câu hỏi, chọn đáp án đúng
+                    <br /> 4. Hết thời gian làm bài, hệ thống sẽ tự thu bài. Bạn có thể nộp bài trước khi thời gian kết thúc bằng cách nhấn nút <strong>Nộp bài</strong></div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="socialicon list-inline">
+                        <li class="facebook">
+                            <div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true">&nbsp;</div>
+                        </li>
+                        <li>
+
+                            <div class="zalo-share-button" data-href="" data-oaid="" data-layout="1" data-color="blue" data-customize=false></div>
+                        </li>
+                        <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="idcomment" class="nv-fullbg">
+                        <div class="row clearfix margin-bottom-lg">
+                            <div class="col-xs-12 text-left">
+                                <p class="comment-title"><em class="fa fa-comments">&nbsp;</em> Ý kiến bạn đọc</p>
+                            </div>
+                            <div class="col-xs-12 text-right">
+                                <select id="sort" class="form-control">
+                                    <option value="0" selected="selected">Sắp xếp theo bình luận mới</option>
+                                    <option value="1">Sắp xếp theo bình luận cũ</option>
+                                    <option value="2">Sắp xếp theo số lượt thích</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="formcomment" class="comment-form">
+                            <form method="post" role="form" target="submitcommentarea" action="" data-module="test" data-content="test_commentcontent" data-area="80" data-id="47" data-allowed="4" data-checkss="2c6526a34e17105e4228e090ae9d7d7a" data-gfxnum="0" data-editor="0">
+                                <input type="hidden" name="module" value="test" />
+                                <input type="hidden" name="area" value="80" />
+                                <input type="hidden" name="id" value="47" />
+                                <input type="hidden" id="commentpid" name="pid" value="0" />
+                                <input type="hidden" name="allowed" value="4" />
+                                <input type="hidden" name="checkss" value="2c6526a34e17105e4228e090ae9d7d7a" />
+                                <div class="form-group clearfix">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <input id="commentname" type="text" name="name" value="Đạt Tô" disabled="disabled" class="form-control" placeholder="Tên của bạn" />
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <input id="commentemail_iavim" type="text" name="email" value="todat998@gmail.com" disabled="disabled" class="form-control" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <textarea class="form-control" style="width: 100%" name="content" id="commentcontent" cols="20" rows="5"></textarea>
+                                </div>
+                                <div class="form-group text-center">
+                                    <input id="reset-cm" type="button" value="Thiết lập lại" class="btn btn-default" />
+                                    <input id="buttoncontent" type="submit" value="Gửi bình luận" class="btn btn-primary" />
+                                </div>
+                            </form>
+                            <iframe class="hidden" id="submitcommentarea" name="submitcommentarea"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include ('../partials/sidebar') %>
+<%- include ('../partials/footer') %>

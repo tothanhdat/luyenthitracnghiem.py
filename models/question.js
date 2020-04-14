@@ -13,16 +13,19 @@ module.exports = class Question extends QUESTION_COLL {
 
                 let checkExistExamID = await EXAM_COLL.findById(examID)
                 if(!checkExistExamID) return resolve({ error: true, message: 'exam_not_existed' });
-
+                let arrAnswer = answer.split(',');
                 let dataInsert = { 
                     name: nameQuestion,
-                    answer,
+                    answer: arrAnswer,
                     correct,
-                    image
-                    }
+                }
 
                 if(examID && ObjectID.isValid(examID)){
                     dataInsert.exam = examID;
+                }
+
+                if(image){
+                    dataInsert.image = image;
                 }
                 //console.log(dataInsert)
 

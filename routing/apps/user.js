@@ -1,41 +1,49 @@
-const route         = require('express').Router();
-const USER_MODEL    = require('../../models/users');
-const SUBJECT_MODEL = require('../../models/subjects');
-const EXAM_MODEL    = require('../../models/exam');
+const route             = require('express').Router();
+const USER_MODEL        = require('../../models/users');
+const EXAM_MODEL        = require('../../models/exam');
 
 const ROLE_ADMIN        = require('../../utils/checkRole');
-const { LEVEL_TYPES }   = require('../../config/constants/cf_constants');
 const { renderToView }  = require('../../utils/childRouting');
 
 route.get('/', (req, res) => {
     res.render('pages/login-admin');
 })
 
+//TẠO MÔN HỌC
 route.get('/create-subject', ROLE_ADMIN, async (req, res) => {
-    let listSubject = await SUBJECT_MODEL.getList();
-    renderToView(req, res, 'pages/add-subject', { listSubject: listSubject.data })
+    renderToView(req, res, 'pages/add-subject', { })
 })  
 
+//TẠO BỘ ĐỀ
 route.get('/create-exam', ROLE_ADMIN, async (req, res) => {
-    let listSubject = await SUBJECT_MODEL.getList();
-    let listExam = await EXAM_MODEL.getList();
-    renderToView(req, res, 'pages/add-exam', { LEVEL_TYPES, listSubject: listSubject.data, listExam: listExam.data })
+    
+    renderToView(req, res, 'pages/add-exam', { })
 })
 
+//TẠO CÂU HỎI
 route.get('/create-question', ROLE_ADMIN, async (req, res) => {
-    let listSubject = await SUBJECT_MODEL.getList();
-    let listExam = await EXAM_MODEL.getList();
-    renderToView(req, res, 'pages/add-question', { LEVEL_TYPES, listSubject: listSubject.data, listExam: listExam.data })
+    
+    renderToView(req, res, 'pages/add-question', { })
 })
 
+//TRANG DASHBOARD
 route.get('/dashboard', ROLE_ADMIN, (req, res) => {
     renderToView(req, res, 'pages/dashboard-admin', { })
 })
 
+//TRANG HOME
 route.get('/home', async (req, res) => {
-    renderToView(req, res, 'pages/home', { })
+    renderToView(req, res, 'pages/home', {  })
 })
 
+route.get('/test-exam', async (req, res) => {
+    let { examID } = req.query;
+    let infoExam = await EXAM_MODEL.getInfo({ examID })
+    renderToView(req, res, 'pages/test-exam', {  infoExam: infoExam.data });
+})
+
+
+//TRANG ĐĂNG KÝ
 route.get('/register', async (req, res) => {
     renderToView(req, res, 'pages/register', { })
 })
@@ -48,6 +56,7 @@ route.post('/register', async (req, res) => {
     return res.redirect('/dang-nhap');
 });
 
+//TRANG ĐĂNG NHẬP
 route.post('/login', async (req, res) => {
     //req.session.isLogin = true;
     let { email, password } = req.body;
@@ -62,6 +71,7 @@ route.post('/login', async (req, res) => {
     renderToView(req, res, 'pages/dashboard-admin', { infoUser: infoUser.data })
 })
 
+//ĐĂNG XUẤT
 route.get('/logout', async (req, res) => {
     req.session.token = undefined;
     res.redirect('/');

@@ -167,7 +167,10 @@
         let answerC = $('#answerC').val();
         let answerD = $('#answerD').val();
 
-        let answer = answerA + "," + answerB + "," + answerC + "," + answerD;
+
+		let answer = [answerA, answerB, answerC, answerD]
+
+		console.log(answer)
 
         let correct = $("input[type='radio'].selection:checked").val();
 
@@ -176,7 +179,10 @@
 		let _imageDemo = $('#image_question')[0].files[0];
 		console.log({ _imageDemo })
 
-		formData.append('image', _imageDemo);
+		if(_imageDemo){
+			formData.append('image', _imageDemo);
+		}
+
 		formData.append('nameQuestion', nameQuestion);
 		formData.append('answer', answer);
 		formData.append('correct', correct);
@@ -202,6 +208,8 @@
 				processData: false,
         		contentType: false,
                 success: resp => {
+
+					console.log({resp})
 
                     if(!resp.error){
 

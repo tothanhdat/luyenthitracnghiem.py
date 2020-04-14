@@ -1,0 +1,92 @@
+    <div class="col-sm-8 col-md-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Tài khoản
+        </div>
+        <div class="panel-body">
+            <div class="content signed clearfix">
+                <div class="nv-info" style="display:none"></div>
+                <div class="userBlock">
+                    <h3 class="text-center margin-bottom-lg"><span class="lev-user text-normal margin-right">Tài khoản:</span>Đạt Tô</h3>
+                    <div class="row margin-bottom-lg">
+                        <div class="col-xs-8 text-center">
+                            <a title="" href="#"><img src="../assets/ehutech.tech/test/2019/test/avatar.jpg" alt="Đạt Tô" class="img-thumbnail bg-gainsboro" /></a>
+                        </div>
+                        <div class="col-xs-16">
+                            <ul class="nv-list-item sm">
+                                <li class="active">
+                                    <a href="">Thông tin thành viên</a>
+                                </li>
+                                <li>
+                                    <a href="">Thiết lập tài khoản</a>
+                                </li>
+                                <li><a href="">Lịch sử thi</a></li>
+                                <li><a href="">Các đề thi đã lưu</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8 text-right">
+                            <button type="button" class="btn btn-default btn-sm active">
+                                <a href="/logout"><em class="fa fa-sign-out"></em> Đăng xuất</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Thống kê truy cập
+        </div>
+        <div class="panel-body">
+            <ul class="counter list-none display-table">
+                <li><span><em class="fa fa-bolt fa-lg fa-horizon"></em>Đang truy cập</span><span>18</span></li>
+                <li><span><em class="fa fa-user fa-lg fa-horizon"></em>Thành viên online</span><span>1</span></li>
+                <li><span><em class="fa fa-bullseye fa-lg fa-horizon"></em>Khách viếng thăm</span><span>17</span></li>
+                <li><span><em class="fa fa-filter fa-lg fa-horizon margin-top-lg"></em>Hôm nay</span><span class="margin-top-lg">1,377</span></li>
+                <li><span><em class="fa fa-calendar-o fa-lg fa-horizon"></em>Tháng hiện tại</span><span>11,535</span></li>
+                <li><span><em class="fa fa-bars fa-lg fa-horizon"></em>Tổng lượt truy cập</span><span>375,767</span></li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <a href="/nhom-de-thi/de-thi-moi/">Đề luyện thi mới</a>
+        </div>
+        <div class="panel-body">
+            <ul class="block_groups">
+                <li class="clearfix">
+                    <a class="show" href="">&#91;CÓ PHÍ&#93; HÓA HỌC - Chương 1 - Hóa hữu cơ</a>
+                </li>
+                <li class="clearfix">
+                    <a class="show" href="">&#91;CÓ PHÍ&#93; VẬT LÝ - Chương 2 - Dòng điện xoay chiều & Con lắc</a>
+                </li>
+                <li class="clearfix">
+                    <a class="show" href="">&#91;CÓ PHÍ&#93; TIẾNG ANH - Chương 1 - Thời Tiết mùa hè</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Danh Sách Môn học
+        </div>
+        <div class="panel-body">
+            <ul id="navigation233">
+                <% if (listSubject && listSubject.length) { %>
+                    <% listSubject.forEach(subject => { %>
+                        <li>
+                            <a title="Toán Cao Cấp" href="">
+                                <%=subject.name%>
+                            </a>
+                        </li>
+                        <% }) %>
+                            <% } %>
+            </ul>
+            <div class="clear"></div>
+
+        </div>
+    </div>

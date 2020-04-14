@@ -9,7 +9,7 @@ route.post('/add-subject', ROLE_ADMIN, async (req, res) => {
     // Kiểm tra quyền/check về logic (nếu có)
 
     // Thực hiện hành động sau khi đã check logic
-    let resultInsert = await SUBJECT_MODEL.insert({ name, teacher });    
+    let resultInsert = await SUBJECT_MODEL.insert({ name, teacher });  
     return res.json(resultInsert);
 
 })

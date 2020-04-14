@@ -1,8 +1,23 @@
 const route             = require('express').Router();
 const EXAM_MODEL        = require('../../models/exam');
+const USER_MODEL        = require('../../models/users');
+const SUBJECT_MODEL     = require('../../models/subjects');
 const ROLE_ADMIN        = require('../../utils/checkRole');
 const { renderToView }  = require('../../utils/childRouting');
 
+//TRANG BẮT ĐẦU LÀM BỘ ĐỀ
+route.get('/', async (req, res) => {
+    let { examID } = req.query;
+    let infoExam = await EXAM_MODEL.getInfo({ examID })
+    renderToView(req, res, 'pages/begin-exam', {  infoExam: infoExam.data });
+})
+
+route.get('/test-exam', async (req, res) => {
+    let { examID } = req.query;
+    let infoExam = await EXAM_MODEL.getInfo({ examID })
+
+    renderToView(req, res, 'pages/test-exam', {  infoExam: infoExam.data });
+})
 
 route.post('/add-exam', ROLE_ADMIN, async (req, res) => {
     let { name, description, level, subjectID } = req.body;
@@ -10,7 +25,7 @@ route.post('/add-exam', ROLE_ADMIN, async (req, res) => {
     // Kiểm tra quyền/check về logic (nếu có)
 
     // Thực hiện hành động sau khi đã check logic
-    let resultInsert = await EXAM_MODEL.insert({ name, description, level, subjectID });
+    let resultInsert = await EXAM_MODEL.insert({ name, description, level, subjectID, createAt });
     return res.json(resultInsert);
 })
 
@@ -38,7 +53,7 @@ route.post('/update-exam/:examID', ROLE_ADMIN, async (req, res) => {
 
     // Kiểm tra quyền/check về logic (nếu có)
 
-    let resultUpdate = await EXAM_MODEL.update({ name, description, level, subjectID, examID});
+    let resultUpdate = await EXAM_MODEL.update({ name, description, level, subjectID, examID, createAt: Date.now()});
     return res.json(resultUpdate);
 })
 

@@ -1,1 +1,3 @@
-1. Lỗi khi đăng nhập tài khoản thường.. vào trang dashboard không trả về được trang /home mà báo Lỗi (1:00AM - 4/9/2020)
+1. [ĐÃ FIX] Lỗi khi đăng nhập tài khoản thường. vào trang dashboard không trả về được trang /home mà báo Lỗi (1:00AM - 4/9/2020)
+2. Lỗi khi thêm câu hỏi nếu không có image thì thêm không đc (không bắt buộc có image) 14/04/2020 -- 00:30AM
+3. Lỗi khi xóa câu hỏi thì tự động sẽ xóa luôn câu hỏi trong mảng của bộ đề, exam { answer[questionID] } 14/04/2020 -- 00:30AM

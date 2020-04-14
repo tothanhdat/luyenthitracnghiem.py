@@ -1,0 +1,115 @@
+<%- include ('../partials/header') %>
+<div class="container-fluid" id="body">
+    <nav class="third-nav">
+        <div class="row">
+            <div class="bg">
+                <div class="clearfix">
+                    <div class="col-xs-24 col-sm-18 col-md-18">
+                        <div class="breadcrumbs-wrap">
+                            <div class="display">
+                                <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
+                                <ul class="breadcrumbs list-none"></ul>
+                            </div>
+                            <ul class="subs-breadcrumbs"></ul>
+                            <ul class="temp-breadcrumbs hidden">
+                                <li><a href="" title="Trang nhất"><span>Trang nhất</span></a></li>
+                            <li><a href="" title="Trắc nghiệm"><span class="txt" itemprop="title">Trắc nghiệm</span></a></li>
+                            <li><a href="" title="<%=infoExam.subjects.name%>"><span class="txt" itemprop="title"><%=infoExam.subjects.name%></span></a></li>
+                            <li><a href="" title="<%=infoExam.name%>"><span class="txt" itemprop="title"><%=infoExam.name%></span></a></li>
+                            <li><a href="" title="&#91;MIỄN PHÍ&#93;"><span class="txt" itemprop="title">&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-xs-24 col-sm-15 col-md-15">
+            <!--Start of Tawk.to Script-->
+            <!--End of Tawk.to Script-->
+        </div>
+        <div class="col-xs-24 col-sm-9 col-md-9">
+        </div>
+    </div>
+    <div class="row" id="test">
+        <div class="col-sm-16 col-md-18">
+            <div id="breadcrumbs_mobile" class="col-xs-24 col-sm-24 box-coll hidden-lg hiddent-md ">
+                <div class="col-xs-20 col-sm-20 title"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="detail view-list">
+                <div class="panel panel-default result_width edit_panel" data-spy="affix" data-offset-top="250">
+                    <!--         <div class="panel-heading">Thông tin đề thi</div> -->
+                    <div class="panel-body edit_panel">
+                        <h1 class="m-bottom affix_hidden">&#91;MIỄN PHÍ&#93; <%=infoExam.name%>: [<%=infoExam.subjects.name%>] <%=infoExam.description%></h1>
+                        <div class="row">
+                            <div class="col-lg-8 col-xs-16 col-sm-12 col-md-8 affix_hidden">
+                                <div class="row exam-info">
+                                    <div class="col-xs-24 col-sm-12 col-md-8">
+                                        <label>Số câu</label>: 40
+                                    </div>
+                                    <div class="col-xs-24 col-sm-12 col-md-16">
+                                        <label>Thời gian</label>: 90 phút
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-24 col-sm-12 col-md-8">
+                                <div id="timer-box">
+                                    <span class="float-left affix_hidden">Thời gian còn lại: </span>
+                                    <div id="countdown" class="float-left red" data-seconds-left="579"></div>
+                                    <span class="float-left red">&nbsp;10 phút </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-xs-10 col-sm-24 col-md-8 text-center" style="position: absolute; right: 0;">
+                                <button type="submit" name="submit" class="btn btn-success" onclick="nv_save_test(0);">
+                                    <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
+                                </button>
+                                &nbsp; <a href="" class="cancelLink" onclick="nv_exit_test()"> Thoát </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testing m-bottom get_width" id="top">
+                    <form action="" method="post" id="frm-submit" class="col-xs-24 col-sm-24 col-md-24">
+                        <input type="hidden" value="1" name="save_test" />
+                        <input type="hidden" value="47" name="exam_id" />
+                        <input type='hidden' id='current_page' />
+                        <input type='hidden' id='show_per_page' />
+                        <div id="questionlist" data-exam-id="47">
+                        <% for(let i=0; i < infoExam.question.length; i++) {%>
+                            <div class="question-box">
+                                <div class="panel panel-default question-item " id="question_1" data-question-number="1">
+                                    <div class="panel-body">
+                                        <p class="m-bottom question">
+                                            <strong class="text-red">Câu hỏi <%=i+1%>:</strong> <b><span lang="VI" style="font-size:12.0pt">
+                                            <span style="line-height:107%"><span style="font-family:&#039;SF UI Display&#039;">
+                                            <%-infoExam.question[i].name%></span></span></span></b>
+                                        </p>
+                                        <div class="row answer">
+                                        <% for(let j=0; j < infoExam.question[i].answer.length; j++) {%>
+                                            <div class="answer-item col-xs-12 col-sm-12 col-md-12">
+                                                <label class="  radio_question">
+                                                    <input class="hidden-print" type="radio" value="0" /> <%-String.fromCharCode(65 + j)%>. <%=infoExam.question[i].answer[j]%>.
+                                                </label>
+                                            </div>
+                                        <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </form>
+                    <div class="clearfix"></div>
+                    <div class="text-center">
+                        <button type="submit" name="submit" class="btn btn-success" onclick="nv_save_test(0);">
+                            <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
+                        </button>
+                        &nbsp; <a href="" class="cancelLink" onclick="nv_exit_test()"> Thoát </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+<%- include ('../partials/sidebar') %>
+<%- include ('../partials/footer') %>

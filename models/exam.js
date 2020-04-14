@@ -3,7 +3,7 @@ const EXAM_COLL = require('../database/exam-coll');
 
 module.exports = class Exam extends EXAM_COLL {
 
-    static insert({ name, description, subjectID, level }) {
+    static insert({ name, description, subjectID, level, createAt }) {
         return new Promise(async resolve => {
             try {
 
@@ -14,6 +14,7 @@ module.exports = class Exam extends EXAM_COLL {
                     name,
                     description,
                     level,
+                    createAt
                 };
 
                 if(subjectID && ObjectID.isValid(subjectID)){
@@ -56,6 +57,7 @@ module.exports = class Exam extends EXAM_COLL {
                     return resolve({ error: true, message: 'params_invalid' });
 
                 let infoExam = await EXAM_COLL.findById(examID)
+                .populate('subjects question')
 
                 if (!infoExam) return resolve({ error: true, message: 'cannot_get_info_data' });
 
@@ -86,7 +88,7 @@ module.exports = class Exam extends EXAM_COLL {
         })
     }
 
-    static update({ examID, name, description, subjectID, level }) {
+    static update({ examID, name, description, subjectID, level, createAt }) {
         return new Promise(async resolve => {
             try {
 
@@ -95,7 +97,7 @@ module.exports = class Exam extends EXAM_COLL {
                 if (!ObjectID.isValid(examID) || !ObjectID.isValid(subjectID))
                     return resolve({ error: true, message: 'params_invalid' });
                 
-                let infoAfterUpdate = await EXAM_COLL.findByIdAndUpdate(examID, { name, description, subjects: subjectID, level } , 
+                let infoAfterUpdate = await EXAM_COLL.findByIdAndUpdate(examID, { name, description, subjects: subjectID, level, createAt } , 
                 { new: true });
                 
                 if (!infoAfterUpdate)
