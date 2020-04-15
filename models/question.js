@@ -14,6 +14,13 @@ module.exports = class Question extends QUESTION_COLL {
                 let checkExistExamID = await EXAM_COLL.findById(examID)
                 if(!checkExistExamID) return resolve({ error: true, message: 'exam_not_existed' });
                 let arrAnswer = answer.split(',');
+                
+                let elementNull = '';
+                
+                arrAnswer = arrAnswer.filter(function(element) {
+                    return element !== elementNull
+                })
+
                 let dataInsert = { 
                     name: nameQuestion,
                     answer: arrAnswer,

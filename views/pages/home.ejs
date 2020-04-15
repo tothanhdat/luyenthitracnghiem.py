@@ -11,16 +11,9 @@
                     <div class="bg">
                         <div class="clearfix">
                             <div class="col-xs-24 col-sm-18 col-md-18">
-                                <span id="dateTime" class="current-time">Thứ ba, 14/04/2020, 12:14</span>
+                                <span id="dateTime" class="current-time"><%=moment().format('LLLL')%></span>
                             </div>
-                            <script>
-                                var today = new Date();
-                                var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-                                var time = today.getHours() + ":" + today.getMinutes();
-                                var dateTime = 'Hiện tại: ' + date+' at '+time;
-                                
-                                document.getElementById("dateTime").innerHTML = dateTime;
-                            </script>
+                            
                         </div>
                     </div>
                 </div>
@@ -49,7 +42,7 @@
                                         </div>
                                         <ul class="exam-info list-inline pull-right form-tooltip">
                                             <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em>11<span class="hidden-xs"> câu hỏi</span></li>
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian"><em class="fa fa-clock-o">&nbsp;</em>10<span class="hidden-xs"> phút</span></li>
+                                            <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian"><em class="fa fa-clock-o">&nbsp;</em><%=moment(exam.createAt).startOf('hour').fromNow()%><span class="hidden-xs"></span></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>
@@ -60,7 +53,7 @@
                                         <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%>: <%=exam.name%></strong></a>
                                     </h2>
                                     <ul class="list-inline help-block">
-                                        <li><em class="fa fa-clock-o">&nbsp;</em><%= moment(exam.createAt).format('L');%></li>
+                                        <li><em class="fa fa-clock-o createAt" _createAt="<%=exam.createAt%>">&nbsp;</em><%= moment(exam.createAt).format('LL');%></li>
                                         <li><em class="fa fa-search">&nbsp;</em>Đã xem: 0</li>
                                         <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: 0</li>
                                     </ul>
@@ -86,3 +79,7 @@
                 
 <%- include ('../partials/sidebar') %>
 <%- include ('../partials/footer') %>
+
+<script>
+    
+</script>

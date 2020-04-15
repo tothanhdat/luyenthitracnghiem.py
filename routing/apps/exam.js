@@ -25,7 +25,7 @@ route.post('/add-exam', ROLE_ADMIN, async (req, res) => {
     // Kiểm tra quyền/check về logic (nếu có)
 
     // Thực hiện hành động sau khi đã check logic
-    let resultInsert = await EXAM_MODEL.insert({ name, description, level, subjectID, createAt });
+    let resultInsert = await EXAM_MODEL.insert({ name, description, level, subjectID, createAt: Date.now() });
     return res.json(resultInsert);
 })
 

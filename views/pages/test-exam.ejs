@@ -65,7 +65,7 @@
                                 <button type="submit" name="submit" class="btn btn-success" onclick="nv_save_test(0);">
                                     <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
                                 </button>
-                                &nbsp; <a href="" class="cancelLink" onclick="nv_exit_test()"> Thoát </a>
+                                &nbsp; <a href="/home" class="cancelLink"> Thoát </a>
                             </div>
                         </div>
                     </div>
@@ -86,15 +86,26 @@
                                             <span style="line-height:107%"><span style="font-family:&#039;SF UI Display&#039;">
                                             <%-infoExam.question[i].name%></span></span></span></b>
                                         </p>
+                                        <% if (infoExam.question[i].image) { %>
+                                            <div class="panel panel-default get_width">
+                                                <div class="panel-body">
+                                                    <div class="text-center imgposition">
+                                                        <img width="400" height="auto" src="../storage/images/<%=infoExam.question[i].image%>" alt="<%=infoExam.question[i].image%>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                        
                                         <div class="row answer">
                                         <% for(let j=0; j < infoExam.question[i].answer.length; j++) {%>
                                             <div class="answer-item col-xs-12 col-sm-12 col-md-12">
-                                                <label class="  radio_question">
-                                                    <input class="hidden-print" type="radio" value="0" /> <%-String.fromCharCode(65 + j)%>. <%=infoExam.question[i].answer[j]%>.
+                                                <label class=" radio_question">
+                                                    <input class="hidden-print" type="radio" value="<%=j+1%>" /> <%-String.fromCharCode(65 + j)%>. <%=infoExam.question[i].answer[j]%>.
                                                 </label>
                                             </div>
                                         <% } %>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>

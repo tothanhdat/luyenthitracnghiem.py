@@ -43,7 +43,7 @@
 									<option value>Chọn môn học</option>
 									<% if (listSubject && listSubject.length) { %>
 										<% listSubject.forEach(subject => { %>
-									<option value="<%=subject._id%>"><%=subject.name%></option>
+											<option value="<%=subject._id%>"><%=subject.name%></option>
 										<% }) %>
 									<% } %>
 								</select>
@@ -251,7 +251,7 @@
 						$('#level').val(level);
 						$('#level').trigger('change');
 
-						$('#subjectID').val(subjectID);
+						$('#subjectID').val(subjectID._id);
 						$('#subjectID').trigger('change');
 
 						$('.btnCreateExam').attr('_examID', id);

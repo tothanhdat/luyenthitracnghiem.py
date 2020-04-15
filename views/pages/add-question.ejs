@@ -1,6 +1,6 @@
 <%- include ('../dashboard/header') %>
 <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-<main class="content">
+<main class="content" id="scroll-view">
 	<div class="container-fluid">
 		<div class="content-header">
 			<h1>Tạo câu hỏi</h1>
@@ -15,8 +15,7 @@
 		<div class="row">
 			<div class="col-lg-9">
 				<form class="box needs-validation" novalidate id="formCreateQuestion"
-					enctype="multipart/form-data" action="/question/add-question" method="POST"
-				>
+					enctype="multipart/form-data" action="/question/add-question" method="POST">
 					<div class="box-header">
 						<h3>Tạo câu hỏi <span class="numberCountQuestion">1</span></h3>
 					</div>
@@ -24,7 +23,7 @@
 						<div class="form-group row">
 							<label for="jsValidationRequired" class="form-label col-2" >Bộ đề</label>
 							<div class="col-9">
-								<select id="examID" required class="form-control">
+								<select id="examID" required class="form-control onChangeExam" >
 									<option value>Chọn bộ đề</option>
 								<% if (listExam && listExam.length) { %>
 									<% listExam.forEach(exam => { %>
@@ -37,7 +36,6 @@
 											<% } %>
 										<% }) %>]
                                     </option>
-
 									<% }) %>
 								<% } %>
 								</select>
@@ -139,6 +137,7 @@
 						</div>
 					</div>
 					<div class="box-footer">
+						<button class="hrefExam"><a href="">Xem trước bộ đề</a></button>
 						<button class="btn btn-primary pull-right btnCompleteExam">Hoàn thành</button>
 					</div>
 				</div>
@@ -150,9 +149,10 @@
 
 <script>
 
+
     CKEDITOR.replace( 'editor1' );
 
-	//Tạo câu hỏi
+	//Tạo câu hỏi ---------------> 
 	$(document).on('click', '.btnCreateQuestion', function(e) {
 		e.preventDefault();
 
@@ -192,12 +192,14 @@
 
 		//Đáp án đúng
 
-        if  (nameQuestion.length < 1 || answerA.length < 1 || 
-            answerB.length < 1 || answerC.length < 1 || answerD.length < 1){
-                return toastr['error']('Câu hỏi và đáp án không được để trống', 'Thông báo');
+        if  (nameQuestion.length < 1 && answerA.length < 1 || 
+            nameQuestion.length < 1 && answerB.length < 1 ||
+			nameQuestion.length < 1 && answerC.length < 1 ||
+			nameQuestion.length < 1 && answerD.length < 1){
+                return toastr['warning']('Câu hỏi và đáp án không được để trống', 'Thông báo');
                 
         } if(!correct){
-            return toastr['error']('Bạn chưa chọn đáp án', 'Thông báo');
+            return toastr['warning']('Bạn chưa chọn đáp án', 'Thông báo');
 
         } else{
             $.ajax({
@@ -284,4 +286,28 @@
 			});
         }
     })
+
+	//Lấy ID truyền vào button xem trước --------------->
+	$(document).on('change', '.onChangeExam', function() {
+		let examID = $('#examID').val();
+		let hrefExam = $('.hrefExam').attr('_examID', examID)
+	})
+
+	//Sự kiện chuyển đến trang trắc nghiệm --------------->
+	$(document).on('click', '.hrefExam', function(e) {
+		e.preventDefault();
+		let examID = $(this).attr('_examID');
+
+		if(!examID){
+			
+			var elmnt = document.getElementById("scroll-view");
+			elmnt.scrollIntoView();
+
+			return toastr['warning']('Bạn chưa chọn bộ đề muốn xem', 'Thông báo');
+
+		} else {
+			return window.location.href = `/test-exam?examID=${examID}`
+		}
+	})
+
 </script>

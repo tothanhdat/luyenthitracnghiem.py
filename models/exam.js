@@ -36,7 +36,7 @@ module.exports = class Exam extends EXAM_COLL {
     static getList() {
         return new Promise(async resolve => {
             try {
-                let listExam = await EXAM_COLL.find().populate("subjects");
+                let listExam = await EXAM_COLL.find().populate("subjects").sort({ createAt: -1 });
 
                 if (!listExam) return resolve({ error: true, message: 'cannot_get_list_data' });
 
