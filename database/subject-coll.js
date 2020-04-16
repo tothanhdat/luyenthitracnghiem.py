@@ -3,6 +3,11 @@ const Schema   = mongoose.Schema;
 
 const SubjectSchema = new Schema({
 
+    author: {
+        type: Schema.Types.ObjectId,
+        ref : "user"
+    },
+
     /**
      * Tên
      */

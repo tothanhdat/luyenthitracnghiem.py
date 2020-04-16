@@ -6,8 +6,12 @@ const { uploadMulter }  = require('../../utils/config_multer');
 const fs                = require('fs');
 const path              = require('path');
 
-route.post('/add-question', uploadMulter.single('image'), async (req, res) => {
+route.post('/add-question', uploadMulter.single('image'), ROLE_ADMIN, async (req, res) => {
     try {
+        
+        let userIDfromSession = req.session; //Đã gán req.session.user
+        let userID = userIDfromSession.user.infoUSer._id;
+
         let { nameQuestion, examID, answer, correct } = req.body;
         console.log({ nameQuestion, examID, answer, correct })
         
@@ -18,11 +22,11 @@ route.post('/add-question', uploadMulter.single('image'), async (req, res) => {
 
         if(infoFile) {
 
-            infoQuestion = await QUESTION_MODEL.insert({ nameQuestion, examID, answer, correct, image: infoFile.originalname });
+            infoQuestion = await QUESTION_MODEL.insert({ nameQuestion, examID, answer, correct, image: infoFile.originalname, userID });
         
         } else {
 
-            infoQuestion = await QUESTION_MODEL.insert({ nameQuestion, examID, answer, correct });
+            infoQuestion = await QUESTION_MODEL.insert({ nameQuestion, examID, answer, correct, userID });
         }
 
         return res.json(infoQuestion);
@@ -59,6 +63,7 @@ route.get('/info-question/:questionID', ROLE_ADMIN, async (req, res) => {
 
 route.post('/update-question/:questionID', ROLE_ADMIN, uploadMulter.single('image'), async (req, res) => {
     try {
+        let { _id: userUpdate } = req.user;
         let { questionID } = req.params;
         let infoFile;
 
@@ -74,9 +79,9 @@ route.post('/update-question/:questionID', ROLE_ADMIN, uploadMulter.single('imag
 
         let { nameQuestion, examID, answer, correct } = req.body;
 
-        console.log({ nameQuestion, examID, answer, correct })
+        console.log({ nameQuestion, examID, answer, correct, userUpdate })
 
-        let resultUpdate = await QUESTION_MODEL.update({ questionID, nameQuestion, examID, answer, correct, image: infoFile });
+        let resultUpdate = await QUESTION_MODEL.update({ userUpdate, questionID, nameQuestion, examID, answer, correct, image: infoFile });
         console.log({ resultUpdate })
 
         res.json(resultUpdate)

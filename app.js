@@ -29,11 +29,11 @@ app.use('/', USER_ROUTER);
 app.use('/subject', SUBJECT_ROUTER);
 app.use('/exam', EXAM_ROUTER);
 app.use('/question', QUESTION_ROUTER);
-// app.use('/san-pham', PRODUCT_ROUTER);
-// app.use('/danh-muc', CATEGORY_ROUTER);
 
-
-
+//Dẫn đến page 404
+app.use(function(req, res, next){
+    res.status(404).render('pages/page-404', {title: "Sorry, page not found"});
+});
 
 const uri = 'mongodb://localhost/luyenthitracnghiempy';
 const PORT = process.env.PORT || 3000;

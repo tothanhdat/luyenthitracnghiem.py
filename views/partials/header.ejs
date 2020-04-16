@@ -56,9 +56,9 @@
                     <div id="header" class="row">
                         <div class="logo col-xs-24 col-sm-24 col-md-8">
                             <div class="pull-right-min">
-                                <a title="Hệ thống Luyện thi Trắc nghiệm Trực tuyến HUTECH" href=""><img src="./uploads/ehutech.tech/banner_webtest_new.png" width="1500" height="204" alt="Hệ thống Luyện thi Trắc nghiệm Trực tuyến HUTECH" /></a>
+                                <a title="Hệ thống Luyện thi Trắc nghiệm Phú Yên" href="/home"><img src="../lttnpy_core/images/BANNER_THITRACNGHIEM.png" width="1500" height="204" alt="Hệ thống Luyện thi Trắc nghiệm Phú Yên" /></a>
                             </div>
-                            <h1 class="hidden"><a href="" title="Hệ thống Luyện thi Trắc nghiệm Trực tuyến HUTECH">Hệ thống Luyện thi Trắc nghiệm Trực tuyến HUTECH</a></h1>
+                            <h1 class="hidden"><a href="" title="Hệ thống Luyện thi Trắc nghiệm Phú Yên">Hệ thống Luyện thi Trắc nghiệm Phú Yên</a></h1>
                         </div>
                         <div class="col-xs-24 col-sm-24 col-md-16">
                         </div>
@@ -83,11 +83,11 @@
                                             <ul class="dropdown-menu">
                                             <% if (listSubject && listSubject.length) { %>
                             					<% listSubject.forEach(subject => { %>
-                                                <li class="dropdown-submenu"> <a href="" title="Toán Cao Cấp"><%=subject.name%></a>
+                                                <li class="dropdown-submenu" value="<%=subject._id%>"><a href="/list-of-subjects?subjectID=<%=subject._id%>" ><%=subject.name%></a>
                                                     <ul class="dropdown-menu">
                                                     <% if (LEVEL_TYPES && LEVEL_TYPES.length) { %>
                             					        <% LEVEL_TYPES.forEach(level => { %>
-                                                        <li> <a href="" title="Đại Số Tuyến Tính" value="<%=level.value%>">Lớp <%=level.text%></a></li>
+                                                        <li> <a href="" value="<%=level.value%>">Lớp <%=level.text%></a></li>
                                                         <% }) %>
                         					        <% } %>
                                                     </ul>
@@ -97,14 +97,22 @@
 										</tbody>
                                             </ul>
                                         </li>
-                                        <li role="presentation"><a class="dropdown-toggle" href="" role="button" aria-expanded="false" title="THI THỬ">  THI THỬ</a> </li>
-                                        <li role="presentation"><a class="dropdown-toggle" href="" role="button" aria-expanded="false" title="SINH VIÊN">  HỌC SINH</a> </li>
-                                        <li role="presentation"><a class="dropdown-toggle" href="" role="button" aria-expanded="false" title="TÀI LIỆU" onclick="this.target='_blank'">  TÀI LIỆU</a> </li>
-                                        <li role="presentation"><a class="dropdown-toggle" href="" role="button" aria-expanded="false" title="TÌM KIẾM">  TÌM KIẾM</a> </li>
-                                        <li role="presentation"><a class="dropdown-toggle" href="" role="button" aria-expanded="false" title="HƯỚNG DẪN LUYỆN THI">  HƯỚNG DẪN LUYỆN THI</a> </li>
-                                        <li role="presentation"><a class="dropdown-toggle" href="/dashboard" role="button" aria-expanded="false" title="email">  Xin chào: <%=infoUser.email%></a> </li>
-                                        <li role="presentation"><a class="dropdown-toggle" href="/logout" role="button" aria-expanded="false" title="email">  Đăng xuất</a> </li>
+                                        <li><a class="dropdown-toggle" href="/THI THỬ" title="THI THỬ">  THI THỬ</a> </li>
+                                        <li><a class="dropdown-toggle" href="/HỌC SINH" title="HỌC SINH">  HỌC SINH</a> </li>
+                                        <li><a class="dropdown-toggle" href="/TÀI LIỆU" title="TÀI LIỆU" onclick="this.target='_blank'">  TÀI LIỆU</a> </li>
+                                        <li><a class="dropdown-toggle" href="/TÌM KIẾM" title="TÌM KIẾM">  TÌM KIẾM</a> </li>
+                                        <li><a class="dropdown-toggle" href="/HƯỚNG DẪN LUYỆN THI" title="HƯỚNG DẪN LUYỆN THI">  HƯỚNG DẪN LUYỆN THI</a> </li>
+                                        <% if (infoUser) { %>
+                                        <li><a class="dropdown-toggle" href="/contact" title="email">  LIÊN HỆ</a> </li>
+                                        <% if (infoUser.role == 1) { %>
+                                        <li id="page-dashboard"><a class="dropdown-toggle" href="/dashboard" title="email">  TRANG QUẢN LÝ</a> </li>
+                                        <% } %>
+                                        <% } else{ %>
+                                        <li><a class="dropdown-toggle" href="/dashboard" title="email"> <i class="fa fa-key"></i>  _ Bạn cần phải đăng nhập để làm bài</a> </li>
+                                        <% } %>
                                     </ul>
                                 </div>
                             </div>
+
+
 

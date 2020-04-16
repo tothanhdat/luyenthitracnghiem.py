@@ -13786,7 +13786,7 @@ button {
 	border-radius:100%
 }
 .avatar-primary {
-	background:#3884ff
+	background:#ffffff
 }
 .avatar-secondary {
 	background:#74818d
@@ -15260,12 +15260,11 @@ div[x-placement=bottom] .tooltip-arrow {
 	align-items:center;
 	padding:0 30px;
 	color:#fff;
-	font-size:28px;
-	font-weight:400;
-	font-family:Montserrat
+	margin-left: 60px;
+	margin-top: 20px;
 }
 .logo img {
-	width:60px
+	width:100px
 }
 .logo i {
 	margin-right:10px

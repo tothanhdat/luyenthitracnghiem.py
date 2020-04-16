@@ -4,11 +4,11 @@ const EXAM_COLL = require('../database/exam-coll');
 
 module.exports = class Question extends QUESTION_COLL {
 
-    static insert({ nameQuestion, examID, answer, correct, image }) {
+    static insert({ nameQuestion, examID, answer, correct, image, userID }) {
         return new Promise(async resolve => {
             try {
 
-                if (!ObjectID.isValid(examID))
+                if (!ObjectID.isValid(examID) || !ObjectID.isValid(userID))
                     return resolve({ error: true, message: 'params_invalid' });
 
                 let checkExistExamID = await EXAM_COLL.findById(examID)
@@ -22,6 +22,8 @@ module.exports = class Question extends QUESTION_COLL {
                 })
 
                 let dataInsert = { 
+                    
+                    author: userID,
                     name: nameQuestion,
                     answer: arrAnswer,
                     correct,
@@ -113,14 +115,20 @@ module.exports = class Question extends QUESTION_COLL {
         })
     }
 
-    static update({ questionID, nameQuestion, examID, answer, correct, image }) {
+    static update({ questionID, nameQuestion, examID, answer, correct, image, userID }) {
         return new Promise(async resolve => {
             try {
 
                 if (!ObjectID.isValid(questionID))
                     return resolve({ error: true, message: 'params_invalid' });
 
-                let dataUpdate = { nameQuestion, examID, answer, correct, image };
+                let dataUpdate = { 
+
+                    nameQuestion, 
+                    examID, answer, 
+                    correct, image, 
+                    userUpdate: userID 
+                };
 
                 let infoAfterUpdate = await QUESTION_COLL.findByIdAndUpdate(questionID, dataUpdate,
                 { new: true });

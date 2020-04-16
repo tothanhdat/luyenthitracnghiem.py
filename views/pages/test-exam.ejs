@@ -70,6 +70,8 @@
                         </div>
                     </div>
                 </div>
+            <div>
+                </div>
                 <div class="testing m-bottom get_width" id="top">
                     <form action="" method="post" id="frm-submit" class="col-xs-24 col-sm-24 col-md-24">
                         <input type="hidden" value="1" name="save_test" />
@@ -113,14 +115,19 @@
                         </div>
                     </form>
                     <div class="clearfix"></div>
+                    <% if (infoExam.question.length) { %>
                     <div class="text-center">
                         <button type="submit" name="submit" class="btn btn-success" onclick="nv_save_test(0);">
                             <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
                         </button>
                         &nbsp; <a href="" class="cancelLink" onclick="nv_exit_test()"> Thoát </a>
                     </div>
+                    <% } else {%>
+                    <h2 style="text-align: center;">Hiện tại chưa có câu hỏi nào</h2>
+                    <%}%>
                 </div>
             </div>
         </div>
 <%- include ('../partials/sidebar') %>
 <%- include ('../partials/footer') %>
+

@@ -1,9 +1,10 @@
 const route             = require('express').Router();
 const SUBJECT_MODEL     = require('../../models/subjects');
 const ROLE_ADMIN        = require('../../utils/checkRole');
+const ROLE_SUPER_ADMIN  = require('../../utils/roleSuperAdmin');
 const { renderToView }  = require('../../utils/childRouting');
 
-route.post('/add-subject', ROLE_ADMIN, async (req, res) => {
+route.post('/add-subject', ROLE_SUPER_ADMIN, async (req, res) => {
     let { name, teacher } = req.body;
 
     // Kiểm tra quyền/check về logic (nếu có)

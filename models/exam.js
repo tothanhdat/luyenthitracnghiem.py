@@ -3,19 +3,21 @@ const EXAM_COLL = require('../database/exam-coll');
 
 module.exports = class Exam extends EXAM_COLL {
 
-    static insert({ name, description, subjectID, level, createAt }) {
+    static insert({ name, description, subjectID, level, createAt, userID }) {
         return new Promise(async resolve => {
             try {
 
-                if (!name || isNaN(Number(level)))
+                if (!name || isNaN(Number(level)) || !ObjectID.isValid(userID))
                 return resolve({ error: true, message: 'params_invalid' });
 
                 let dataInsert = { 
                     name,
                     description,
                     level,
-                    createAt
+                    createAt,
+                    author: userID
                 };
+                
 
                 if(subjectID && ObjectID.isValid(subjectID)){
                     dataInsert.subjects = subjectID;
@@ -36,11 +38,28 @@ module.exports = class Exam extends EXAM_COLL {
     static getList() {
         return new Promise(async resolve => {
             try {
-                let listExam = await EXAM_COLL.find().populate("subjects").sort({ createAt: -1 });
+                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 });
 
                 if (!listExam) return resolve({ error: true, message: 'cannot_get_list_data' });
 
                 return resolve({ error: false, data: listExam });
+
+            } catch (error) {
+
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+    //Danh sách bộ đề theo môn học
+    static getListOfSubjects({ subjectID }) {
+        return new Promise(async resolve => {
+            try {
+                let listExamOfSubject = await EXAM_COLL.find({ subjects: subjectID })
+                .populate('subjects');
+
+                if (!listExamOfSubject) return resolve({ error: true, message: 'cannot_get_list_data' });
+
+                return resolve({ error: false, data: listExamOfSubject });
 
             } catch (error) {
 
@@ -88,7 +107,7 @@ module.exports = class Exam extends EXAM_COLL {
         })
     }
 
-    static update({ examID, name, description, subjectID, level, createAt }) {
+    static update({ examID, name, description, subjectID, level, createAt, userID }) {
         return new Promise(async resolve => {
             try {
 
@@ -96,9 +115,17 @@ module.exports = class Exam extends EXAM_COLL {
 
                 if (!ObjectID.isValid(examID) || !ObjectID.isValid(subjectID))
                     return resolve({ error: true, message: 'params_invalid' });
+
+                let dataUpdate = {
+                    name, 
+                    description, 
+                    subjects: subjectID, 
+                    level, 
+                    createAt, 
+                    userUpdate: userID
+                }
                 
-                let infoAfterUpdate = await EXAM_COLL.findByIdAndUpdate(examID, { name, description, subjects: subjectID, level, createAt } , 
-                { new: true });
+                let infoAfterUpdate = await EXAM_COLL.findByIdAndUpdate(examID, dataUpdate, { new: true });
                 
                 if (!infoAfterUpdate)
                     return resolve({ error: true, message: 'cannot_update_data' });

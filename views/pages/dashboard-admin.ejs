@@ -5,9 +5,9 @@
 					<div class="info-box-content">
 						<div class="info-box-text">
 							<span class="info-box-number">
-								7891 <small class="text-sm text-success"><i class="fas fa-chevron-up"></i>+12</small>
+								<%=listUser.length%> <small class="text-sm text-success"><i class="fas fa-chevron-up"></i>+3</small>
 							</span>
-							New users
+							Thành viên mới
 						</div>
 						<div class="info-box-icon bg-primary">
 							<i class="i-user"></i>
@@ -21,12 +21,12 @@
 					<div class="info-box-content">
 						<div class="info-box-text">
 							<span class="info-box-number">
-								3510 <small class="text-sm text-danger"><i class="fas fa-chevron-down"></i>-3</small>
+								<%=listExam.length%> <small class="text-sm text-danger"><i class="fas fa-chevron-down"></i>-3</small>
 							</span>
-							Sales
+							Bộ đề
 						</div>
 						<div class="info-box-icon bg-success">
-							<i class="i-shopping-cart"></i>
+							<i class="fe fe-file-text"></i>
 						</div>
 					</div>
 					<canvas class="info-box-chart" height="70" id="chartJs2"></canvas>
@@ -37,12 +37,12 @@
 					<div class="info-box-content">
 						<div class="info-box-text">
 							<span class="info-box-number">
-								19 <small class="text-sm text-secondary"><i class="fas fa-minus"></i></small>
+								<%=listQuestion.length%> <small class="text-sm text-success"><i class="fas fa-chevron-up"></i>+17%</small>
 							</span>
-							New comments
+							Câu hỏi
 						</div>
 						<div class="info-box-icon bg-warning">
-							<i class="i-chat-bubble"></i>
+							<i class="fe fe-check-circle"></i>
 						</div>
 					</div>
 					<canvas class="info-box-chart" height="70" id="chartJs3"></canvas>
@@ -68,7 +68,7 @@
 
 		<div class="box">
 			<div class="box-header">
-				<h3 >Orders</h3>
+				<h3 >Danh sách Giáo Viên</h3>
 				<div class="box-actions">
 					<a href="#" class="box-actions-item">Link</a>
 					<button class="box-actions-item"><i class="fas fa-minus"></i></button>
@@ -77,32 +77,32 @@
 			</div>
 			<div class="table-responsive">
 				<table class="table">
+				<% if (listUser && listUser.length) { %>
+					<% listUser.forEach(user => { %>
 					<tbody>
 						<tr>
-							<th>ID</th>
 							<th>Avatar</th>
-							<th>Full name</th>
-							<th>Country</th>
-							<th>Date</th>
-							<th>Payment</th>
-							<th>Total</th>
-							<th>Status</th>
-							<th>Progress</th>
+							<th>Họ Tên</th>
+							<th>Quốc gia</th>
+							<th>Số lượng Đề</th>
+							<th>Nơi làm việc</th>
+							<th>Ngày tham gia</th>
+							<th>Tình trạng</th>
+							<th>Phát triển</th>
 							<th></th>
 						</tr>
 						<tr>
-							<td>7719</td>
 							<td>
 								<div class="avatar avatar-xs">
-									<img src="../dashboard/images/avatar-1.jpg" alt="">
+									<img src="../lttnpy_core/images/LOGO_LTTNPY3.png" alt="">
 								</div>
 							</td>
-							<td>John Doe</td>
-							<td><i class="flags flags-ru"></i></td>
-							<td>10.10.2018</td>
-							<td><i class="payments payments-visa"></i></td>
-							<td>5471.00 $</td>
-							<td><span class="status-icon bg-warning"></span> Waiting</td>
+							<td><%=user.fullname%></td>
+							<td><i class="flags flags-vn"></i></td>
+							<td>5</td>
+							<td>THPT Trần Quốc Tuấn - Phú Yên</td>
+							<td>16/04/2020</td>
+							<td><span class="status-icon bg-warning"></span> Trung bình</td>
 							<td>
 								<div class="d-flex justify-content-between mb-5">
 									<span class="text-sm"><b>25%</b></span>
@@ -115,112 +115,9 @@
 							<td>
 								<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
 							</td>
-						</tr>
-						<tr>
-							<td>7720</td>
-							<td>
-								<div class="avatar avatar-xs">
-									<img src="../dashboard/images/avatar-3.jpg" alt="">
-								</div>
-							</td>
-							<td>Alex White</td>
-							<td><i class="flags flags-bl"></i></td>
-							<td>15.10.2018</td>
-							<td><i class="payments payments-mastercard"></i></td>
-							<td>3933.00 $</td>
-							<td><span class="status-icon bg-danger"></span> Failed</td>
-							<td>
-								<div class="d-flex justify-content-between mb-5">
-									<span class="text-sm"><b>10%</b></span>
-									<span class="text-sm text-secondary">Jun 11, 2018 - Jul 11, 2018</span>
-								</div>
-								<div class="progress progress-sm">
-									<div class="progress-bar bg-danger" style="width: 10%"></div>
-								</div>
-							</td>
-							<td>
-								<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td>7721</td>
-							<td>
-								<div class="avatar avatar-xs">
-									<img src="../dashboard/images/avatar-4.jpg" alt="">
-								</div>
-							</td>
-							<td>Jessica Evans</td>
-							<td><i class="flags flags-de"></i></td>
-							<td>16.10.2018</td>
-							<td><i class="payments payments-paypal"></i></td>
-							<td>973.00 $</td>
-							<td><span class="status-icon bg-success"></span> Success</td>
-							<td>
-								<div class="d-flex justify-content-between mb-5">
-									<span class="text-sm"><b>100%</b></span>
-									<span class="text-sm text-secondary">Jun 11, 2018 - Jul 11, 2018</span>
-								</div>
-								<div class="progress progress-sm">
-									<div class="progress-bar bg-success" style="width: 100%"></div>
-								</div>
-							</td>
-							<td>
-								<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td>7722</td>
-							<td>
-								<div class="avatar avatar-xs">
-									<img src="../dashboard/images/avatar-5.jpg" alt="">
-								</div>
-							</td>
-							<td>Lily Wilson</td>
-							<td><i class="flags flags-us"></i></td>
-							<td>16.10.2018</td>
-							<td><i class="payments payments-bitcoin"></i></td>
-							<td>312.00 $</td>
-							<td><span class="status-icon bg-success"></span> Success</td>
-							<td>
-								<div class="d-flex justify-content-between mb-5">
-									<span class="text-sm"><b>100%</b></span>
-									<span class="text-sm text-secondary">Jun 11, 2018 - Jul 11, 2018</span>
-								</div>
-								<div class="progress progress-sm">
-									<div class="progress-bar bg-success" style="width: 100%"></div>
-								</div>
-							</td>
-							<td>
-								<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td>7722</td>
-							<td>
-								<div class="avatar avatar-xs">
-									<img src="../dashboard/images/avatar-6.jpg" alt="">
-								</div>
-							</td>
-							<td>Jacob Brown</td>
-							<td><i class="flags flags-gb"></i></td>
-							<td>17.10.2018</td>
-							<td><i class="payments payments-visa"></i></td>
-							<td>4876.00 $</td>
-							<td><span class="status-icon bg-secondary"></span> Pending</td>
-							<td>
-								<div class="d-flex justify-content-between mb-5">
-									<span class="text-sm"><b>0%</b></span>
-									<span class="text-sm text-secondary">Jun 11, 2018 - Jul 11, 2018</span>
-								</div>
-								<div class="progress progress-sm">
-									<div class="progress-bar bg-success" style="width: 0%"></div>
-								</div>
-							</td>
-							<td>
-								<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
-							</td>
-						</tr>
 					</tbody>
+						<% }) %>
+					<% } %>
 				</table>
 			</div>
 		</div>

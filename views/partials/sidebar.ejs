@@ -1,5 +1,6 @@
     <div class="col-sm-8 col-md-6">
-    <div class="panel panel-primary">
+    <% if (infoUser) { %>
+     <div class="panel panel-primary">
         <div class="panel-heading">
             Tài khoản
         </div>
@@ -7,10 +8,10 @@
             <div class="content signed clearfix">
                 <div class="nv-info" style="display:none"></div>
                 <div class="userBlock">
-                    <h3 class="text-center margin-bottom-lg"><span class="lev-user text-normal margin-right">Tài khoản:</span>Đạt Tô</h3>
+                    <h3 class="text-center margin-bottom-lg"><span class="lev-user text-normal margin-right">Tài khoản: </span> <%=infoUser.fullname%></h3>
                     <div class="row margin-bottom-lg">
                         <div class="col-xs-8 text-center">
-                            <a title="" href="#"><img src="../dashboard/images/avatar-0.jpg" alt="Đạt Tô" class="img-thumbnail bg-gainsboro" /></a>
+                            <a title="" href="#"><img src="../lttnpy_core/images/LOGO_LTTNPY.png" alt="avatar-default" class="img-thumbnail bg-gainsboro" /></a>
                         </div>
                         <div class="col-xs-16">
                             <ul class="nv-list-item sm">
@@ -18,7 +19,18 @@
                                     <a href="">Thông tin thành viên</a>
                                 </li>
                                 <li>
-                                    <a href="">Thiết lập tài khoản</a>
+                                <% if (infoUser.role == 100) { %>
+                                    <a href="">Tài khoản: <b>Super Admin</b></a>
+
+                                <% }%>
+
+                                <% if (infoUser.role == 1) { %>
+                                    <a href="">Tài khoản: <b>Giáo viên</b></a>
+                                
+                                <% } else {%>
+                                    <a href="">Tài khoản: <b>Học sinh</b></a>
+                                <% }%>
+                                    
                                 </li>
                                 <li><a href="">Lịch sử thi</a></li>
                                 <li><a href="">Các đề thi đã lưu</a></li>
@@ -36,6 +48,46 @@
             </div>
         </div>
     </div>
+    <% } else {%>
+    <div class="panel panel-primary form-login">
+        <div class="panel-heading">Tài khoản</div>
+            <div class="panel-body">
+                <form autocomplete="off" novalidate>
+                    <div class="nv-info margin-bottom">Đăng nhập thành viên để trải nghiệm đầy đủ các tiện ích trên site. Nếu bạn chưa có tài khoản hãy <a href="/register"><b><u>đăng kí ngay</u></b></a></div>
+                    <div class="form-detail">
+                        <div class="form-group loginstep1">
+                            <div class="input-group">
+                                <span class="input-group-addon"><em class="fa fa-user fa-lg"></em></span>
+                                <input type="text" class="required form-control" id="email" placeholder="Email hoặc số điện thoại" maxlength="100" data-pattern="/^(.){3,}$/" onkeypress="validErrorHidden(this);" data-mess="Tên đăng nhập chưa được khai báo">
+                            </div>
+                        </div>
+
+                        <div class="form-group loginstep1">
+                            <div class="input-group">
+                                <span class="input-group-addon"><em class="fa fa-key fa-lg fa-fix"></em></span>
+                                <input type="password" autocomplete="off" class="required form-control" id="password" placeholder="Mật khẩu" maxlength="100" data-pattern="/^(.){3,}$/" onkeypress="validErrorHidden(this);" data-mess="Mật khẩu đăng nhập chưa được khai báo">
+                            </div>
+                        </div>
+                        <div class="text-center margin-bottom-lg">
+                            <a href="/register"><input type="button" value="Đăng ký" class="btn btn-default" /></a>
+                            <button class="bsubmit btn btn-primary btnDangNhap">Đăng nhập</button>
+                        </div>
+                        <div class="text-center openid-btns">
+                            <div class="btn-group m-bottom btn-group-justified">
+                                <button class="btn openid-facebook disabled" type="button" tabindex="-1"><i class="fa fa-fw fa-facebook"></i></button>
+                                <a class="btn openid-facebook" href="">Đăng nhập với Facebook</a>
+                            </div>
+                            <div class="btn-group m-bottom btn-group-justified">
+                                <button class="btn openid-google disabled" type="button" tabindex="-1"><i class="fa fa-fw fa-google-plus"></i></button>
+                                <a class="btn openid-google" href="">Đăng nhập với Google</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <%}%>
+
     <div class="panel panel-primary">
         <div class="panel-heading">
             Thống kê truy cập
@@ -83,10 +135,9 @@
                                 <%=subject.name%>
                             </a>
                         </li>
-                        <% }) %>
-                            <% } %>
+                    <% }) %>
+                <% } %>
             </ul>
             <div class="clear"></div>
-
         </div>
     </div>

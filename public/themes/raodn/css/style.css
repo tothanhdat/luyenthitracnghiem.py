@@ -253,7 +253,7 @@
 }
 
 .bg-gainsboro{
-    background-color:#dcdcdc
+    
 }
 
 .bg-lavender{
@@ -1941,10 +1941,8 @@ input[type=radio]:checked:before {
 }
 
 .img-thumbnail {
-    background-color: #cccccc;
     border: none;
     border-radius: 3px;
-    max-width: 100%;
     padding: 1px;
 }
 
