@@ -97,17 +97,15 @@
                                                 </div>
                                             </div>
                                         <% } %>
-                                        
                                         <div class="row answer">
                                         <% for(let j=0; j < infoExam.question[i].answer.length; j++) {%>
                                             <div class="answer-item col-xs-12 col-sm-12 col-md-12">
-                                                <label class=" radio_question">
-                                                    <input class="hidden-print" type="radio" value="<%=j+1%>" /> <%-String.fromCharCode(65 + j)%>. <%=infoExam.question[i].answer[j]%>.
+                                                <label class="radio_question">
+                                                    <input class="hidden-print" name="answer[<%=i%>]" type="radio" _question="<%=infoExam.question[i]._id%>" value="<%=j+1%>" /> <%-String.fromCharCode(65 + j)%>. <%=infoExam.question[i].answer[j]%>.
                                                 </label>
                                             </div>
                                         <% } %>
                                         </div>
-                                        
                                     </div>
                                 </div>
                             </div>

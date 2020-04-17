@@ -93,20 +93,28 @@ route.post('/update-question/:questionID', ROLE_ADMIN, uploadMulter.single('imag
 })
 
 route.get('/remove-question/:questionID', ROLE_ADMIN, async (req, res) => {
-    let { questionID } = req.params;
 
-    let resultRemove = await QUESTION_MODEL.remove({ questionID });
-    console.log("=============");
-    console.log({ resultRemove });
+    try {
+        let { questionID } = req.params;
+        let { examID } = req.query;
 
-    let pathOrigin = path.resolve(__dirname, `../../public/storage/images/${resultRemove.data.image}`);
+        let resultRemove = await QUESTION_MODEL.remove({ questionID, examID });
+        console.log("=============");
+        console.log({ resultRemove });
 
-    fs.unlink(pathOrigin, function (err) {
-        if (err) return console.log(err);
-        console.log('file deleted successfully');
-    });
+        let pathOrigin = path.resolve(__dirname, `../../public/storage/images/${resultRemove.data.image}`);
 
-    res.json(resultRemove);
+        fs.unlink(pathOrigin, function (err) {
+            if (err) return console.log(err);
+            console.log('file deleted successfully');
+        });
+
+        res.json(resultRemove);
+
+    } catch (error) {
+        res.json(error.message);
+    }
+    
 })
 
 module.exports = route;

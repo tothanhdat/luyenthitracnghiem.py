@@ -90,7 +90,7 @@ module.exports = class Question extends QUESTION_COLL {
         })
     }
 
-    static remove({ questionID }) {
+    static remove({ questionID, examID }) {
         return new Promise(async resolve => {
             try {
 
@@ -104,9 +104,11 @@ module.exports = class Question extends QUESTION_COLL {
                 if (!infoAfterRemove)
                     return resolve({ error: true, message: 'cannot_remove_data' });
 
-                // let deleteQuestionOfExam = await EXAM_COLL.findByIdAndUpdate(examID, {
-                //     $pull: { question: infoAfterRemove._id }
-                // }, {new: true})
+                let deleteQuestionOfExam = await EXAM_COLL.findByIdAndUpdate(examID, {
+                    $pull: { question: infoAfterRemove._id }
+                }, {new: true})
+
+                console.log({ deleteQuestionOfExam })
 
                 return resolve({ error: false, data: infoAfterRemove, message: "remove_data_success" });
             } catch (error) {

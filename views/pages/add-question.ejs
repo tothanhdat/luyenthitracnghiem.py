@@ -1,6 +1,6 @@
 <%- include ('../dashboard/header') %>
 <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-<main class="content" id="scroll-view">
+<main class="content">
 	<div class="container-fluid">
 		<div class="content-header">
 			<h1>Tạo câu hỏi</h1>
@@ -125,10 +125,10 @@
 										<td>Cho dãy các chất sau: saccarozơ, glucozơ, fructozơ và axetilen. Số chất trong dãy có...</td>
 										<td>
 											<div class="user-panel-actions">
-												<a href="#"></a>
-												<a href="#"><i class="fas fa-pencil-alt btnEditExam" ></i></a>
-												<a href="#"></a>
-												<a href="#"><i class="fas fa-trash-alt btnRemoveExam"></i></a>
+												<a href=""></a>
+												<a href=""><i class="fas fa-pencil-alt btnEditQuestion" ></i></a>
+												<a href=""></a>
+												<a href=""><i class="fas fa-trash-alt btnRemoveQuestion"></i></a>
 											</div>
 										</td>
 									</tr>
@@ -137,7 +137,7 @@
 						</div>
 					</div>
 					<div class="box-footer">
-						<button class="hrefExam"><a href="">Xem trước bộ đề</a></button>
+						<button style="color:blue" class="hrefExam">Xem trước bộ đề</button>
 						<button class="btn btn-primary pull-right btnCompleteExam">Hoàn thành</button>
 					</div>
 				</div>
@@ -244,6 +244,9 @@
                         $('#answerB').val('');
                         $('#answerC').val('');
                         $('#answerD').val('');
+						
+                        $('#image_question').val('');
+						
 
                     } else {
 
@@ -259,14 +262,14 @@
 
 	//Xóa câu hỏi --------------->
 	$(document).on('click', '.btnRemoveQuestion', function(e) {
-
+		e.preventDefault();
 		let examID = $(this).attr('_examID');
 		let questionID = $(this).attr('_questionID');
 		console.log({ examID, questionID})
 
 		if (window.confirm('Bạn có chắc chắn xóa không?')) {
             $.ajax({
-				url: `/question/remove-question/${questionID}`,
+				url: `/question/remove-question/${questionID}?examID=${examID}`,
 				method: 'GET',
 				success: resp => {
 
@@ -299,9 +302,6 @@
 		let examID = $(this).attr('_examID');
 
 		if(!examID){
-			
-			var elmnt = document.getElementById("scroll-view");
-			elmnt.scrollIntoView();
 
 			return toastr['warning']('Bạn chưa chọn bộ đề muốn xem', 'Thông báo');
 
