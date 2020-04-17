@@ -104,7 +104,7 @@
                                         <li><a class="dropdown-toggle" href="/HƯỚNG DẪN LUYỆN THI" title="HƯỚNG DẪN LUYỆN THI">  HƯỚNG DẪN LUYỆN THI</a> </li>
                                         <% if (infoUser) { %>
                                         <li><a class="dropdown-toggle" href="/contact" title="email">  LIÊN HỆ</a> </li>
-                                        <% if (infoUser.role == 1) { %>
+                                        <% if (infoUser.role == 1 || infoUser.role == 100) { %>
                                         <li id="page-dashboard"><a class="dropdown-toggle" href="/dashboard" title="email">  TRANG QUẢN LÝ</a> </li>
                                         <% } %>
                                         <% } else{ %>

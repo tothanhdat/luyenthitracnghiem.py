@@ -22,11 +22,9 @@
                                 <% if (infoUser.role == 100) { %>
                                     <a href="">Tài khoản: <b>Super Admin</b></a>
 
-                                <% }%>
-
-                                <% if (infoUser.role == 1) { %>
+                                <% } else if (infoUser.role == 1){%>
                                     <a href="">Tài khoản: <b>Giáo viên</b></a>
-                                
+
                                 <% } else {%>
                                     <a href="">Tài khoản: <b>Học sinh</b></a>
                                 <% }%>
