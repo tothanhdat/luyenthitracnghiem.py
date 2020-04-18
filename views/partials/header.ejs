@@ -98,7 +98,23 @@
                                             </ul>
                                         </li>
                                         <li><a class="dropdown-toggle" href="/THI THỬ" title="THI THỬ">  THI THỬ</a> </li>
-                                        <li><a class="dropdown-toggle" href="/HỌC SINH" title="HỌC SINH">  HỌC SINH</a> </li>
+                                        <li class="dropdown" role="presentation"><a class="dropdown-toggle" href="" role="button" aria-expanded="false" title="LUYỆN THI">  GIÁO VIÊN <strong class="caret">&nbsp;</strong>
+                                        </a>
+                                            <ul class="dropdown-menu">
+                                            <% if (listSubject && listSubject.length) { %>
+                            					<% listSubject.forEach(subject => { %>
+                                                <li class="dropdown-submenu" value="<%=subject._id%>"><a href="/list-of-subjects?subjectID=<%=subject._id%>" ><%=subject.name%></a>
+                                                    <ul class="dropdown-menu">
+                                                    
+                                                        <li> <a href="" value="<%=subject.teacher%>">GV: <%=subject.teacher%></a></li>
+                                                        
+                                                    </ul>
+                                                </li>
+                                                <% }) %>
+                        					<% } %>
+										</tbody>
+                                            </ul>
+                                        </li>
                                         <li><a class="dropdown-toggle" href="/TÀI LIỆU" title="TÀI LIỆU" onclick="this.target='_blank'">  TÀI LIỆU</a> </li>
                                         <li><a class="dropdown-toggle" href="/TÌM KIẾM" title="TÌM KIẾM">  TÌM KIẾM</a> </li>
                                         <li><a class="dropdown-toggle" href="/HƯỚNG DẪN LUYỆN THI" title="HƯỚNG DẪN LUYỆN THI">  HƯỚNG DẪN LUYỆN THI</a> </li>

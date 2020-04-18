@@ -17,6 +17,7 @@ let renderToView = async function(req, res, view, data) {
     if(token) {
         let user = await jwt.verify(token);
         data.infoUser = user.data;
+        
     } else {
         data.infoUser = undefined;
     }

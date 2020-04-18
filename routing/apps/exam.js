@@ -18,7 +18,7 @@ route.get('/test-exam', checkActive, async (req, res) => {
     let { examID } = req.query;
     let infoExam = await EXAM_MODEL.getInfo({ examID })
 
-    renderToView(req, res, 'pages/test-exam', {  infoExam: infoExam.data });
+    renderToView(req, res, 'pages/test-exam', {  examID, infoExam: infoExam.data });
 })
 
 route.post('/add-exam', ROLE_ADMIN, async (req, res) => {

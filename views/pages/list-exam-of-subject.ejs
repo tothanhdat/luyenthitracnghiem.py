@@ -46,7 +46,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="image pull-left">
-                                        <a href="" title="&#91;MIỄN PHÍ&#93;"><img src="./assets/ehutech.tech/test/2019/images/mac/dlmac-md.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
+                                        <a href="" title="&#91;MIỄN PHÍ&#93;"><img src="../lttnpy_core/images/LOGO_LTTNPY.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
                                     </div>
                                     <h2 style="text-transform: uppercase">
                                         <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%>: <%=exam.name%></strong></a>
@@ -57,6 +57,7 @@
                                         <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: 0</li>
                                     </ul>
                                     <p class="hometext" ><%=exam.name%>: <%=exam.description%></p>
+                                    <p class="hometext" >Người tạo: <%=exam.author.fullname%></p>
                                 </div>
                             </div>
                             <% }) %>

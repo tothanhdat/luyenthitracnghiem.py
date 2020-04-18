@@ -38,7 +38,7 @@ module.exports = class Exam extends EXAM_COLL {
     static getList() {
         return new Promise(async resolve => {
             try {
-                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 }).limit(5);
+                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 });
 
                 if (!listExam) return resolve({ error: true, message: 'cannot_get_list_data' });
 
@@ -50,12 +50,13 @@ module.exports = class Exam extends EXAM_COLL {
             }
         })
     }
+    
     //Danh sách bộ đề theo môn học
     static getListOfSubjects({ subjectID }) {
         return new Promise(async resolve => {
             try {
                 let listExamOfSubject = await EXAM_COLL.find({ subjects: subjectID })
-                .populate('subjects');
+                .populate('subjects author');
 
                 if (!listExamOfSubject) return resolve({ error: true, message: 'cannot_get_list_data' });
 

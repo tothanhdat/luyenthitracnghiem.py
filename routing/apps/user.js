@@ -98,7 +98,7 @@ route.post('/login', async (req, res) => {
 //ĐĂNG XUẤT
 route.get('/logout', async (req, res) => {
     req.session.token = undefined;
-    res.redirect('/');
+    return res.redirect('/');
 })
 
 

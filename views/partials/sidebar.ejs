@@ -88,7 +88,7 @@
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            Thống kê truy cập
+            Thống kê truy cập (Đang phát triển)
         </div>
         <div class="panel-body">
             <ul class="counter list-none display-table">
@@ -129,7 +129,7 @@
                 <% if (listSubject && listSubject.length) { %>
                     <% listSubject.forEach(subject => { %>
                         <li>
-                            <a title="Toán Cao Cấp" href="">
+                            <a title="Toán Cao Cấp" href="/list-of-subjects?subjectID=<%=subject._id%>">
                                 <%=subject.name%>
                             </a>
                         </li>

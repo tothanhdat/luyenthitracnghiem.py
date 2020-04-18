@@ -4,10 +4,10 @@ module.exports = async function (req, res, next) {
     let { token } = req.session;
     //console.log({ token })
     if (!token)
-        res.redirect('/');
+        return res.redirect('/');
     let checkRole = await verify(token);
     
     if (checkRole.data.role != 100)
-        res.redirect('/dashboard');
+        return res.redirect('/dashboard');
     next();
 }

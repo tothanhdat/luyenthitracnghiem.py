@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-8 col-xs-10 col-sm-24 col-md-8 text-center" style="position: absolute; right: 0;">
-                                <button type="submit" name="submit" class="btn btn-success" onclick="nv_save_test(0);">
+                                <button type="submit" name="submit" class="btn btn-success btnSendTest">
                                     <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
                                 </button>
                                 &nbsp; <a href="/home" class="cancelLink"> Thoát </a>
@@ -81,11 +81,11 @@
                         <div id="questionlist" data-exam-id="47">
                         <% for(let i=0; i < infoExam.question.length; i++) {%>
                             <div class="question-box">
-                                <div class="panel panel-default question-item " id="question_1" data-question-number="1">
+                                <div class="panel panel-default question-item " data-question-number="1">
                                     <div class="panel-body">
                                         <p class="m-bottom question">
-                                            <strong class="text-red">Câu hỏi <%=i+1%>:</strong> <b><span lang="VI" style="font-size:12.0pt">
-                                            <span style="line-height:107%"><span style="font-family:&#039;SF UI Display&#039;">
+                                            <strong class="text-red questionOfExam" _examID = "<%=infoExam._id%>">Câu hỏi <%=i+1%>:</strong><b><span lang="VI" style="font-size:12.0pt">
+                                            <span style="line-height:107%"><span>
                                             <%-infoExam.question[i].name%></span></span></span></b>
                                         </p>
                                         <% if (infoExam.question[i].image) { %>
@@ -115,10 +115,10 @@
                     <div class="clearfix"></div>
                     <% if (infoExam.question.length) { %>
                     <div class="text-center">
-                        <button type="submit" name="submit" class="btn btn-success" onclick="nv_save_test(0);">
+                        <button type="submit" name="submit" class="btn btn-success btnSendTest">
                             <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
                         </button>
-                        &nbsp; <a href="" class="cancelLink" onclick="nv_exit_test()"> Thoát </a>
+                        &nbsp; <a href="" class="cancelLink"> Thoát </a>
                     </div>
                     <% } else {%>
                     <h2 style="text-align: center;">Hiện tại chưa có câu hỏi nào</h2>
@@ -128,4 +128,17 @@
         </div>
 <%- include ('../partials/sidebar') %>
 <%- include ('../partials/footer') %>
+
+<script>
+
+    $(document).on('click', '.btnSendTest', function (e) {
+		e.preventDefault();
+        let resultTest = [];
+
+        let examID = $('.questionOfExam').attr('_examID')
+        console.log({ examID })
+        
+
+	});
+</script>
 
