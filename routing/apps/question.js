@@ -99,7 +99,6 @@ route.get('/remove-question/:questionID', ROLE_ADMIN, async (req, res) => {
         let { examID } = req.query;
 
         let resultRemove = await QUESTION_MODEL.remove({ questionID, examID });
-        console.log("=============");
         console.log({ resultRemove });
 
         let pathOrigin = path.resolve(__dirname, `../../public/storage/images/${resultRemove.data.image}`);

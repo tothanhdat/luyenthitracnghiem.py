@@ -34,11 +34,6 @@ route.get('/dashboard', ROLE_ADMIN, async (req, res) => {
     renderToView(req, res, 'pages/dashboard-admin', {  })
 })
 
-//TRANG HOME
-route.get('/home', async (req, res) => {
-    renderToView(req, res, 'pages/home', {  })
-})
-
 //TRANG 404
 route.get('/page-not-found', async (req, res) => {
     renderToView(req, res, 'pages/page-404', {  })
@@ -57,7 +52,7 @@ route.get('/test-exam', checkActive, async (req, res) => {
 })
 
 //TRANG DANH SÁCH BỘ ĐỀ THEO MÔN HỌC
-route.get('/list-of-subjects', checkActive, async (req, res) => {
+route.get('/list-of-subjects', async (req, res) => {
     let { subjectID } = req.query;
     let listExamOfSubject = await EXAM_MODEL.getListOfSubjects({ subjectID });
     console.log( listExamOfSubject.data )

@@ -29,13 +29,14 @@
 	<div class="wrapper">
 		<main class="content px-10">
 			<div class="row">
-				<div class="col-md-6 offset-md-3 col-lg-3 offset-lg-4">
-					<a href="/home" class="logo justify-content-center text-primary">
+				<div class="col-md-3 offset-md-3 col-lg-3 offset-lg-4">
+					<a href="/" class="logo col-lg-8 justify-content-center text-primary">
 						<img src="../lttnpy_core/images/LOGO_LTTNPY.png" alt="">
 					</a>
+					<br>
 					<form class="box needs-validation" novalidate>
 						<div class="box-header justify-content-center">
-							<h3>Đăng nhập</h3>
+							<h3>Đăng ký</h3>
 						</div>
 						<div class="box-body">
                         <div class="form-group">
@@ -45,7 +46,7 @@
 							</div>
 							<div class="form-group">
 								<label>Email/Số điện thoại</label>
-								<input id="email" required type="email" class="form-control" placeholder="Nhập email hoặc số điện thoại.">
+								<input id="email" required type="email" class="form-control" placeholder="vd: lltnpy@gmail.com">
 								<span class="invalid-feedback">Nhập Email hoặc số điện thoại.</span>
 							</div>
 							<div class="form-group">
@@ -97,7 +98,11 @@
 
 			return toastr.warning('Các trường không được để trống', 'Thông báo')
 			
-        } else {
+        } else if (email.length < 6 || password.length < 6 || fullname.length < 4){
+
+			return toastr.warning('Email, password phải trên 6 kí tự', 'Thông báo')
+
+		} else {
             $.ajax({
                 url: `/register`,
                 method: 'POST',
@@ -110,7 +115,7 @@
 
                     if (!resp.error) {
 						alert("Đăng ký thành công")
-                        return window.location.href = `/home`;
+                        return window.location.href = `/`;
 
                     } else {
 

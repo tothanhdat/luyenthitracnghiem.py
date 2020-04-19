@@ -1,8 +1,8 @@
 1. [ĐÃ FIX] Lỗi khi đăng nhập tài khoản thường. vào trang dashboard không trả về được trang /home mà báo Lỗi (1:00AM - 4/9/2020)
 2. [ĐÃ FIX] Lỗi khi thêm câu hỏi nếu không có image thì thêm không đc (không bắt buộc có image) 14/04/2020 -- 00:30AM
 3. [ĐÃ FIX] Lỗi khi xóa câu hỏi thì tự động sẽ xóa luôn câu hỏi trong mảng của bộ đề, exam { answer[questionID] } 14/04/2020 -- 00:30AM
-4. [ĐÃ XONG]Thêm giao diện nếu có image trong câu hỏi.
-5. Xử lý chức năng chấm điểm
+4. [ĐÃ XONG] Thêm giao diện nếu có image trong câu hỏi.
+5. [ĐÃ XONG] Xử lý chức năng chấm điểm
 6. [ĐÃ XONG] Thiết kế lại col.. Khi sử dụng các chức năng admin phải biết người tạo (userID)
 //XỬ LÝ LUỒNG
 7.[ĐÃ XONG]TRUY CẬP VÀO HỆ THỐNG... vào trang home ->> cần phải đăng nhập để thực hiện các thao tác
@@ -18,3 +18,6 @@ Hoc sinh: email: phanvande, password: 1
 Super Admin: email: 0966225624, password: tothanhdat123
 
 Số lượng câu hỏi: Lấy từ trong db (exam.question.length)
++ Nếu câu hỏi và câu trả lời này giống câu hỏi và câu trả lời trong db thì push câu hỏi đó vào mảng
+
+CÁCH XÁC ĐỊNH CÂU CHƯA LÀM: NẾU TRONG MẢNG CỦA BÀI NỘP KHÔNG CHỨA QUESTIONID CỦA BỘ ĐỀ THÌ CHƯA LÀM CÂU HỎI ĐÓ

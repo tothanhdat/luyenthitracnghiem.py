@@ -54,18 +54,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8 col-xs-24 col-sm-12 col-md-8">
-                                <div id="timer-box">
-                                    <span class="float-left affix_hidden">Thời gian còn lại: </span>
-                                    <div id="countdown" class="float-left red" data-seconds-left="579"></div>
-                                    <span class="float-left red">&nbsp;10 phút </span>
-                                </div>
-                            </div>
                             <div class="col-lg-8 col-xs-10 col-sm-24 col-md-8 text-center" style="position: absolute; right: 0;">
                                 <button type="submit" name="submit" class="btn btn-success btnSendTest">
                                     <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
                                 </button>
-                                &nbsp; <a href="/home" class="cancelLink"> Thoát </a>
+                                &nbsp; <a href="/" class="cancelLink"> Thoát </a>
                             </div>
                         </div>
                     </div>
@@ -74,15 +67,15 @@
                 </div>
                 <div class="testing m-bottom get_width" id="top">
                     <form action="" method="post" id="frm-submit" class="col-xs-24 col-sm-24 col-md-24">
-                        <input type="hidden" value="1" name="save_test" />
-                        <input type="hidden" value="47" name="exam_id" />
-                        <input type='hidden' id='current_page' />
-                        <input type='hidden' id='show_per_page' />
+                        <input type="hidden" value="1" name="save_test"/>
+                        <input type="hidden" value="47" name="exam_id"/>
+                        <input type='hidden' id='current_page'/>
+                        <input type='hidden' id='show_per_page'/>
                         <div id="questionlist" data-exam-id="47">
                         <% for(let i=0; i < infoExam.question.length; i++) {%>
                             <div class="question-box">
                                 <div class="panel panel-default question-item " data-question-number="1">
-                                    <div class="panel-body">
+                                    <div class="panel-body" id="question<%=i+1%>">
                                         <p class="m-bottom question">
                                             <strong class="text-red questionOfExam" _examID = "<%=infoExam._id%>">Câu hỏi <%=i+1%>:</strong><b><span lang="VI" style="font-size:12.0pt">
                                             <span style="line-height:107%"><span>
@@ -100,8 +93,8 @@
                                         <div class="row answer">
                                         <% for(let j=0; j < infoExam.question[i].answer.length; j++) {%>
                                             <div class="answer-item col-xs-12 col-sm-12 col-md-12">
-                                                <label class="radio_question">
-                                                    <input class="hidden-print" name="answer[<%=i%>]" type="radio" _question="<%=infoExam.question[i]._id%>" value="<%=j+1%>" /> <%-String.fromCharCode(65 + j)%>. <%=infoExam.question[i].answer[j]%>.
+                                                <label class="radio_question" >
+                                                    <input class="hidden-print selection chooseAnswer" _numberQus="<%= i + 1%>"  name="answer<%=i + 1%>" type="radio" _question="<%=infoExam.question[i]._id%>" value="<%=j+1%>" /> <%-String.fromCharCode(65 + j)%>. <%=infoExam.question[i].answer[j]%>.
                                                 </label>
                                             </div>
                                         <% } %>
@@ -131,14 +124,66 @@
 
 <script>
 
+    let correctNumber = 0;
+
     $(document).on('click', '.btnSendTest', function (e) {
 		e.preventDefault();
-        let resultTest = [];
+        let examID = $('.questionOfExam').attr('_examID');
+        let falseArr = [];
+		
+		if(examID){
+            if (window.confirm('Bạn có chắc chắn nộp bài không?')) {
+                $.ajax({
+                    url: `/exam/info-exam/${examID}`,
+                    method: 'GET',
+                    success: resp => {
+                        if(!resp.error){
+                            let infoExam = resp.data;
+                            for(let i=0 ; i < arrResult.length; i++){
+                                for(let j=0; j < infoExam.question.length; j++){
 
-        let examID = $('.questionOfExam').attr('_examID')
-        console.log({ examID })
-        
+                                    if(arrResult[i].questionID == infoExam.question[j]._id && arrResult[i].correct == infoExam.question[j].correct ){
+                                        correctNumber += 1;
+                                    }
+                                }
+                            }
+
+                            let falseNumber = infoExam.question.length - correctNumber;
+                            console.log(`Số câu sai: ${falseNumber}`);
+
+                            console.log(`Số câu đúng: ${correctNumber}`);
+
+                            let point = (10/infoExam.question.length)*correctNumber;
+                            console.log(`Điểm của bạn là: ${point}`);
+                        }
+                        
+
+                        correctNumber = 0; //set lại số điểm = 0;
+                    },
+                    error: err => console.log({ err })
+                });
+            }
+		}
 
 	});
+
+    let arrResult = [];
+    $(`.chooseAnswer`).on('change', function() {
+        let questionID = $(this).attr('_question');
+        let numberQus = $(this).attr('_numberQus');
+        let correct =  $(`input[name="answer${numberQus}"]:checked`).val();
+
+        if(questionID && correct ){
+            for (var i =0; i < arrResult.length; i++){
+                if (arrResult[i].questionID === questionID) {
+                    arrResult.splice(i,1);
+                    break;
+                }
+            }
+            arrResult.push({ questionID, correct })
+            console.log(arrResult)
+        }
+    });
+
 </script>
 

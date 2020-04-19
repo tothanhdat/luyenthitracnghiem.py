@@ -39,7 +39,7 @@ module.exports = class Question extends QUESTION_COLL {
                 //console.log(dataInsert)
 
                 let infoAfterInsert = new QUESTION_COLL(dataInsert);
-                console.log({ infoAfterInsert })
+                //console.log({ infoAfterInsert })
                 let saveDataInsert = await infoAfterInsert.save();
 
                 if (!saveDataInsert) return resolve({ error: true, message: 'cannot_insert_data' });
@@ -99,7 +99,7 @@ module.exports = class Question extends QUESTION_COLL {
 
                 let infoAfterRemove = await QUESTION_COLL.findByIdAndDelete(questionID);
 
-                console.log({ infoAfterRemove })
+                //console.log({ infoAfterRemove })
 
                 if (!infoAfterRemove)
                     return resolve({ error: true, message: 'cannot_remove_data' });
@@ -108,7 +108,7 @@ module.exports = class Question extends QUESTION_COLL {
                     $pull: { question: infoAfterRemove._id }
                 }, {new: true})
 
-                console.log({ deleteQuestionOfExam })
+                //console.log({ deleteQuestionOfExam })
 
                 return resolve({ error: false, data: infoAfterRemove, message: "remove_data_success" });
             } catch (error) {

@@ -8,7 +8,7 @@ module.exports = async function (req, res, next) {
     let checkRole = await verify(token);
     
     if (checkRole.data.role != 1 && checkRole.data.role != 100)
-        return res.redirect('/home');
+        return res.redirect('/');
         
     next();
 }

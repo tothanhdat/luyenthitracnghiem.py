@@ -46,7 +46,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="image pull-left">
-                                        <a href="" title="&#91;MIỄN PHÍ&#93;"><img src="../lttnpy_core/images/LOGO_LTTNPY.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
+                                        <a href="/exam?examID=<%=exam._id%>" title="&#91;MIỄN PHÍ&#93;"><img src="../lttnpy_core/images/LOGO_LTTNPY.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
                                     </div>
                                     <h2 style="text-transform: uppercase">
                                         <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%>: <%=exam.name%></strong></a>
@@ -86,7 +86,7 @@
         let password = $('#password').val().trim();
 
         if (email.length < 1 || password.length < 1) {
-            alert("Email va password khong duoc de trong")
+            toastr['warning']('Email hoặc mật khẩu không được để trống', 'Thông báo');
         } else {
             $.ajax({
                 url: `/login`,
@@ -100,7 +100,7 @@
 
                     if (!resp.error) {
                         alert('Đăng nhập thành công');
-                        window.location.href = `/home`;
+                        window.location.href = `/`;
 
                     } else {
 
