@@ -21,6 +21,11 @@ route.get('/test-exam', checkActive, async (req, res) => {
     renderToView(req, res, 'pages/test-exam', {  examID, infoExam: infoExam.data });
 })
 
+route.get('/result', checkActive, async (req, res) => {
+    
+    renderToView(req, res, 'pages/result-test-exam', { });
+})
+
 route.post('/add-exam', ROLE_ADMIN, async (req, res) => {
 
     let userIDfromSession = req.session; //Đã gán req.session.user

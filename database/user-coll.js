@@ -15,6 +15,12 @@ const userSchema = new Schema({
      * 100. Super Admin
      */
     role: { type: Number, default: 0 },
+
+    result: [{
+        type: Schema.Types.ObjectId,
+        ref: "result",
+        default: []
+    }],
 });
 
 const USER_MODEL = mongoose.model('user', userSchema);

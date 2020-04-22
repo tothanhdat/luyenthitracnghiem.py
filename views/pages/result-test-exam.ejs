@@ -1,0 +1,136 @@
+<%- include ('../partials/header') %>
+<div class="container-fluid" id="body">
+    <nav class="third-nav">
+        <div class="row">
+            <div class="bg">
+            <div class="clearfix">
+                <div class="col-xs-24 col-sm-18 col-md-18">
+                    <div class="breadcrumbs-wrap">
+                        <div class="display">
+                            <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
+                            <ul class="breadcrumbs list-none"></ul>
+                        </div>
+                        <ul class="subs-breadcrumbs"></ul>
+                        <ul class="temp-breadcrumbs hidden">
+                            <li><a href="" title="Trang nhất"><span>Trang nhất</span></a></li>
+                            <li><a href="" title="Trắc nghiệm"><span class="txt" itemprop="title">Trắc nghiệm</span></a></li>
+                            <li><a href="" title="TIẾNG ANH"><span class="txt" itemprop="title">TIẾNG ANH</span></a></li>
+                            <li><a href="" title="Bộ đề 1"><span class="txt" itemprop="title">Bộ đề 1</span></a></li>
+                            <li><a href="" title="&#91;MIỄN PHÍ&#93;"><span class="txt" itemprop="title">&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-xs-24 col-sm-15 col-md-15">
+        <!--Start of Tawk.to Script-->
+        <!--End of Tawk.to Script-->
+    </div>
+    <div class="col-xs-24 col-sm-9 col-md-9">
+    </div>
+</div>
+<div class="row" id="test">
+    <div class="col-sm-16 col-md-18">
+        <div id="breadcrumbs_mobile" class="col-xs-24 col-sm-24 box-coll hidden-lg hiddent-md ">
+            <div class="col-xs-20 col-sm-20 title"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="detail view-list">
+            <div class="panel panel-default result_width edit_panel">
+                <!--         <div class="panel-heading">Thông tin đề thi</div> -->
+                <div class="panel-body edit_panel">
+                    <h1 class="m-bottom affix_hidden">&#91;MIỄN PHÍ&#93; Bộ đề 1: [Tiếng Anh] Bộ đề học sinh giỏi</h1>
+                    <div class="row">
+                        <div class="col-lg-12 col-xs-24 col-sm-24 col-md-12 affix_hidden">
+                            <div class="row exam-info">
+                                <div class="col-xs-24 col-sm-12 col-md-8">
+                                    <label>Số câu</label>: 40
+                                </div>
+                                <div class="col-xs-24 col-sm-12 col-md-16">
+                                    <label>Thời gian làm bài</label>: 90 phút
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-xs-10 col-sm-24 col-md-8 text-center" style="position: absolute; right: 0;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Kết quả:</div>
+                <div class="panel-body" style="text-align: center;">
+                    <h2>Kết quả bài thi trắc nghiệm:</h2> <br />  Điểm của bạn là:  <strong style="color: tomato; font-size: 25px"><%console.log(point)%><%=point%></strong><br />
+                    <br />  Số câu trả lời đúng: <strong style="color: green; font-size: 20px">34</strong> <br />
+                    <br />  Số câu trả lời sai: <strong style="color: red; font-size: 20px">6</strong> <br />
+                    <br />   Chúc bạn sẽ làm tốt hơn ở các bài kiểm tra khác. Good luck!! </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="socialicon list-inline">
+                        <li class="facebook">
+                            <div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true">&nbsp;</div>
+                        </li>
+                        <li>
+
+                            <div class="zalo-share-button" data-href="" data-oaid="" data-layout="1" data-color="blue" data-customize=false></div>
+                        </li>
+                        <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="idcomment" class="nv-fullbg">
+                        <div class="row clearfix margin-bottom-lg">
+                            <div class="col-xs-12 text-left">
+                                <p class="comment-title"><em class="fa fa-comments">&nbsp;</em> Ý kiến bạn đọc</p>
+                            </div>
+                            <div class="col-xs-12 text-right">
+                                <select id="sort" class="form-control">
+                                    <option value="0" selected="selected">Sắp xếp theo bình luận mới</option>
+                                    <option value="1">Sắp xếp theo bình luận cũ</option>
+                                    <option value="2">Sắp xếp theo số lượt thích</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="formcomment" class="comment-form">
+                            <form method="post" role="form" target="submitcommentarea" action="" data-module="test" data-content="test_commentcontent" data-area="80" data-id="47" data-allowed="4" data-checkss="2c6526a34e17105e4228e090ae9d7d7a" data-gfxnum="0" data-editor="0">
+                                <input type="hidden" name="module" value="test" />
+                                <input type="hidden" name="area" value="80" />
+                                <input type="hidden" name="id" value="47" />
+                                <input type="hidden" id="commentpid" name="pid" value="0" />
+                                <input type="hidden" name="allowed" value="4" />
+                                <input type="hidden" name="checkss" value="2c6526a34e17105e4228e090ae9d7d7a" />
+                                <div class="form-group clearfix">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <input id="commentname" type="text" name="name" value="Đạt Tô" disabled="disabled" class="form-control" placeholder="Tên của bạn" />
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <input id="commentemail_iavim" type="text" name="email" value="todat998@gmail.com" disabled="disabled" class="form-control" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <textarea class="form-control" style="width: 100%" name="content" id="commentcontent" cols="20" rows="5"></textarea>
+                                </div>
+                                <div class="form-group text-center">
+                                    <input id="reset-cm" type="button" value="Thiết lập lại" class="btn btn-default" />
+                                    <input id="buttoncontent" type="submit" value="Gửi bình luận" class="btn btn-primary" />
+                                </div>
+                            </form>
+                            <iframe class="hidden" id="submitcommentarea" name="submitcommentarea"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include ('../partials/sidebar') %>
+<%- include ('../partials/footer') %>

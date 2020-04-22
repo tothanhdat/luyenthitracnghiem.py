@@ -130,6 +130,7 @@
 		e.preventDefault();
         let examID = $('.questionOfExam').attr('_examID');
         let falseArr = [];
+        let trueArr = [];
 		
 		if(examID){
             if (window.confirm('Bạn có chắc chắn nộp bài không?')) {
@@ -142,22 +143,33 @@
                             for(let i=0 ; i < arrResult.length; i++){
                                 for(let j=0; j < infoExam.question.length; j++){
 
+                                    if(arrResult[i].questionID == infoExam.question[j]._id && arrResult[i].correct.toString() !== infoExam.question[j].correct.toString() ){
+                                        falseArr.push(arrResult[i].questionID)
+                                    }
+
                                     if(arrResult[i].questionID == infoExam.question[j]._id && arrResult[i].correct == infoExam.question[j].correct ){
                                         correctNumber += 1;
+                                        trueArr.push(arrResult[i].questionID)
                                     }
                                 }
                             }
 
-                            let falseNumber = infoExam.question.length - correctNumber;
-                            console.log(`Số câu sai: ${falseNumber}`);
+                            let dontCompleteNumber = infoExam.question.length - arrResult.length;
 
-                            console.log(`Số câu đúng: ${correctNumber}`);
+                            // console.log(`Số câu sai: ${falseNumber}`);
+
+                            console.log(`Câu chưa làm: ${dontCompleteNumber}`);
+
+                            console.log(`Những câu sai: ${falseArr}`);
+
+                            console.log(`Những câu đúng: ${trueArr}`);
+
 
                             let point = (10/infoExam.question.length)*correctNumber;
                             console.log(`Điểm của bạn là: ${point}`);
-                        }
-                        
 
+                            window.location.href=`/result-exam?point=${point}`
+                        }
                         correctNumber = 0; //set lại số điểm = 0;
                     },
                     error: err => console.log({ err })

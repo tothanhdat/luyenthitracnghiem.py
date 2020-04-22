@@ -51,6 +51,12 @@ route.get('/test-exam', checkActive, async (req, res) => {
     renderToView(req, res, 'pages/test-exam', {  infoExam: infoExam.data });
 })
 
+//TRANG kết quả
+route.get('/result-exam', checkActive, async (req, res) => {
+    let point = req.query;
+    renderToView(req, res, 'pages/result-test-exam', { point });
+})
+
 //TRANG DANH SÁCH BỘ ĐỀ THEO MÔN HỌC
 route.get('/list-of-subjects', async (req, res) => {
     let { subjectID } = req.query;
