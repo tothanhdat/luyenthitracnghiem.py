@@ -48,7 +48,7 @@ route.get('/list-exam', ROLE_ADMIN, async (req, res) => {
 
 
 
-route.get('/info-exam/:examID', ROLE_ADMIN, async (req, res) => {
+route.get('/info-exam/:examID', checkActive, async (req, res) => {
     let { examID } = req.params;
     
     // Kiểm tra quyền/check về logic (nếu có)

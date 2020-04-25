@@ -48,7 +48,7 @@
                         <div class="col-lg-12 col-xs-24 col-sm-24 col-md-12 affix_hidden">
                             <div class="row exam-info">
                                 <div class="col-xs-24 col-sm-12 col-md-8">
-                                    <label>Số câu</label>: 40
+                                    <label>Số câu</label>: <%=infoResult.exam.question.length%>
                                 </div>
                                 <div class="col-xs-24 col-sm-12 col-md-16">
                                     <label>Thời gian làm bài</label>: 90 phút
@@ -62,11 +62,43 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">Kết quả:</div>
-                <div class="panel-body" style="text-align: center;">
-                    <h2>Kết quả bài thi trắc nghiệm:</h2> <br />  Điểm của bạn là:  <strong style="color: tomato; font-size: 25px"><%console.log(point)%><%=point%></strong><br />
-                    <br />  Số câu trả lời đúng: <strong style="color: green; font-size: 20px">34</strong> <br />
-                    <br />  Số câu trả lời sai: <strong style="color: red; font-size: 20px">6</strong> <br />
-                    <br />   Chúc bạn sẽ làm tốt hơn ở các bài kiểm tra khác. Good luck!! </div>
+                <div class="panel-body" >
+                    <h2 >Kết quả bài thi trắc nghiệm:</h2> <br />  Tài khoản:  <strong style="color: #1a3f5e; font-size: 20px"><%=infoResult.author.fullname%></strong><br />
+                    <br />  Điểm của bạn là:  <strong style="color: tomato; font-size: 20px"><%=infoResult.point%></strong><br />
+                    <br />  Số câu trả lời đúng: <strong style="color: green; font-size: 20px"><%=infoResult.trueArr.length%></strong> <br />
+                    <br />  Số câu trả lời sai: <strong style="color: red; font-size: 20px"><%=infoResult.falseArr.length%></strong> <br />
+                    <br />  Câu trả lời đúng: 
+                    <% if (infoExam.question && infoExam.question.length) { %>
+                        <% infoExam.question.forEach(question => { %>
+                            <% infoResult.trueArr.forEach(questionTrue => { %>
+
+                                <% if (question._id.toString() == questionTrue.toString()) { %>
+                                    Câu <%=infoExam.question.indexOf(question) + 1%>, 
+                                <% } %>
+                            <% }) %>
+                        <% }) %>
+                    <% } %>
+                    <br />
+
+                    <br />  Câu trả lời sai: 
+                    <% if (infoExam.question && infoExam.question.length) { %>
+                        <% infoExam.question.forEach(question => { %>
+                            <% infoResult.falseArr.forEach(questionFalse => { %>
+                                <% if (question._id.toString() == questionFalse.toString()) { %>
+                                    Câu <%=infoExam.question.indexOf(question) + 1%>,
+                                <% } %>
+                            <% }) %>
+                        <% }) %>
+                    <% } %>
+                    <br /> 
+                    <br />Số câu chưa hoàn thành: <%=infoResult.unfinishQuestion%> <br />
+                    <% if (infoResult.point > 7) { %>
+                    <br />  <p style="text-align: center;">Thật tuyệt vời!! Bạn đã làm rất tốt </p> </div>
+                    <% } else {%>
+                    <br />  <p style="text-align: center;">Bạn cần cố gắng hơn ở các bài kiểm tra lần sau nhé.. Good luck!! </p> </div>
+                    <% } %>
+                    <a href="/"><p style="text-align: center;">Quay lại trang chủ</p> </a>
+                    </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -108,10 +140,10 @@
                                 <div class="form-group clearfix">
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <input id="commentname" type="text" name="name" value="Đạt Tô" disabled="disabled" class="form-control" placeholder="Tên của bạn" />
+                                            <input id="commentname" type="text" name="name" value="<%=infoResult.author.fullname%>" disabled="disabled" class="form-control" placeholder="Tên của bạn" />
                                         </div>
                                         <div class="col-xs-12">
-                                            <input id="commentemail_iavim" type="text" name="email" value="todat998@gmail.com" disabled="disabled" class="form-control" placeholder="Email" />
+                                            <input id="commentemail_iavim" type="text" name="email" value="" disabled="disabled" class="form-control" placeholder="Email" />
                                         </div>
                                     </div>
                                 </div>
@@ -134,3 +166,5 @@
 
 <%- include ('../partials/sidebar') %>
 <%- include ('../partials/footer') %>
+
+

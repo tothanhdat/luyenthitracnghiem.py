@@ -5,6 +5,18 @@ const ResultSchema = new Schema({
 
     point: String,
 
+    falseArr: [{
+        type: Schema.Types.ObjectId,
+        ref : "question",
+        default: [],
+    }],
+
+    trueArr: [{
+        type: Schema.Types.ObjectId,
+        ref : "question",
+        default: [],
+    }],
+
     author: {
         type: Schema.Types.ObjectId,
         ref : "user"
@@ -15,8 +27,10 @@ const ResultSchema = new Schema({
         ref : "exam"
     },
 
+    unfinishQuestion: String,
+
     createAt: { type: Date, required: true, default: Date.now }
 });
 
-const RESULT_MODEL = mongoose.model('point', ResultSchema);
+const RESULT_MODEL = mongoose.model('result', ResultSchema);
 module.exports  = RESULT_MODEL;

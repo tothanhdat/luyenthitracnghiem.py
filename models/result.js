@@ -3,7 +3,7 @@ const RESULT_COLL = require('../database/result-coll');
 
 module.exports = class Result extends RESULT_COLL {
 
-    static insert({ point, examID, userID }) {
+    static insert({ point, falseArr, trueArr, examID, unfinishQuestion, userID }) {
         return new Promise(async resolve => {
             try {
 
@@ -12,6 +12,9 @@ module.exports = class Result extends RESULT_COLL {
 
                 let dataInsert = { 
                     point,
+                    falseArr,
+                    trueArr,
+                    unfinishQuestion,
                     author: userID
                 };
                 
@@ -19,8 +22,11 @@ module.exports = class Result extends RESULT_COLL {
                 if(examID && ObjectID.isValid(examID)){
                     dataInsert.exam = examID;
                 }
+                console.log(`dataInsert: ${dataInsert}`)
 
                 let infoAfterInsert = new RESULT_COLL(dataInsert);
+                console.log(`infoAfterInsert: ${infoAfterInsert}`);
+                
                 let saveDataInsert = await infoAfterInsert.save();
 
                 if (!saveDataInsert) return resolve({ error: true, message: 'cannot_insert_point' });
@@ -57,7 +63,7 @@ module.exports = class Result extends RESULT_COLL {
                 if (!ObjectID.isValid(resultID))
                     return resolve({ error: true, message: 'params_invalid' });
 
-                let infoResult = await RESULT_COLL.findById(resultID);
+                let infoResult = await RESULT_COLL.findById(resultID).populate('author exam');
 
                 if (!infoResult) return resolve({ error: true, message: 'cannot_get_info_data' });
 
@@ -88,7 +94,7 @@ module.exports = class Result extends RESULT_COLL {
         })
     }
 
-    static update({ resultID, point, examID, userID }) {
+    static update({ resultID, point, falseArr, trueArr, examID, userID, unfinishQuestion }) {
         return new Promise(async resolve => {
             try {
 
@@ -99,7 +105,10 @@ module.exports = class Result extends RESULT_COLL {
 
                 let dataUpdate = {
                     point, 
-                    examID, 
+                    examID,
+                    falseArr,
+                    trueArr,
+                    unfinishQuestion,
                     userUpdate: userID
                 }
                 

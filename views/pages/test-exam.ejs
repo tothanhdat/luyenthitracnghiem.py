@@ -47,7 +47,7 @@
                             <div class="col-lg-8 col-xs-16 col-sm-12 col-md-8 affix_hidden">
                                 <div class="row exam-info">
                                     <div class="col-xs-24 col-sm-12 col-md-8">
-                                        <label>Số câu</label>: 40
+                                        <label>Số câu</label>: <%=infoExam.question.length%>
                                     </div>
                                     <div class="col-xs-24 col-sm-12 col-md-16">
                                         <label>Thời gian</label>: 90 phút
@@ -124,57 +124,115 @@
 
 <script>
 
-    let correctNumber = 0;
-
     $(document).on('click', '.btnSendTest', function (e) {
 		e.preventDefault();
         let examID = $('.questionOfExam').attr('_examID');
+
+        let correctNumber = 0;
+        let unfinishQuestion;
         let falseArr = [];
         let trueArr = [];
+        let point;
 		
 		if(examID){
-            if (window.confirm('Bạn có chắc chắn nộp bài không?')) {
                 $.ajax({
                     url: `/exam/info-exam/${examID}`,
                     method: 'GET',
                     success: resp => {
                         if(!resp.error){
                             let infoExam = resp.data;
-                            for(let i=0 ; i < arrResult.length; i++){
                                 for(let j=0; j < infoExam.question.length; j++){
-
-                                    if(arrResult[i].questionID == infoExam.question[j]._id && arrResult[i].correct.toString() !== infoExam.question[j].correct.toString() ){
+                                    for(let i=0 ; i < arrResult.length; i++){
+                                    //Câu trả lời sai
+                                    if(arrResult[i].questionID == infoExam.question[j]._id && arrResult[i].correct.toString() !== infoExam.question[j].correct.toString()){
                                         falseArr.push(arrResult[i].questionID)
                                     }
 
-                                    if(arrResult[i].questionID == infoExam.question[j]._id && arrResult[i].correct == infoExam.question[j].correct ){
+                                    //Câu trả lời đúng
+                                    if(arrResult[i].questionID == infoExam.question[j]._id && arrResult[i].correct.toString() == infoExam.question[j].correct.toString()){
                                         correctNumber += 1;
                                         trueArr.push(arrResult[i].questionID)
                                     }
+
+                                    unfinishQuestion = infoExam.question.length - arrResult.length;
+
                                 }
                             }
 
-                            let dontCompleteNumber = infoExam.question.length - arrResult.length;
+                            //let dontCompleteNumber = infoExam.question.length - arrResult.length;
 
                             // console.log(`Số câu sai: ${falseNumber}`);
 
-                            console.log(`Câu chưa làm: ${dontCompleteNumber}`);
+                            //console.log(`Sô câu chưa làm: ${unfinishQuestion}`);
 
-                            console.log(`Những câu sai: ${falseArr}`);
+                            //console.log(`Những câu sai: ${falseArr}`);
 
-                            console.log(`Những câu đúng: ${trueArr}`);
+                            //console.log(`Những câu đúng: ${trueArr}`);
 
 
-                            let point = (10/infoExam.question.length)*correctNumber;
-                            console.log(`Điểm của bạn là: ${point}`);
+                            point = (10/infoExam.question.length)*correctNumber;
+                            //console.log(`Điểm của bạn là: ${point}`);
 
-                            window.location.href=`/result-exam?point=${point}`
+
+                            //console.log(falseArr, trueArr, point)
+                        if(unfinishQuestion > 0){
+
+                            if (window.confirm(`Bạn có ${unfinishQuestion} câu chưa làm. Bạn có chắc chắn nộp bài không?`)) {
+                                if(falseArr.length || trueArr.length){
+                                    $.ajax({
+                                    url: `/result-exam`,
+                                    method: 'POST',
+                                    data: { point, falseArr, trueArr, examID, unfinishQuestion },
+                                    success: resp => {
+
+                                        let resultID = resp.data._id;
+                                        
+                                        console.log(resp)
+
+                                        if(!resp.error){
+
+                                            window.location.href = `/result-exam?resultID=${resultID}&examID=${examID}`
+                                        }
+                                    },
+                                    error: err => console.log({ err })
+                                    });
+
+                                }
+                            }
+
+                        } else {
+
+                            if (window.confirm(`Bạn có chắc chắn nộp bài không?`)) {
+                                if(falseArr.length || trueArr.length){
+                                    $.ajax({
+                                    url: `/result-exam`,
+                                    method: 'POST',
+                                    data: { point, falseArr, trueArr, examID, unfinishQuestion },
+                                    success: resp => {
+
+                                        let resultID = resp.data._id;
+                                        
+                                        console.log(resp)
+
+                                        if(!resp.error){
+
+                                            window.location.href = `/result-exam?resultID=${resultID}&examID=${examID}`
+                                        }
+                                    },
+                                    error: err => console.log({ err })
+                                    });
+
+                                }
+                            }
+
                         }
-                        correctNumber = 0; //set lại số điểm = 0;
+                            
+                        }
+                        
                     },
                     error: err => console.log({ err })
                 });
-            }
+
 		}
 
 	});
@@ -185,7 +243,7 @@
         let numberQus = $(this).attr('_numberQus');
         let correct =  $(`input[name="answer${numberQus}"]:checked`).val();
 
-        if(questionID && correct ){
+        if(questionID && correct){
             for (var i =0; i < arrResult.length; i++){
                 if (arrResult[i].questionID === questionID) {
                     arrResult.splice(i,1);
