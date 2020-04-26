@@ -7,8 +7,8 @@
 //XỬ LÝ LUỒNG
 7.[ĐÃ XONG]TRUY CẬP VÀO HỆ THỐNG... vào trang home ->> cần phải đăng nhập để thực hiện các thao tác
 8. Thêm phần upload file theo môn học.. 
-9. Ưu tiên xử lý mục 3 và 5
-10. Phân trang
+9. [ĐÃ XONG] Ưu tiên xử lý mục 3 và 5
+10. [ĐÃ XONG] Phân trang
 11. [ĐÃ XONG] Chia role Supper Admin
 
 
@@ -23,7 +23,8 @@ Số lượng câu hỏi: Lấy từ trong db (exam.question.length)
 CÁCH XÁC ĐỊNH CÂU CHƯA LÀM: NẾU TRONG MẢNG CỦA BÀI NỘP KHÔNG CHỨA QUESTIONID CỦA BỘ ĐỀ THÌ CHƯA LÀM CÂU HỎI ĐÓ
 
 
-Xử lý phần: Câu chưa làm.
+[ĐÃ XONG] Xử lý phần: Câu chưa làm.
 
 Lỗi luồng: Tài khoản học sinh không thể nộp bài được khi routing infoExam check quyền của Admin
 Danh sách kết quả: Hiển thị danh sách.. chọn môn học -> chọn bộ đề -> Xem kết quả
+REPONSIVE TRANG WEB

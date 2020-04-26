@@ -108,15 +108,13 @@
         </div>
         <div class="panel-body">
             <ul class="block_groups">
+            <% if (listExemLimit && listExemLimit.length) { %>
+                    <% listExemLimit.forEach(exam => { %>
                 <li class="clearfix">
-                    <a class="show" href="">&#91;CÓ PHÍ&#93; HÓA HỌC - Chương 1 - Hóa hữu cơ</a>
+                    <a class="show" href="/exam?examID=<%=exam._id%>">&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%> - <%=exam.name%> - <%=exam.description%></a>
                 </li>
-                <li class="clearfix">
-                    <a class="show" href="">&#91;CÓ PHÍ&#93; VẬT LÝ - Chương 2 - Dòng điện xoay chiều & Con lắc</a>
-                </li>
-                <li class="clearfix">
-                    <a class="show" href="">&#91;CÓ PHÍ&#93; TIẾNG ANH - Chương 1 - Thời Tiết mùa hè</a>
-                </li>
+                <% }) %>
+            <% } %>
             </ul>
         </div>
     </div>
@@ -129,7 +127,7 @@
                 <% if (listSubject && listSubject.length) { %>
                     <% listSubject.forEach(subject => { %>
                         <li>
-                            <a title="Toán Cao Cấp" href="/list-of-subjects?subjectID=<%=subject._id%>">
+                            <a title="<%=subject.name%>" href="/list-of-subjects?subjectID=<%=subject._id%>">
                                 <%=subject.name%>
                             </a>
                         </li>

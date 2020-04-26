@@ -9,9 +9,16 @@ const checkActive       = require('../../utils/checkActive');
 const { renderToView }  = require('../../utils/childRouting');
 
 
-route.get('/', (req, res) => {
-    renderToView(req, res, 'pages/home', { })
+route.get('', async (req, res) => {
+    let { page }  = req.query;
+    let perPage = 5;
+    console.log('page & perPage', page, perPage)
+    let listExamPagination = await EXAM_MODEL.listExamPagination({ page, perPage })
+    console.log({ listExamPagination })
+    
+    renderToView(req, res, 'pages/home', { listExamPagination: listExamPagination.data })
 })
+
 
 //TẠO MÔN HỌC
 route.get('/create-subject', ROLE_SUPER_ADMIN, async (req, res) => {
@@ -20,13 +27,11 @@ route.get('/create-subject', ROLE_SUPER_ADMIN, async (req, res) => {
 
 //TẠO BỘ ĐỀ
 route.get('/create-exam', ROLE_ADMIN, async (req, res) => {
-    
     renderToView(req, res, 'pages/add-exam', { })
 })
 
 //TẠO CÂU HỎI
 route.get('/create-question', ROLE_ADMIN, async (req, res) => {
-    
     renderToView(req, res, 'pages/add-question', { })
 })
 
@@ -79,9 +84,9 @@ route.post('/result-exam', checkActive, async (req, res) => {
 
 })
 
-route.get('/list-result-exam', checkActive, async (req, res) => {
-    
-    renderToView(req, res, 'pages/list-result-exam', { });
+route.get('/list-result-exam', ROLE_ADMIN, async (req, res) => {
+    let listResult = await RESULT_MODEL.getList();
+    renderToView(req, res, 'pages/list-result-exam', { listResult: listResult.data });
 })
 //<==========================
 

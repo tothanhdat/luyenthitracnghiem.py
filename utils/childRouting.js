@@ -10,6 +10,7 @@ let renderToView = async function(req, res, view, data) {
     let { token } = req.session;
 
     let listSubject = await SUBJECT_MODEL.getList();
+    let listExemLimit = await EXAM_MODEL.getListSideBar();
     let listExam = await EXAM_MODEL.getList();
     let listUser = await USER_MODEL.getList();
     let listQuestion = await QUESTION_MODEL.getList();
@@ -25,6 +26,7 @@ let renderToView = async function(req, res, view, data) {
     data.moment         = moment;
     data.listExam       = listExam.data;
     data.listSubject    = listSubject.data;
+    data.listExemLimit  = listExemLimit.data;
     data.listUser       = listUser.data;
     data.listQuestion   = listQuestion.data;
     data.LEVEL_TYPES    = LEVEL_TYPES;

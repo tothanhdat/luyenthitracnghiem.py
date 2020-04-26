@@ -38,7 +38,38 @@ module.exports = class Exam extends EXAM_COLL {
     static getList() {
         return new Promise(async resolve => {
             try {
-                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 });
+                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 }).limit(5);
+
+                if (!listExam) return resolve({ error: true, message: 'cannot_get_list_data' });
+
+                return resolve({ error: false, data: listExam });
+
+            } catch (error) {
+
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+
+    static listExamPagination({ page, perPage }){ 
+        return new Promise(async resolve => {
+            try {
+                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 })
+                    .skip((perPage * page) - perPage)
+                    .limit(perPage)
+
+                    return resolve({ error: false, data: listExam });
+
+            } catch (error) {
+                return resolve({ error: true, message: error.message });
+            }
+        });
+    }
+
+    static getListSideBar() {
+        return new Promise(async resolve => {
+            try {
+                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 }).limit(3);
 
                 if (!listExam) return resolve({ error: true, message: 'cannot_get_list_data' });
 

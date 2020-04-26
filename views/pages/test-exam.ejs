@@ -12,9 +12,9 @@
                             </div>
                             <ul class="subs-breadcrumbs"></ul>
                             <ul class="temp-breadcrumbs hidden">
-                                <li><a href="" title="Trang nhất"><span>Trang nhất</span></a></li>
+                                <li><a href="/" title="Trang nhất"><span>Trang nhất</span></a></li>
                             <li><a href="" title="Trắc nghiệm"><span class="txt" itemprop="title">Trắc nghiệm</span></a></li>
-                            <li><a href="" title="<%=infoExam.subjects.name%>"><span class="txt" itemprop="title"><%=infoExam.subjects.name%></span></a></li>
+                            <li><a href="/list-of-subjects?subjectID=<%=infoExam.subjects._id%>" title="<%=infoExam.subjects.name%>"><span class="txt" itemprop="title"><%=infoExam.subjects.name%></span></a></li>
                             <li><a href="" title="<%=infoExam.name%>"><span class="txt" itemprop="title"><%=infoExam.name%></span></a></li>
                             <li><a href="" title="&#91;MIỄN PHÍ&#93;"><span class="txt" itemprop="title">&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu</span></a></li>
                             </ul>
@@ -49,8 +49,8 @@
                                     <div class="col-xs-24 col-sm-12 col-md-8">
                                         <label>Số câu</label>: <%=infoExam.question.length%>
                                     </div>
-                                    <div class="col-xs-24 col-sm-12 col-md-16">
-                                        <label>Thời gian</label>: 90 phút
+                                    <div class="col-xs-24 col-sm-12 col-md-24">
+                                        <label>Thời gian</label>: Không giới hạn thời gian
                                     </div>
                                 </div>
                             </div>

@@ -42,7 +42,13 @@ module.exports = class Result extends RESULT_COLL {
     static getList() {
         return new Promise(async resolve => {
             try {
-                let listResult = await RESULT_COLL.find().sort({ createAt: -1 });
+                let listResult = await RESULT_COLL.find().sort({ createAt: -1 })
+                .populate('author')
+                .populate({
+                    path: 'exam',
+                    // Get friends of friends - populate the 'friends' array for every friend
+                    populate: { path: 'subjects' }
+                  });
 
                 if (!listResult) return resolve({ error: true, message: 'cannot_get_list_data' });
 

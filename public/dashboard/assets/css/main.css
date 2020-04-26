@@ -13689,6 +13689,14 @@ button {
 .flags-zw {
 	background-image:url(../../images/flags/zw.svg)
 }
+.form-search {
+	width: 300px;
+	box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+}
 .avatar {
 	position:relative;
 	display:inline-block;
