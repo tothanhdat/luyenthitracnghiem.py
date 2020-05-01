@@ -41,9 +41,14 @@
         <div class="clearfix"></div>
         <div class="detail view-list">
             <div class="panel panel-default result_width edit_panel">
-                <!--         <div class="panel-heading">Thông tin đề thi</div> -->
+                <!--<div class="panel-heading">Thông tin đề thi</div> -->
                 <div class="panel-body edit_panel">
-                    <h1 class="m-bottom affix_hidden">&#91;MIỄN PHÍ&#93; Bộ đề 1: [Tiếng Anh] Bộ đề học sinh giỏi</h1>
+                    <h1 class="m-bottom affix_hidden">&#91;MIỄN PHÍ&#93; <%=infoResult.exam.name%> [<%=infoExam.subjects.name%> 
+                                         <% LEVEL_TYPES.forEach(level => { %>
+											<% if (level.value == infoExam.level) { %>
+												<%=level.text%>
+											<% } %>
+										<% }) %>] <%=infoResult.exam.description%></h1>
                     <div class="row">
                         <div class="col-lg-12 col-xs-24 col-sm-24 col-md-12 affix_hidden">
                             <div class="row exam-info">

@@ -2,42 +2,64 @@
 		<br>
 		<div class="box">
             <form class="input-group">
-                <button type="submit"><div class="input-group-icon"><i class="fas fa-search"></i></div></button>
-                <input type="text" class="form-control" placeholder="Tìm kiếm học sinh...">
+                <button type="submit"><div class="input-group-icon btnSearch"><i class="fas fa-search"></i></div></button>
+                <input id="input-search" autocomplete="off" type="text" class="form-control" placeholder="Tìm kiếm học sinh...">
             </form>
-            <br>
 		<div class="box-header">
 				<h3 >Danh sách Kết Quả</h3>
-							<div class="col-4">
-								<select class="form-control form-search">
-                                    <option>Lọc theo bộ đề</option>
-                                </select>
-							</div>
 				<div class="box-actions">
 					<a href="#" class="box-actions-item">Link</a>
+					<button class="box-actions-item">Điểm tăng dần <i class="fas fa-sort-alpha-up"></i></button>
 					<button class="box-actions-item"><i class="fas fa-minus"></i></button>
 					<button class="box-actions-item"><i class="fas fa-times"></i></button>
 				</div>
 			</div>
+			<div>
+			<div>
+				
+			</div>
+				<div class="col-sm-5">
+					<div class="form-group">
+						<select class="form-control input-lg examFilter" name="examFilter">
+						<option value="option-1">Lọc theo bộ đề</option>
+						<% if (listExam && listExam.length) { %>
+							<% listExam.forEach(exam => { %>
+
+							<option value="<%=exam._id%>"><%=exam.name%> [ <%=exam.subjects.name%>
+							
+							<% LEVEL_TYPES.forEach(level => { %>
+									<% if (level.value == exam.level) { %>
+										<td><%=level.text%></td>
+									<% } %>
+								<% }) %>]
+							</option>
+							<% }) %>
+						<% } %>
+						</select>
+						<i class="fa fa-chevron-down"></i>
+					</div>
+				</div>
 			<div class="table-responsive">
-				<table class="table">
-					<tbody>
+				<table class="table table-result">
+					<thead>
 						<tr>
 							<th>STT</th>
 							<th>Họ Tên</th>
 							<th>Nơi học tập</th>
 							<th>Hoàn thành bộ đề</th>
 							<th>Số điểm</th>
-							<th>Tình trạng</th>
+							<th>Xếp loại</th>
 							<th>Phát triển</th>
 						</tr>
+					</thead>
+					<tbody>
                         <% if (listResult && listResult.length) { %>
                             <% listResult.forEach(result => { %>
-                            <tr>
-                                <td><%=listResult.indexOf(result)%></td>
+                            <tr _resultID="<%=result._id%>">
+                                <td><%=listResult.indexOf(result) + 1%></td>
                                 <td><%=result.author.fullname%></td>
                                 <td>THPT Trần Quốc Tuấn - Phú Yên</td>
-                                <td><a href="/result-exam?resultID=<%=result._id%>&examID=<%=result.exam._id%>">[<%=result.exam.subjects.name%>] - <%=result.exam.name%></a></td>
+                                <td><a target="_blank" href="/result-exam?resultID=<%=result._id%>&examID=<%=result.exam._id%>">[<%=result.exam.subjects.name%>] - <%=result.exam.name%></a></td>
                                 <td><%=result.point%></td>
                                 <% if (result.point < 5) { %>
                                 <td><span class="status-icon bg-danger"></span> Yếu</td>
@@ -60,9 +82,10 @@
                                 <td>
                                     <a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
                                 </td>
-                            </tbody>
+								</tr>
                             <% }) %>
 				        <% } %>
+					</tbody>
 				</table>
 			</div>
             <hr>
@@ -125,3 +148,138 @@
 	</div>
 </main>
 <%- include ('../dashboard/footer') %>
+
+<script>
+
+	$(document).on('keyup', '#input-search', function() {
+		let key = $(this).val();
+		
+		let examID = $('select[name=examFilter] option').filter(':selected').val()
+			$.ajax({
+				url: `/list-result-of-search`,
+				method: 'POST',
+				data: { key, examID },
+				success: resp => {
+					let listResultOfExam = resp.data;
+					if(!resp.error){
+							if(listResultOfExam && listResultOfExam.length){
+								$('tbody').empty();
+								listResultOfExam.forEach((result, index) => {
+
+									let learningPower;
+									
+									if(result.result.point < 5){
+										learningPower = `<td><span class="status-icon bg-danger"></span> Yếu</td>`
+									} else if (result.result.point < 7 && result.result.point > 4 ) {
+										learningPower = `<td><span class="status-icon bg-warning"></span> Trung Bình</td>`
+									} else if (result.result.point < 9 && result.result.point > 6 ) {
+										learningPower = `<td><span class="status-icon bg-primary"></span> Khá</td>`
+									} else {
+										learningPower = `<td><span class="status-icon bg-success"></span> Giỏi</td>`
+									}
+									$('tbody').append(`
+										<tr>
+											<td>${index + 1}</td>
+											<td>${result.result.author.fullname}</td>
+											<td>THPT Trần Quốc Tuấn - Phú Yên</td>
+											<td>${result.result.exam.name}<a target="_blank" href="/result-exam?resultID=&examID=""></a></td>
+											<td>${result.result.point}</td>
+											<td>${learningPower}</td>
+											<td>
+												<div class="d-flex justify-content-between mb-5">
+													<span class="text-sm"><b>50%</b></span>
+													<span class="text-sm text-secondary">Jun 11, 2018 - Jul 11, 2018</span>
+												</div>
+												<div class="progress progress-sm">
+													<div class="progress-bar bg-primary" style="width: 55%"></div>
+												</div>
+											</td>
+											<td>
+												<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
+											</td>
+										</tr>
+									`)
+								})
+							} else {
+								$('tbody').empty();
+							}
+						
+					} else {
+
+						//alert("Không tìm thấy")
+
+					}
+				},
+				error: err => console.log({ err })
+			});
+
+	});
+
+	$(document).on('change', '.examFilter', function() {
+		let key = $('#input-search').val();
+		
+		let examID = $('select[name=examFilter] option').filter(':selected').val();
+
+		console.log(key, examID)
+
+			$.ajax({
+				url: `/list-result-of-search`,
+				method: 'POST',
+				data: { key, examID },
+				success: resp => {
+					let listResultOfExam = resp.data;
+					if(!resp.error){
+							if(listResultOfExam && listResultOfExam.length){
+								$('tbody').empty();
+								listResultOfExam.forEach((result, index) => {
+
+									let learningPower;
+									
+									if(result.result.point < 5){
+										learningPower = `<td><span class="status-icon bg-danger"></span> Yếu</td>`
+									} else if (result.result.point < 7 && result.result.point > 4 ) {
+										learningPower = `<td><span class="status-icon bg-warning"></span> Trung Bình</td>`
+									} else if (result.result.point < 9 && result.result.point > 6 ) {
+										learningPower = `<td><span class="status-icon bg-primary"></span> Khá</td>`
+									} else {
+										learningPower = `<td><span class="status-icon bg-success"></span> Giỏi</td>`
+									}
+
+									$('tbody').append(`
+										<tr>
+											<td>${index + 1}</td>
+											<td>${result.result.author.fullname}</td>
+											<td>THPT Trần Quốc Tuấn - Phú Yên</td>
+											<td>${result.result.exam.name}<a target="_blank" href="/result-exam?resultID=&examID=""></a></td>
+											<td>${result.result.point}</td>
+											<td>${learningPower}</td>
+											<td>
+												<div class="d-flex justify-content-between mb-5">
+													<span class="text-sm"><b>50%</b></span>
+													<span class="text-sm text-secondary">Jun 11, 2018 - Jul 11, 2018</span>
+												</div>
+												<div class="progress progress-sm">
+													<div class="progress-bar bg-primary" style="width: 55%"></div>
+												</div>
+											</td>
+											<td>
+												<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
+											</td>
+										</tr>
+									`)
+								})
+							} else {
+								$('tbody').empty();
+							}
+						
+					} else {
+
+						//alert("Không tìm thấy")
+
+					}
+				},
+				error: err => console.log({ err })
+			});
+
+	});
+</script>

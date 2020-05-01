@@ -28,3 +28,6 @@ CÁCH XÁC ĐỊNH CÂU CHƯA LÀM: NẾU TRONG MẢNG CỦA BÀI NỘP KHÔNG C
 Lỗi luồng: Tài khoản học sinh không thể nộp bài được khi routing infoExam check quyền của Admin
 Danh sách kết quả: Hiển thị danh sách.. chọn môn học -> chọn bộ đề -> Xem kết quả
 REPONSIVE TRANG WEB
+
+ĐỀ MẪU.. VÀ ĐỀ ĐƯỢC CHO VÀO LÀM TRẮC NGHIỆM
+CÓ TRANG DANH SÁCH BỘ ĐỀ -> CHI TIẾT BỘ ĐỀ (KẾT QUẢ CỦA BỘ ĐỀ ĐÓ)

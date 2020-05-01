@@ -6,9 +6,9 @@ const expressSession    = require('express-session');
 const multer            = require('multer');
 
 const USER_ROUTER       = require('./routing/apps/user');
-const SUBJECT_ROUTER       = require('./routing/apps/subject');
+const SUBJECT_ROUTER    = require('./routing/apps/subject');
 const EXAM_ROUTER       = require('./routing/apps/exam');
-const QUESTION_ROUTER      = require('./routing/apps/question');
+const QUESTION_ROUTER   = require('./routing/apps/question');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

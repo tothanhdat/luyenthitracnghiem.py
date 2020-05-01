@@ -13690,13 +13690,36 @@ button {
 	background-image:url(../../images/flags/zw.svg)
 }
 .form-search {
-	width: 300px;
+	width: 200px;
 	box-sizing: border-box;
     display: inline-block;
-    margin: 0;
+	margin: 0;
+	margin-left: 20px;
     position: relative;
     vertical-align: middle;
 }
+
+select.input-lg {
+	margin-left: 20px;
+
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-o-appearance: none;
+	/* no standardized syntax available, no ie-friendly solution available */
+  }
+  
+  select + i.fa {
+	float: right;
+	margin-top: -30px;
+	margin-right: 0px;
+	/* this is so when you click on the chevron, your click actually goes on the dropdown menu */
+	pointer-events: none;
+	/* everything after this is just to cover up the original arrow */
+	/* (for browsers that don't support the syntax used above) */
+	background-color: #fff;
+	padding-right: 0px;
+  }
+  
 .avatar {
 	position:relative;
 	display:inline-block;

@@ -137,7 +137,7 @@
 						</div>
 					</div>
 					<div class="box-footer">
-						<button style="color:blue" class="hrefExam">Xem trước bộ đề</button>
+						<button style="color:blue" target="_blank" class="hrefExam">Xem trước bộ đề</button>
 						<button class="btn btn-primary pull-right btnCompleteExam">Hoàn thành</button>
 					</div>
 				</div>
@@ -306,7 +306,10 @@
 			return toastr['warning']('Bạn chưa chọn bộ đề muốn xem', 'Thông báo');
 
 		} else {
-			return window.location.href = `/test-exam?examID=${examID}`
+			
+			let _urlTemp = `/test-exam?examID=${examID}`
+			window.open(_urlTemp, '_blank');
+
 		}
 	})
 

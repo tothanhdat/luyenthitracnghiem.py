@@ -9,14 +9,14 @@ const checkActive       = require('../../utils/checkActive');
 const { renderToView }  = require('../../utils/childRouting');
 
 
-route.get('', async (req, res) => {
+route.get('/', async (req, res) => {
     let { page }  = req.query;
     let perPage = 5;
-    console.log('page & perPage', page, perPage)
+    //console.log('page & perPage', page, perPage)
     let listExamPagination = await EXAM_MODEL.listExamPagination({ page, perPage })
-    console.log({ listExamPagination })
+    //console.log({ listExamPagination })
     
-    renderToView(req, res, 'pages/home', { listExamPagination: listExamPagination.data })
+    renderToView(req, res, 'pages/home', { listExamPagination: listExamPagination.data, page })
 })
 
 
@@ -72,7 +72,7 @@ route.post('/result-exam', checkActive, async (req, res) => {
     let userIDfromSession = req.session; //Đã gán req.session.user
     let userID = userIDfromSession.user.infoUSer._id;
 
-    let { point, falseArr, trueArr, examID,unfinishQuestion } = req.body;
+    let { point, falseArr, trueArr, examID, unfinishQuestion } = req.body;
 
     console.log({ point, falseArr, trueArr, userID, examID })
 
@@ -94,9 +94,21 @@ route.get('/list-result-exam', ROLE_ADMIN, async (req, res) => {
 route.get('/list-of-subjects', async (req, res) => {
     let { subjectID } = req.query;
     let listExamOfSubject = await EXAM_MODEL.getListOfSubjects({ subjectID });
-    console.log( listExamOfSubject.data )
+    //console.log( listExamOfSubject.data )
     renderToView(req, res, 'pages/list-exam-of-subject', {  subjectID, listExamOfSubject: listExamOfSubject.data });
 })
+
+
+
+route.post('/list-result-of-search', async (req, res) => {
+    let { key, examID } = req.body;
+    let listResultOfSearch = await RESULT_MODEL.getListStudentInResultByKey({ key, examID });
+    console.log({ listResultOfSearch });
+    res.json(listResultOfSearch);
+})
+
+
+
 
 
 //TRANG ĐĂNG KÝ

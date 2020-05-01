@@ -1,5 +1,7 @@
 const ObjectID = require('mongoose').Types.ObjectId;
 const RESULT_COLL = require('../database/result-coll');
+const USER_COLL = require('../database/user-coll');
+const EXAM_COLL = require('../database/exam-coll');
 
 module.exports = class Result extends RESULT_COLL {
 
@@ -31,6 +33,10 @@ module.exports = class Result extends RESULT_COLL {
 
                 if (!saveDataInsert) return resolve({ error: true, message: 'cannot_insert_point' });
                 resolve({ error: false, data: infoAfterInsert });
+
+                let arrResultOfExam = await EXAM_COLL.findByIdAndUpdate(examID, {
+                    $push: { result: infoAfterInsert._id }
+                }, {new: true})
 
             } catch (error) {
                 return resolve({ error: true, message: error.message });
@@ -69,7 +75,7 @@ module.exports = class Result extends RESULT_COLL {
                 if (!ObjectID.isValid(resultID))
                     return resolve({ error: true, message: 'params_invalid' });
 
-                let infoResult = await RESULT_COLL.findById(resultID).populate('author exam');
+                let infoResult = await RESULT_COLL.findById(resultID).populate('author exam subjects');
 
                 if (!infoResult) return resolve({ error: true, message: 'cannot_get_info_data' });
 
@@ -129,5 +135,141 @@ module.exports = class Result extends RESULT_COLL {
                 return resolve({ error: true, message: error.message });
             }
         })
+    }
+    static searchResultAll({ examID }) {
+        return new Promise(async resolve => {
+            try {
+
+                let conditionObj = {};
+
+                // if(key && key.length > 0){
+                //     let keyword = key.split(" ");
+                //     keyword = '.*' + keyword.join(".*") + '.*';
+                //     conditionObj.author.fullname = new RegExp(keyword, 'i');
+                // }
+
+                if(examID && ObjectID.isValid(examID)){
+                    conditionObj.exam = examID;
+                }
+
+                // if(ObjectID.isValid(author)){
+                //     conditionObj.author = ObjectID(author);
+                // }
+
+                let listResult = await RESULT_COLL.aggregate([
+                    {
+                        $match: conditionObj
+                    }, 
+
+                    {
+                        $lookup: {
+                            from: 'exams',
+                            localField: 'exam',
+                            foreignField: '_id',
+                            as:         'exam'
+                        }
+                    }, 
+                    {
+                        $unwind : "$exam"
+                    }, 
+
+                    // {
+                    //     $lookup: {
+                    //         from: 'users',
+                    //         localField: 'author',
+                    //         foreignField: 'fullname',
+                    //         as:         'author'
+                    //     }
+                    // }, 
+                    // {
+                    //     $unwind : "$author"
+                    // }, 
+                    
+                ]);
+                console.log("===========")
+                console.log({ listResult })
+
+                if (!listResult) return resolve({ error: true, message: 'cannot_get_list_result' });
+                return resolve({ error: false, data: listResult, message: "success" });
+
+                
+
+        } catch (error) {
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+
+    static getListStudentInResultByKey({ examID, key }){
+        return new Promise(async resolve => {
+            try {
+                let objCondition = {};
+
+                if (ObjectID.isValid(examID)){
+                    objCondition._id = ObjectID(examID)
+                }
+
+                let infoExam = await EXAM_COLL.aggregate([
+                    
+                    {
+                        $match: objCondition,
+                    },
+
+                    {
+                        $lookup: {
+                            from: 'results',
+                            localField: 'result',
+                            foreignField: '_id',
+                            as:         'result'
+                        }
+                    }, 
+                    {
+                        $unwind : "$result"
+                    }, 
+                    {
+                        $lookup: {
+                            from: 'users',
+                            localField: 'result.author',
+                            foreignField: '_id',
+                            as:         'result.author'
+                        }
+                    }, 
+                    {
+                        $unwind : "$result.author"
+                    },
+
+                    {
+                        $lookup: {
+                            from: 'exams',
+                            localField: 'result.exam',
+                            foreignField: '_id',
+                            as:         'result.exam'
+                        }
+                    }, 
+                    {
+                        $unwind : "$result.exam"
+                    },
+
+
+                    {
+                        $match: {
+                            'result.author.fullname' : new RegExp(key, 'i')
+                        }
+                    },
+
+                    {
+                        $sort : { createAt: -1 }
+                    }
+                    
+                ]);
+
+
+                console.log({ infoExam });
+                
+                return resolve({ error: false, data: infoExam })
+            } catch (error) {
+                return resolve({ error: true, message: error.message });
+            }
+        });
     }
 }

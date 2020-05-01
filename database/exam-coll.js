@@ -33,6 +33,12 @@ const ExamSchema = new Schema({
      */
     level: { type: Number, default: 1 },
 
+    result: [{
+        type: Schema.Types.ObjectId,
+        ref: "result",
+        default: []
+    }],
+
     createAt: { type: Date, required: true, default: Date.now }
 });
 
