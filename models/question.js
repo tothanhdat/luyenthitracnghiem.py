@@ -94,7 +94,7 @@ module.exports = class Question extends QUESTION_COLL {
         return new Promise(async resolve => {
             try {
 
-                if (!ObjectID.isValid(questionID))
+                if (!ObjectID.isValid(questionID) || !ObjectID.isValid(examID))
                     return resolve({ error: true, message: 'params_invalid' });
 
                 let infoAfterRemove = await QUESTION_COLL.findByIdAndDelete(questionID);
@@ -104,9 +104,9 @@ module.exports = class Question extends QUESTION_COLL {
                 if (!infoAfterRemove)
                     return resolve({ error: true, message: 'cannot_remove_data' });
 
-                let deleteQuestionOfExam = await EXAM_COLL.findByIdAndUpdate(examID, {
-                    $pull: { question: infoAfterRemove._id }
-                }, {new: true})
+                // let deleteQuestionOfExam = await EXAM_COLL.findByIdAndUpdate(examID, {
+                //     $pull: { question: infoAfterInsert._id }
+                // }, {new: true})
 
                 //console.log({ deleteQuestionOfExam })
 

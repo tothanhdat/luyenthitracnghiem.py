@@ -40,7 +40,7 @@
                                             <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subjects.name%></a>
                                         </div>
                                         <ul class="exam-info list-inline pull-right form-tooltip">
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em><%=exam.question.length%><span class="hidden-xs"> câu hỏi</span></li>
+                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-star-o">&nbsp;</em><%=exam.question.length%><span class="hidden-xs"> câu hỏi</span></li>
                                             <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian"><em class="fa fa-clock-o">&nbsp;</em><%=moment(exam.createAt).startOf('hour').fromNow()%><span class="hidden-xs"></span></li>
                                         </ul>
                                         <div class="clearfix"></div>
@@ -69,7 +69,7 @@
                         <div class="text-center" id="pagination" _page="<%=page%>">
                            <ul class="pagination">
                                 <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
+                                    <a class="page-link" href="/?page=<%=page - 1%>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                         <span class="sr-only">Previous</span>
                                     </a>
@@ -81,7 +81,7 @@
                                 <li class="page-item"><a value="5" class="page-link" href="?page=5">5</a></li>
                                 <li class="page-item"><a value="6" class="page-link" href="?page=6">6</a></li>
                                 <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
+                                    <a class="page-link" href="/?page=<%= page++ %>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                         <span class="sr-only">Next</span>
                                     </a>

@@ -214,11 +214,11 @@
 					console.log({resp})
 
                     if(!resp.error){
-
+						 let numberCountAppend = 0;
 						$('.list-exam-temp').append(`
 							<tbody>
 								<tr>
-									<td>Câu <span class="number-of-questions">1</span></td>
+									<td>Câu <span class="number-of-questions">${numberCountAppend + 1}</span></td>
 									<td style="color:black">${nameQuestion}</td>
 									<td>
 										<div class="user-panel-actions">

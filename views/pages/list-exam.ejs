@@ -1,0 +1,120 @@
+<%- include ('../dashboard/header') %>
+		<br>
+		<div class="box">
+            <form class="input-group">
+                <button type="submit"><div class="input-group-icon btnSearch"><i class="fas fa-search"></i></div></button>
+                <input id="input-search" autocomplete="off" type="text" class="form-control" placeholder="Tìm kiếm bộ đề...">
+            </form>
+		<div class="box-header">
+				<h3 >Danh sách Bộ đề</h3>
+				<div class="box-actions">
+					<a href="#" class="box-actions-item">Link</a>
+					<button class="box-actions-item">Điểm tăng dần <i class="fas fa-sort-alpha-up"></i></button>
+					<button class="box-actions-item"><i class="fas fa-minus"></i></button>
+					<button class="box-actions-item"><i class="fas fa-times"></i></button>
+				</div>
+			</div>
+			<div>
+			<div>
+				
+			</div>
+				<div class="col-sm-5">
+				</div>
+			<div class="table-responsive">
+				<table class="table table-result">
+					<thead>
+						<tr>
+							<th>Tên Bộ đề</th>
+							<th>Môn học</th>
+							<th>Lớp</th>
+							<th>Người tạo</th>
+							<th>Số câu hỏi</th>
+							<th>Kết quả</th>
+						</tr>
+					</thead>
+					<tbody>
+                        <% if (listExam && listExam.length) { %>
+                            <% listExam.forEach(exam => { %>
+                            <tr>
+                                <td><a href="/info-exam?examID=<%=exam._id%>"><span></span> <%=exam.name%></a></td>
+                                <td><span></span> <%=exam.subjects.name%></td>
+
+                                <% LEVEL_TYPES.forEach(level => { %>
+									<% if (level.value == exam.level) { %>
+										<td><%=level.text%></td>
+									<% } %>
+								<% }) %>
+
+                                <td><span></span> <%=exam.author.fullname%></td>
+                                <td><span></span> <%=exam.question.length%></td>
+                                <td><span></span> <%=exam.result.length%></td>
+                                <td>
+                                    <a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
+                                </td>
+								</tr>
+                           <% }) %>
+				        <% } %>
+					</tbody>
+				</table>
+			</div>
+            <hr>
+                <p style="margin-left: 15px">Nhấp vào tên bộ đề để xem chi tiết</p>
+		    </div>
+
+		<div class="box">
+			<div class="box-header">
+				<h3>Weekly Recap Report</h3>
+			</div>
+			<div class="box-body">
+				<div class="row">
+					<div class="col-md-8">
+						<canvas class="chart" id="areaChartJs"></canvas>
+					</div>
+					<div class="col-md-4">
+						<h3>Goals</h3>
+						<div class="d-block mb-20">
+							<div class="d-flex justify-content-between">
+								<p class="mb-0">Complete Purchase</p>
+								<p class="mb-0 text-secondary"><b>47/50</b></p>
+							</div>
+							<div id="barChart1"></div>
+						</div>
+
+						<div class="d-block mb-20">
+							<div class="d-flex justify-content-between">
+								<p class="mb-0">Add Product to Favorite</p>
+								<p class="mb-0 text-secondary"><b>25/50</b></p>
+							</div>
+							<div id="barChart2"></div>
+						</div>
+
+						<div class="d-block mb-25">
+							<div class="d-flex justify-content-between">
+								<p class="mb-0">Add product to favorite</p>
+								<p class="mb-0 text-secondary"><b>12/50</b></p>
+							</div>
+							<div id="barChart3"></div>
+						</div>
+
+						<div class="row text-center">
+							<div class="col-4">
+								<div class="chart-circle" id="circleChart1"></div>
+								<p>Mail orders</p>
+							</div>
+							<div class="col-4">
+								<div id="circleChart2"></div>
+								<p>Online</p>
+							</div>
+							<div class="col-4">
+								<div id="circleChart3"></div>
+								<p>In store</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<%- include ('../dashboard/footer') %>
+

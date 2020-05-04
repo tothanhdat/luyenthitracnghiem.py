@@ -58,7 +58,7 @@
 						</div>
 					</div>
 					<div class="box-footer">
-						<button class="btn btn-primary pull-right btnCreateExam">Thêm</button>
+						<button class="btn btn-primary pull-right btnCreateExam">Thêm/Cập nhật</button>
 					</div>
 				</form>
 			</div>
@@ -130,6 +130,8 @@
 		e.preventDefault();
 		let examID = $(this).attr('_examID');
 
+		console.log(examID)
+
 		let name        = $('#nameExam').val().trim();
 		let description = $('#descriptionExam').val().trim();
 		let level       = $('#level').val();
@@ -184,7 +186,8 @@
 						
 						if(!resp.error){
 
-							toastr['success']('Cập nhật thành công', 'Thông báo');
+							//toastr['success']('Cập nhật thành công', 'Thông báo');
+							alert(`Cập nhật thành công`)
 							window.location.reload();
 
 						}else{

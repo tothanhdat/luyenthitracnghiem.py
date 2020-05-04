@@ -88,6 +88,12 @@ route.get('/list-result-exam', ROLE_ADMIN, async (req, res) => {
     let listResult = await RESULT_MODEL.getList();
     renderToView(req, res, 'pages/list-result-exam', { listResult: listResult.data });
 })
+
+route.get('/list-result-exam?sort', ROLE_ADMIN, async (req, res) => {
+    renderToView(req, res, 'pages/home', { });
+})
+
+
 //<==========================
 
 //TRANG DANH SÁCH BỘ ĐỀ THEO MÔN HỌC
@@ -98,6 +104,18 @@ route.get('/list-of-subjects', async (req, res) => {
     renderToView(req, res, 'pages/list-exam-of-subject', {  subjectID, listExamOfSubject: listExamOfSubject.data });
 })
 
+route.get('/list-exam', async (req, res) => {
+    //console.log( listExamOfSubject.data )
+    renderToView(req, res, 'pages/list-exam', { });
+})
+
+route.get('/info-exam', async (req, res) => {
+    //console.log( listExamOfSubject.data )
+    let { examID } = req.query;
+    let infoExamHaveQuestion = await EXAM_MODEL.getInfo({ examID })
+    console.log(infoExamHaveQuestion)
+    renderToView(req, res, 'pages/info-exam', { infoExamHaveQuestion: infoExamHaveQuestion.data });
+})
 
 
 route.post('/list-result-of-search', async (req, res) => {
@@ -106,9 +124,6 @@ route.post('/list-result-of-search', async (req, res) => {
     console.log({ listResultOfSearch });
     res.json(listResultOfSearch);
 })
-
-
-
 
 
 //TRANG ĐĂNG KÝ

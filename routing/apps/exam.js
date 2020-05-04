@@ -3,6 +3,7 @@ const EXAM_MODEL        = require('../../models/exam');
 const USER_MODEL        = require('../../models/users');
 const SUBJECT_MODEL     = require('../../models/subjects');
 const ROLE_ADMIN        = require('../../utils/checkRole');
+const ROLE_SUPER_ADMIN  = require('../../utils/roleSuperAdmin');
 const checkActive       = require('../../utils/checkActive');
 const { renderToView }  = require('../../utils/childRouting');
 
@@ -62,7 +63,8 @@ route.get('/update-exam/:examID', ROLE_ADMIN, async (req, res) => {
 })
 
 route.post('/update-exam/:examID', ROLE_ADMIN, async (req, res) => {
-    let { _id: userUpdate } = req.user;
+    let userIDfromSession = req.session; //Đã gán req.session.user
+    let userUpdate = userIDfromSession.user.infoUSer._id;
     let { examID } = req.params;
     let { name, description, level, subjectID } = req.body;
 
