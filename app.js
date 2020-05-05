@@ -35,7 +35,7 @@ app.use(function(req, res, next){
     res.status(404).render('pages/page-404', {title: "Sorry, page not found"});
 });
 
-const uri = 'mongodb://localhost/luyenthitracnghiempy';
+const uri = 'mongodb://datchen:datchen123@ds261238.mlab.com:61238/lttn-py';
 const PORT = process.env.PORT || 3000;
 
 mongoose.set('useCreateIndex', true); //ẩn cảnh báo
