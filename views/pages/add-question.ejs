@@ -152,6 +152,10 @@
 
     CKEDITOR.replace( 'editor1' );
 
+	$(window).bind('beforeunload', function(){
+		return 'Are you sure you want to leave?';
+	});
+
 	//Tạo câu hỏi ---------------> 
 	$(document).on('click', '.btnCreateQuestion', function(e) {
 		e.preventDefault();
@@ -187,8 +191,6 @@
 		formData.append('answer', answer);
 		formData.append('correct', correct);
 		formData.append('examID', examID);
-
-		//Đáp án
 
 		//Đáp án đúng
 

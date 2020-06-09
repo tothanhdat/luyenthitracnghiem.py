@@ -100,6 +100,28 @@ module.exports = class Exam extends EXAM_COLL {
         })
     }
 
+    //Danh sách bộ đề theo lớp
+    static getListExamWithLevel({ subjectID, level }) {
+        return new Promise(async resolve => {
+            try {
+
+                if (isNaN(Number(level)) || !ObjectID.isValid(subjectID))
+                return resolve({ error: true, message: 'params_invalid' });
+
+                let listExamWithLevel = await EXAM_COLL.find({ subjects: subjectID, level })
+                .populate('subjects author');
+
+                if (!listExamWithLevel) return resolve({ error: true, message: 'cannot_get_list_data' });
+
+                return resolve({ error: false, data: listExamWithLevel });
+
+            } catch (error) {
+
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+
     static getInfo({ examID }) {
         return new Promise(async resolve => {
             try {

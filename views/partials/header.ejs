@@ -94,7 +94,7 @@
                                                     <ul class="dropdown-menu">
                                                     <% if (LEVEL_TYPES && LEVEL_TYPES.length) { %>
                             					        <% LEVEL_TYPES.forEach(level => { %>
-                                                        <li> <a href="" value="<%=level.value%>">Lớp <%=level.text%></a></li>
+                                                        <li> <a href="/list-exam-with-level?subjectID=<%=subject._id%>&level=<%=level.value%>" value="<%=level.value%>">Lớp <%=level.text%></a></li>
                                                         <% }) %>
                         					        <% } %>
                                                     </ul>
@@ -131,7 +131,7 @@
                                         <li id="page-dashboard"><a class="dropdown-toggle" href="/dashboard" title="email">  TRANG QUẢN LÝ</a> </li>
                                         <% } %>
                                         <% } else{ %>
-                                        <li><a class="dropdown-toggle" href="/dashboard" title="email"> <i class="fa fa-key"></i>  _ Bạn cần phải đăng nhập để làm bài</a> </li>
+                                        <li><a class="dropdown-toggle" href="/dashboard" id="cannotLogin"> <i class="fa fa-key"></i>  _ Bạn cần phải đăng nhập để làm bài</a> </li>
                                         <% } %>
                                     </ul>
                                 </div>

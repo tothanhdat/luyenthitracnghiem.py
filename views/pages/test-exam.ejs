@@ -123,7 +123,8 @@
 <%- include ('../partials/footer') %>
 
 <script>
-
+$(window).bind('beforeunload', function(){
+  
     $(document).on('click', '.btnSendTest', function (e) {
 		e.preventDefault();
         let examID = $('.questionOfExam').attr('_examID');
@@ -254,6 +255,8 @@
             console.log(arrResult)
         }
     });
+    return 'Bạn có chắc chắn rời khỏi không?';
+});
 
 </script>
 

@@ -114,8 +114,10 @@
                     console.log({ resp })
 
                     if (!resp.error) {
-						alert("Đăng ký thành công")
-                        return window.location.href = `/`;
+						toastr['success']('Đăng ký thành công', 'Thông báo');
+                        setTimeout(function(){ 
+                            location.href = `/`;
+                        }, 500);
 
                     } else {
 

@@ -104,6 +104,14 @@ route.get('/list-of-subjects', async (req, res) => {
     renderToView(req, res, 'pages/list-exam-of-subject', {  subjectID, listExamOfSubject: listExamOfSubject.data });
 })
 
+//TRANG DANH SÁCH BỘ ĐỀ THEO LỚP
+route.get('/list-exam-with-level', async (req, res) => {
+    let { subjectID, level } = req.query;
+    let listExamWithLevel = await EXAM_MODEL.getListExamWithLevel({ subjectID, level });
+    //return res.json(listExamWithLevel);
+    renderToView(req, res, 'pages/list-exam-of-level', { listExamWithLevel: listExamWithLevel.data });
+})
+
 route.get('/list-exam', async (req, res) => {
     //console.log( listExamOfSubject.data )
     renderToView(req, res, 'pages/list-exam', { });

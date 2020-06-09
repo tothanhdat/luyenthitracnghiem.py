@@ -79,41 +79,44 @@
 				<table class="table">
 				<% if (listUser && listUser.length) { %>
 					<% listUser.forEach(user => { %>
-					<tbody>
-						<tr>
-							<th>Avatar</th>
-							<th>Họ Tên</th>
-							<th>Số lượng Đề</th>
-							<th>Nơi làm việc</th>
-							<th>Ngày tham gia</th>
-							<th>Loại tài khoản</th>
-							<th>Phát triển</th>
-							<th></th>
-						</tr>
-						<tr>
-							<td>
-								<div class="avatar avatar-xs">
-									<img src="../lttnpy_core/images/LOGO_LTTNPY3.png" alt="">
-								</div>
-							</td>
-							<td><%=user.fullname%></td>
-							<td>5</td>
-							<td>THPT Trần Quốc Tuấn - Phú Yên</td>
-							<td>16/04/2020</td>
-							<td><span class="status-icon bg-primary"></span> Giáo viên</td>
-							<td>
-								<div class="d-flex justify-content-between mb-5">
-									<span class="text-sm"><b>100%</b></span>
-									<span class="text-sm text-secondary">Jun 11, 2018 - Jul 11, 2018</span>
-								</div>
-								<div class="progress progress-sm">
-									<div class="progress-bar bg-primary" style="width: 100%"></div>
-								</div>
-							</td>
-							<td>
-								<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
-							</td>
-					</tbody>
+						<% if (user.role.toString() == 1) { %>
+							<tbody>
+								<tr>
+									<th>Avatar</th>
+									<th>Họ Tên</th>
+									<th>Số lượng Đề</th>
+									<th>Nơi làm việc</th>
+									<th>Ngày tham gia</th>
+									<th>Loại tài khoản</th>
+									<th>Phát triển</th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>
+										<div class="avatar avatar-xs">
+											<img src="../lttnpy_core/images/LOGO_LTTNPY3.png" alt="">
+										</div>
+									</td>
+									<td><%=user.fullname%></td>
+									<td>5</td>
+									<td>THPT Trần Quốc Tuấn - Phú Yên</td>
+									<td>16/04/2020</td>
+									<td><span class="status-icon bg-primary"></span> Giáo viên</td>
+									<td>
+										<div class="d-flex justify-content-between mb-5">
+											<span class="text-sm"><b>100%</b></span>
+											<span class="text-sm text-secondary">Jun 11, 2018 - Jul 11, 2018</span>
+										</div>
+										<div class="progress progress-sm">
+											<div class="progress-bar bg-primary" style="width: 100%"></div>
+										</div>
+									</td>
+									<td>
+										<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
+									</td>
+								</tr>
+							</tbody>
+							<% } %>
 						<% }) %>
 					<% } %>
 				</table>

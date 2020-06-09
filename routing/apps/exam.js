@@ -47,6 +47,13 @@ route.get('/list-exam', ROLE_ADMIN, async (req, res) => {
     return res.json(listExam);
 })
 
+//Danh sách bộ đề theo lớp
+route.get('/list-exam-with-level', async (req, res) => {
+    let { subjectID, level } = req.query;
+    let listExamWithLevel = await EXAM_MODEL.getListExamWithLevel({ subjectID, level });
+    //return res.json(listExamWithLevel);
+    renderToView(req, res, 'pages/list-exam-of-level', { listExamWithLevel: listExamWithLevel.data });
+})
 
 
 route.get('/info-exam/:examID', checkActive, async (req, res) => {

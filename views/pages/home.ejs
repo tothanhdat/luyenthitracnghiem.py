@@ -111,11 +111,11 @@
                 },
                 success: resp => {
 
-                    //console.log({ resp })
-
                     if (!resp.error) {
-                        alert('Đăng nhập thành công');
-                        window.location.href = `/`;
+                        toastr['success']('Đăng nhập thành công', 'Thông báo');
+                        setTimeout(function(){ 
+                            location.href = `/`;
+                        }, 500);
 
                     } else {
 
@@ -130,7 +130,7 @@
     })
 
     
-    let page = $('#pagination').attr('_page')
+        let page = $('#pagination').attr('_page')
 
         let btnContainer = document.getElementById("pagination");
         let btns = btnContainer.getElementsByClassName("page-item");
@@ -151,6 +151,14 @@
             this.className += " active";
             });
         }
+    
+    $(document).on('click', '#cannotLogin', function(e) {
+        e.preventDefault();
+        $("#email").addClass('notiLogin')
+        $("#email").click(function(){
+            $("#email").removeClass('notiLogin')
+        })
+    }) 
     
 
 </script>
