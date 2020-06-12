@@ -24,10 +24,10 @@ module.exports = class Result extends RESULT_COLL {
                 if(examID && ObjectID.isValid(examID)){
                     dataInsert.exam = examID;
                 }
-                console.log(`dataInsert: ${dataInsert}`)
+                //console.log(`dataInsert: ${dataInsert}`)
 
                 let infoAfterInsert = new RESULT_COLL(dataInsert);
-                console.log(`infoAfterInsert: ${infoAfterInsert}`);
+                //console.log(`infoAfterInsert: ${infoAfterInsert}`);
                 
                 let saveDataInsert = await infoAfterInsert.save();
 
@@ -186,8 +186,8 @@ module.exports = class Result extends RESULT_COLL {
                     // }, 
                     
                 ]);
-                console.log("===========")
-                console.log({ listResult })
+                //console.log("===========")
+                //console.log({ listResult })
 
                 if (!listResult) return resolve({ error: true, message: 'cannot_get_list_result' });
                 return resolve({ error: false, data: listResult, message: "success" });

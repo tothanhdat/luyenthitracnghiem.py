@@ -51,9 +51,33 @@
 							</div>
 						</div>
 						<div class="form-group row">
+							<label for="jsValidationRequired" class="form-label col-3" >Thời gian làm bài</label>
+							<div class="col-9">
+								<select id="timeDoTest" required class="form-control">
+									<option selected value="Không giới hạn">Không giới hạn</option>
+									<option value="15 phút">15 phút</option>
+									<option value="30 phút">30 phút</option>
+									<option value="45 phút">45 phút</option>
+									<option value="60 phút">60 phút</option>
+									<option value="90 phút">90 phút</option>
+									<option value="120 phút">120 phút</option>
+									<option value="160 phút">160 phút</option>
+								</select>
+								<span class="invalid-feedback">Сhoose option.</span>
+							</div>
+						</div>
+						<div class="form-group row">
 							<label for="jsValidationTypeEmail" class="form-label col-3">Mô tả</label>
 							<div class="col-9">
 								<input id="descriptionExam" class="form-control" autocomplete="off" placeholder='Viết gì đó..'>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="" class="form-label col-3">Thêm tài liệu (không bắt buộc)</label>
+							<div class="col-9">
+								<form class="col-9" action="">
+									<input type="file" id="myFile" name="filename">
+								</form>
 							</div>
 						</div>
 					</div>
@@ -74,6 +98,7 @@
 										<th>Tên bộ đề</th>
 										<th>Môn học</th>
 										<th>Lớp</th>
+										<th>Thời gian làm bài</th>
 										<th>Mô tả</th>
 									</tr>
 									<% if (listExam && listExam.length) { %>
@@ -93,21 +118,27 @@
 											<% } %>
 										<% }) %>
 
+										<td><%=exam.timeDoTest%></td> <!--Thời gian làm bài-->
+
 										<% if (exam.description.toString().length <= 20) { %>
 											<td><%=exam.description%></td> <!--Mô tả-->
 										<% } %>
 
 										<% if (exam.description.toString().length > 20) { %>
 											<td><%=exam.description.substring(0, 20).concat("...")%></td>
-										<% } %> <!--Mô tả-->
-										<td>
-											<div class="user-panel-actions">
-												<a href="#"></a>
-												<a href="#"><i class="fas fa-pencil-alt btnEditExam" _examID="<%=exam._id%>"></i></a>
-												<a href="#"></a>
-												<a href="#"><i class="fas fa-trash-alt btnRemoveExam" _examID="<%=exam._id%>"></i></a>
-											</div>
-										</td>
+										<% } %> 
+
+										<!--Xóa, chỉnh sửa-->
+										<% if (exam.author._id.toString() == userID.toString()) { %>
+											<td>
+												<div class="user-panel-actions">
+													<a href="#"></a>
+													<a href="#"><i class="fas fa-pencil-alt btnEditExam" _examID="<%=exam._id%>"></i></a>
+													<a href="#"></a>
+													<a href="#"><i class="fas fa-trash-alt btnRemoveExam" _examID="<%=exam._id%>"></i></a>
+												</div>
+											</td>
+										<% } %>
 									</tr>
 										<% }) %>
 									<% } %>
@@ -130,18 +161,17 @@
 		e.preventDefault();
 		let examID = $(this).attr('_examID');
 
-		console.log(examID)
-
 		let name        = $('#nameExam').val().trim();
 		let description = $('#descriptionExam').val().trim();
 		let level       = $('#level').val();
 		let subjectID   = $('#subjectID').val();
+		let timeDoTest  = $('#timeDoTest').val();
 
 		if(!examID){
 
-			console.log({ name, description, level, subjectID})
+			//console.log({ name, description, level, subjectID, timeDoTest })
 
-			if(name.length < 1 || level.length < 1 || subjectID.length < 1){
+			if(!name || !level || !subjectID){
 
 				return toastr['error']('Chưa nhập đủ trường', 'Thông báo');
 
@@ -149,15 +179,15 @@
 				$.ajax({
 					url: `/exam/add-exam`,
 					method: 'POST',
-					data: { name, description, level, subjectID },
+					data: { name, description, level, subjectID, timeDoTest },
 					success: resp => {
-
-						console.log({ resp })
 						
 						if(!resp.error){
 
 							toastr['success']('Thêm thành công', 'Thông báo');
-							window.location.reload();
+							setTimeout(function() {
+								location.reload();
+							}, 500);
 
 						}else{
 
@@ -170,8 +200,7 @@
 
 		} else {
 
-			console.log({ name, description, level, subjectID})
-			if(name.length < 1 || level.length < 1 || subjectID.length < 1){
+			if(!name || !level || !subjectID){
 
 				return toastr['error']('Chưa nhập đủ trường', 'Thông báo');
 
@@ -179,16 +208,15 @@
 				$.ajax({
 					url: `/exam/update-exam/${examID}`,
 					method: 'POST',
-					data: { name, description, level, subjectID },
+					data: { name, description, level, subjectID, timeDoTest },
 					success: resp => {
-
-						console.log({ resp })
 						
 						if(!resp.error){
 
-							//toastr['success']('Cập nhật thành công', 'Thông báo');
-							alert(`Cập nhật thành công`)
-							window.location.reload();
+							toastr['success']('Cập nhật thành công', 'Thông báo');
+							setTimeout(function() {
+								location.reload();
+							}, 500);
 
 						}else{
 
@@ -206,7 +234,7 @@
 	$(document).on('click', '.btnRemoveExam', function(e) {
 
 		let examID = $(this).attr('_examID');
-		console.log({ examID })
+
 		if (window.confirm('Bạn có chắc chắn xóa không?')) {
             $.ajax({
 				url: `/exam/remove-exam/${examID}`,
@@ -239,11 +267,7 @@
 				method: 'GET',
 				success: resp => {
 
-					console.log({ resp })
-
-					let { _id: id, name, description, level, subjects: subjectID} = resp.data
-
-					console.log({ id, name, description, level, subjectID })
+					let { _id: id, name, description, level, timeDoTest, subjects: subjectID } = resp.data
 					
 					if(!resp.error){
 						$('#nameExam').val(name);
@@ -252,10 +276,15 @@
 						$('#level').val(level);
 						$('#level').trigger('change');
 
+						$('#timeDoTest').val(timeDoTest);
+						$('#timeDoTest').trigger('change');
+
 						$('#subjectID').val(subjectID._id);
 						$('#subjectID').trigger('change');
 
 						$('.btnCreateExam').attr('_examID', id);
+
+						//return toastr['success']('Thêm thành công', 'Thông báo');
 
 					} else {
 

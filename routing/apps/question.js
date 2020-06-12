@@ -13,11 +13,9 @@ route.post('/add-question', uploadMulter.single('image'), ROLE_ADMIN, async (req
         let userID = userIDfromSession.user.infoUSer._id;
 
         let { nameQuestion, examID, answer, correct } = req.body;
-        console.log({ nameQuestion, examID, answer, correct })
         
         let infoFile = req.file;
         
-        console.log({ infoFile })
         let infoQuestion;
 
         if(infoFile) {
@@ -51,7 +49,6 @@ route.get('/info-question/:questionID', ROLE_ADMIN, async (req, res) => {
         let { questionID } = req.params;
     
         let infoQuestion = await QUESTION_MODEL.getInfo({ questionID });
-        console.log({ infoQuestion });
 
         return res.json(infoQuestion);
 
@@ -74,15 +71,11 @@ route.post('/update-question/:questionID', ROLE_ADMIN, uploadMulter.single('imag
             let infoQuestion = await QUESTION_MODEL.getInfo(questionID);
             
             infoFile = infoQuestion.data.image;
-            console.log(infoFile);
         }
 
         let { nameQuestion, examID, answer, correct } = req.body;
 
-        console.log({ nameQuestion, examID, answer, correct, userUpdate })
-
         let resultUpdate = await QUESTION_MODEL.update({ userUpdate, questionID, nameQuestion, examID, answer, correct, image: infoFile });
-        console.log({ resultUpdate })
 
         res.json(resultUpdate)
 
@@ -99,7 +92,6 @@ route.get('/remove-question/:questionID', ROLE_ADMIN, async (req, res) => {
         let { examID } = req.query;
 
         let resultRemove = await QUESTION_MODEL.remove({ questionID, examID });
-        console.log({ resultRemove });
 
         let pathOrigin = path.resolve(__dirname, `../../public/storage/images/${resultRemove.data.image}`);
 

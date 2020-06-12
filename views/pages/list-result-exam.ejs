@@ -60,7 +60,7 @@
                                 <td><%=result.author.fullname%></td>
                                 <td>THPT Trần Quốc Tuấn - Phú Yên</td>
                                 <td><a target="_blank" href="/result-exam?resultID=<%=result._id%>&examID=<%=result.exam._id%>">[<%=result.exam.subjects.name%>] - <%=result.exam.name%></a></td>
-                                <td><%=result.point%></td>
+                                <td><%=Math.round(result.point * 100) / 100%></td>
                                 <% if (result.point < 5) { %>
                                 <td><span class="status-icon bg-danger"></span> Yếu</td>
                                 <% } else if(result.point < 7 && result.point > 4 ) {%>
@@ -183,7 +183,7 @@
 											<td>${result.result.author.fullname}</td>
 											<td>THPT Trần Quốc Tuấn - Phú Yên</td>
 											<td>${result.result.exam.name}<a target="_blank" href="/result-exam?resultID=&examID=""></a></td>
-											<td>${result.result.point}</td>
+											<td>${Math.round(result.result.point * 100) / 100}</td>
 											<td>${learningPower}</td>
 											<td>
 												<div class="d-flex justify-content-between mb-5">
@@ -273,8 +273,6 @@
 							}
 						
 					} else {
-
-						//alert("Không tìm thấy")
 
 					}
 				},

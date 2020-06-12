@@ -9,6 +9,7 @@ const USER_ROUTER       = require('./routing/apps/user');
 const SUBJECT_ROUTER    = require('./routing/apps/subject');
 const EXAM_ROUTER       = require('./routing/apps/exam');
 const QUESTION_ROUTER   = require('./routing/apps/question');
+const COMMENT_ROUTER   = require('./routing/apps/comment');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.use('/', USER_ROUTER);
 app.use('/subject', SUBJECT_ROUTER);
 app.use('/exam', EXAM_ROUTER);
 app.use('/question', QUESTION_ROUTER);
+app.use('/comment', COMMENT_ROUTER);
 
 //Dẫn đến page 404
 app.use(function(req, res, next){
@@ -44,5 +46,5 @@ mongoose.set('useUnifiedTopology', true); // ẩn cảnh báo
 
 mongoose.connect(uri, { useNewUrlParser: true });
 mongoose.connection.once('open', () => {
-    app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
+    app.listen(PORT, () => console.log(`Server started at PORT ${PORT}`));
 });

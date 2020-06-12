@@ -1,3 +1,4 @@
+<% moment.locale('vi')%>
 <%- include ('../partials/header') %>
 <div class="container-fluid" id="body">
     <nav class="third-nav">
@@ -50,7 +51,7 @@
                                         <label>Số câu</label>: <%=infoExam.question.length%>
                                     </div>
                                     <div class="col-xs-24 col-sm-12 col-md-24">
-                                        <label>Thời gian</label>: Không giới hạn thời gian
+                                        <label>Thời gian</label>: <span id="clock"><%=infoExam.timeDoTest%></span> 
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +59,7 @@
                                 <button type="submit" name="submit" class="btn btn-success btnSendTest">
                                     <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
                                 </button>
-                                &nbsp; <a href="/" class="cancelLink"> Thoát </a>
+                                &nbsp; <a href="/" class="btnCancel"> Thoát </a>
                             </div>
                         </div>
                     </div>
@@ -111,7 +112,7 @@
                         <button type="submit" name="submit" class="btn btn-success btnSendTest">
                             <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
                         </button>
-                        &nbsp; <a href="" class="cancelLink"> Thoát </a>
+                        &nbsp; <a href="" class="btnCancel"> Thoát </a>
                     </div>
                     <% } else {%>
                     <h2 style="text-align: center;">Hiện tại chưa có câu hỏi nào</h2>
@@ -123,9 +124,9 @@
 <%- include ('../partials/footer') %>
 
 <script>
-$(window).bind('beforeunload', function(){
   
     $(document).on('click', '.btnSendTest', function (e) {
+
 		e.preventDefault();
         let examID = $('.questionOfExam').attr('_examID');
 
@@ -192,7 +193,7 @@ $(window).bind('beforeunload', function(){
 
                                         if(!resp.error){
 
-                                            window.location.href = `/result-exam?resultID=${resultID}&examID=${examID}`
+                                            location.href = `/result-exam?resultID=${resultID}&examID=${examID}`
                                         }
                                     },
                                     error: err => console.log({ err })
@@ -217,7 +218,7 @@ $(window).bind('beforeunload', function(){
 
                                         if(!resp.error){
 
-                                            window.location.href = `/result-exam?resultID=${resultID}&examID=${examID}`
+                                            location.href = `/result-exam?resultID=${resultID}&examID=${examID}`
                                         }
                                     },
                                     error: err => console.log({ err })
@@ -235,8 +236,14 @@ $(window).bind('beforeunload', function(){
                 });
 
 		}
-
 	});
+
+    $(document).on('click', '.btnCancel', function (e) {
+        e.preventDefault();
+        if (window.confirm(`Bạn có chắc chắn muốn thoát không?`)) {
+            location.href = "/"
+        }
+    })
 
     let arrResult = [];
     $(`.chooseAnswer`).on('change', function() {
@@ -255,8 +262,25 @@ $(window).bind('beforeunload', function(){
             console.log(arrResult)
         }
     });
-    return 'Bạn có chắc chắn rời khỏi không?';
-});
+
+    $(document).ready(function () {
+
+        let timeCountDown = parseInt($('#clock').text());
+
+        var fiveSeconds = new Date().getTime() + (timeCountDown * 1000 * 60);
+        $('#clock').countdown(fiveSeconds, {elapse: true})
+            .on('update.countdown', function(event) {
+            var $this = $(this);
+            if (event.elapsed) {
+
+                $('.btnSendTest').click();
+
+            } else {
+                $this.html(event.strftime('T/g còn lại: <span>%H:%M:%S</span>'));
+            }
+        });
+
+    })
 
 </script>
 

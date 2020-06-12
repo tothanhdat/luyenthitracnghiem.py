@@ -122,8 +122,13 @@
 										</tbody>
                                             </ul>
                                         </li>
-                                        <li><a class="dropdown-toggle" href="/TÀI LIỆU" title="TÀI LIỆU" onclick="this.target='_blank'">  TÀI LIỆU</a> </li>
-                                        <li><a class="dropdown-toggle" href="/TÌM KIẾM" title="TÌM KIẾM">  TÌM KIẾM</a> </li>
+                                        <li class="dropdown" role="presentation"><a class="dropdown-toggle" href="javascript:void(0);" role="button" aria-expanded="false" title="LUYỆN THI">  HỌC SINH <strong class="caret">&nbsp;</strong>
+                                        </a>
+                                            <ul class="dropdown-menu">
+                                                <li value=""><a href="/list-exam-by-save">Đề thi đã lưu</a></li>
+                                                <li value=""><a href="/history-test">Lịch sử thi</a></li>
+                                            </ul>
+                                        </li>
                                         <li><a class="dropdown-toggle" href="/HƯỚNG DẪN LUYỆN THI" title="HƯỚNG DẪN LUYỆN THI">  HƯỚNG DẪN LUYỆN THI</a> </li>
                                         <% if (infoUser) { %>
                                         <li><a class="dropdown-toggle" href="/contact" title="email">  LIÊN HỆ</a> </li>

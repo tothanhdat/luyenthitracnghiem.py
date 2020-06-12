@@ -46,15 +46,15 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="image pull-left">
-                                        <a href="" title="&#91;MIỄN PHÍ&#93;"><img src="../lttnpy_core/images/LOGO_LTTNPY.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
+                                        <a href="" title="&#91;MIỄN PHÍ&#93;"><img src="../lttnpy_core/images/logo_new.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
                                     </div>
                                     <h2 style="text-transform: uppercase">
                                         <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%>: <%=exam.name%></strong></a>
                                     </h2>
                                     <ul class="list-inline help-block">
                                         <li><em class="fa fa-clock-o createAt" _createAt="<%=exam.createAt%>">&nbsp;</em><%= moment(exam.createAt).format('LL');%></li>
-                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: 0</li>
-                                        <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: 0</li>
+                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: <%=exam.seen.length%></li>
+                                        <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: <%=exam.comments.length%></li>
                                     </ul>
                                     <p class="hometext" ><%=exam.name%>: <%=exam.description%></p>
                                     <p class="hometext" >Người tạo: <%=exam.author.fullname%></p>

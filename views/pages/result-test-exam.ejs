@@ -69,7 +69,7 @@
                 <div class="panel-heading">Kết quả:</div>
                 <div class="panel-body" >
                     <h2 >Kết quả bài thi trắc nghiệm:</h2> <br />  Tài khoản:  <strong style="color: #1a3f5e; font-size: 20px"><%=infoResult.author.fullname%></strong><br />
-                    <br />  Điểm của bạn là:  <strong style="color: tomato; font-size: 20px"><%=infoResult.point%></strong><br />
+                    <br />  Điểm của bạn là:  <strong style="color: tomato; font-size: 20px"><%=Math.round(infoResult.point * 100) / 100%></strong><br />
                     <br />  Số câu trả lời đúng: <strong style="color: green; font-size: 20px"><%=infoResult.trueArr.length%></strong> <br />
                     <br />  Số câu trả lời sai: <strong style="color: red; font-size: 20px"><%=infoResult.falseArr.length%></strong> <br />
                     <br />  Câu trả lời đúng: 

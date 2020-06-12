@@ -33,13 +33,37 @@ const ExamSchema = new Schema({
      */
     level: { type: Number, default: 1 },
 
+    //Thời gian đếm ngược
+    timeDoTest: String,
+
     result: [{
         type: Schema.Types.ObjectId,
         ref: "result",
         default: []
     }],
 
-    createAt: { type: Date, required: true, default: Date.now }
+    //Lượt xem
+    seen: [{
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        default: []
+    }],
+
+    //Lưu
+    saveTask: [{
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        default: []
+    }],
+
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: "comment",
+        default: []
+    }],
+
+    createAt: { type: Date, required: true, default: Date.now },
+    
 });
 
 const EXAM_MODEL = mongoose.model('exam', ExamSchema);

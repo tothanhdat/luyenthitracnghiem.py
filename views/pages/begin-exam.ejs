@@ -1,3 +1,31 @@
+<style>
+    .comment-panel{
+        background-color: #eeeeee
+    }
+
+    .comment-panel img{
+        width:40px; 
+        height:auto; 
+        border:5px; 
+        float:left; 
+        margin-left: 18px; 
+        border-radius: 50%; 
+        border: 2px solid #a1a1a1; 
+        margin-top: 15px;
+    }
+    .comment-panel p{
+        margin-left: 70px; 
+        max-width: 85%;
+    }
+
+    .comment-panel a{
+        position: relative;
+        top: -85px;
+        right: -706px;
+    }
+
+</style>
+<% moment.locale('vi')%>
 <%- include ('../partials/header') %>
 <div class="container-fluid" id="body">
     <nav class="third-nav">
@@ -51,15 +79,30 @@
                                     <label>Số câu</label>: <%=infoExam.question.length%>
                                 </div>
                                 <div class="col-xs-24 col-sm-12 col-md-16">
-                                    <label>Thời gian</label>: Không giới hạn
+                                    <label>Thời gian</label>: <%=infoExam.timeDoTest%>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-12 col-xs-24 col-sm-12 col-md-12 text-center">
                             <div class="col-lg-12 col-xs-12 col-sm-12 col-md-8 text-right">
-                                <a href="/luu">
-                                <button class="btn btn-success col-lg-24 col-xs-24" id="btn-save" style="margin-top: 5px;">Lưu đề thi</button>
+                            <% if (infoExam.saveTask && infoExam.saveTask.length) { %>
+                                <% infoExam.saveTask.forEach(item => { %>
+                                    <% if (item._id.toString() == userID._id.toString()) { %>
+                                        <a href="">
+                                            <button class="btn btn-success col-lg-24 col-xs-24" value="<%=infoExam._id%>" style="margin-top: 5px;">Bạn đã lưu đề thi này</button>
+                                        </a>
+                                    <% }else {%>
+                                        <a href="">
+                                            <button class="btn btn-success col-lg-24 col-xs-24" value="<%=infoExam._id%>" id="btn-save" style="margin-top: 5px;">Lưu đề thi</button>
+                                        </a>
+                                    <% } %>
+                                <% }) %>
+                            <% }else {%>
+                                <a href="">
+                                    <button class="btn btn-success col-lg-24 col-xs-24" value="<%=infoExam._id%>" id="btn-save" style="margin-top: 5px;">Lưu đề thi</button>
                                 </a>
+                            <% } %>
+                                
                             </div>
                             <div class="col-lg-12 col-xs-12 col-sm-12 col-md-8 text-left m-bottom">
                                 <a href="/test-exam?examID=<%=infoExam._id%>">
@@ -88,7 +131,8 @@
                     <h2>Hướng dẫn làm bài thi trắc nghiệm:</h2> 1. Đợi đến khi đến thời gian làm bài
                     <br /> 2. Click vào nút &quot;Bắt đầu làm bài&quot; để tiến hành làm bài thi
                     <br /> 3. Ở mỗi câu hỏi, chọn đáp án đúng
-                    <br /> 4. Hết thời gian làm bài, hệ thống sẽ tự thu bài. Bạn có thể nộp bài trước khi thời gian kết thúc bằng cách nhấn nút <strong>Nộp bài</strong></div>
+                    <br /> 4. Hết thời gian làm bài, hệ thống sẽ tự thu bài. Bạn có thể nộp bài trước khi thời gian kết thúc bằng cách nhấn nút <strong>Nộp bài</strong>
+                </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -100,8 +144,42 @@
 
                             <div class="zalo-share-button" data-href="" data-oaid="" data-layout="1" data-color="blue" data-customize=false></div>
                         </li>
-                        <li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a></li>
                     </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                <% if (listComment && listComment.length) { %>
+                    <div class="col-xs-12 text-left">
+                        <p class="comment-title"><em class="fa fa-comments">&nbsp;</em> Những nhận xét khác</p>
+                    </div>
+                <% } else {%>
+                    <div class="col-xs-12 text-left">
+                        <p class="comment-title"><em class="fa fa-comments">&nbsp;</em> Chưa có nhận xét nào</p>
+                    </div>
+                <%}%>
+                    <div class="panel-body comment">
+                    <br /> 
+                    <% if (listComment && listComment.length) { %>
+                        <% listComment.forEach(item => { %>
+                        <% if (item.exam._id.toString() == infoExam._id.toString()) { %>
+                            <div class="comment-panel">
+                                <img src="../lttnpy_core/images/logo_new.png" alt="logo">
+                                <br>
+                                <p><%=item.author.fullname%></p>
+                                <p style="font-size: 10px; color: gray"><%=moment(item.createAt).startOf('minutes').fromNow(); %></p>
+                                <p><%=item.content%></p>
+                                <% if (item.author._id.toString() == userID._id.toString()) { %>
+                                    <a id="btnDeleteComment" _examID="<%=item.exam._id%>" _commentID="<%=item._id%>" href="">Xóa</a>
+                                <% } %>
+                                <br>
+                            </div>
+                            <br /> 
+                            <% } %>
+                        <% }) %>
+                    <% } %>
+                </div>
+                    
                 </div>
             </div>
             <div class="panel panel-default">
@@ -130,19 +208,19 @@
                                 <div class="form-group clearfix">
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <input id="commentname" type="text" name="name" value="Đạt Tô" disabled="disabled" class="form-control" placeholder="Tên của bạn" />
+                                            <input id="commentname" type="text" name="name" value="<%=userID.fullname%>" disabled="disabled" class="form-control" placeholder="Tên của bạn" />
                                         </div>
                                         <div class="col-xs-12">
-                                            <input id="commentemail_iavim" type="text" name="email" value="todat998@gmail.com" disabled="disabled" class="form-control" placeholder="Email" />
+                                            <input id="commentemail_iavim" type="text" name="email" value="<%=userID.email%>" disabled="disabled" class="form-control" placeholder="Email" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group clearfix">
-                                    <textarea class="form-control" style="width: 100%" name="content" id="commentcontent" cols="20" rows="5"></textarea>
+                                    <textarea class="form-control" style="width: 100%" name="content" id="inputComment" cols="20" rows="5"></textarea>
                                 </div>
                                 <div class="form-group text-center">
                                     <input id="reset-cm" type="button" value="Thiết lập lại" class="btn btn-default" />
-                                    <input id="buttoncontent" type="submit" value="Gửi bình luận" class="btn btn-primary" />
+                                    <input id="btnComment" _examID="<%=infoExam._id%>" type="submit" value="Gửi bình luận" class="btn btn-primary" />
                                 </div>
                             </form>
                             <iframe class="hidden" id="submitcommentarea" name="submitcommentarea"></iframe>
@@ -156,3 +234,98 @@
 
 <%- include ('../partials/sidebar') %>
 <%- include ('../partials/footer') %>
+
+<script>
+    $(document).on('click', '#btn-save', function(e) {
+		e.preventDefault();
+        let examID = $(this).val();
+        console.log({ examID })
+        $.ajax({
+            url: `/exam/save-exam`,
+            method: 'POST',
+            data: { examID },
+            success: resp => {
+
+                console.log({ resp })
+
+                if(!resp.error){
+
+
+
+                    return toastr['success']('Đã lưu đề thi', 'Thông báo');
+
+                }else{
+
+                    return toastr['error']('Lưu thất bại', 'Thông báo');
+                }
+            },
+            error: err => console.log({ err })
+        });
+    })
+    
+
+    $(document).on('click', '#btnComment', function(e) {
+		e.preventDefault();
+        
+        let examID = $(this).attr('_examID');
+        let content = $('#inputComment').val();
+        let author = $('#commentname').val();
+        
+        $.ajax({
+            url: `/comment/add-comment`,
+            method: 'POST',
+            data: { examID, content },
+            success: resp => {  
+
+                let infoComment = resp.data
+                console.log({ infoComment })
+
+                if(!resp.error){
+
+                    $('.panel-body .comment').append(`
+                        <div class="comment-panel">
+                            <img src="../lttnpy_core/images/logo_new.png" alt="logo">
+                            <br>
+                            <p>${author}</p>
+                            <p style="font-size: 10px; color: gray">${moment(infoComment.createAt).startOf('minutes').fromNow()}</p>
+                            <p>${content}</p>
+                            <a id="btnDeleteComment" _examID="${examID}" _commentID="${infoComment._id}" href="">Xóa</a>
+                            <br>
+                        </div>
+                    `)
+                    $('#inputComment').val('')
+
+                }else{
+
+                    return toastr['error']('FAIL', 'Thông báo');
+                }
+            },
+            error: err => console.log({ err })
+        });
+    })
+
+    $(document).on('click', '#btnDeleteComment', function(e) {
+		e.preventDefault();
+        let commentID = $(this).attr('_commentID');
+        let examID = $(this).attr('_examID');
+
+        console.log({ commentID, examID })
+        $.ajax({
+            url: `/comment/remove-comment`,
+            method: 'post',
+            data: { commentID, examID },
+            success: resp => {
+                console.log({ resp })
+                if(!resp.error){
+                    $(this).closest(".comment-panel").empty();
+                    return toastr['success']('Xóa thành công', 'Thông báo');
+
+                }else{
+
+                    return toastr['error']('Xóa thất bại', 'Thông báo');
+                }
+            },
+            error: err => console.log({ err })
+        });
+    })
+</script>

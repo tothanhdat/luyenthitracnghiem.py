@@ -27,7 +27,8 @@ route.get('/create-subject', ROLE_SUPER_ADMIN, async (req, res) => {
 
 //TẠO BỘ ĐỀ
 route.get('/create-exam', ROLE_ADMIN, async (req, res) => {
-    renderToView(req, res, 'pages/add-exam', { })
+    let infoUser = req.session;
+    renderToView(req, res, 'pages/add-exam', { userID: infoUser.user.infoUSer._id })
 })
 
 //TẠO CÂU HỎI
@@ -85,8 +86,7 @@ route.post('/result-exam', checkActive, async (req, res) => {
 })
 
 route.get('/list-result-exam', ROLE_ADMIN, async (req, res) => {
-    let listResult = await RESULT_MODEL.getList();
-    renderToView(req, res, 'pages/list-result-exam', { listResult: listResult.data });
+    renderToView(req, res, 'pages/list-result-exam', { });
 })
 
 route.get('/list-result-exam?sort', ROLE_ADMIN, async (req, res) => {
@@ -112,6 +112,20 @@ route.get('/list-exam-with-level', async (req, res) => {
     renderToView(req, res, 'pages/list-exam-of-level', { listExamWithLevel: listExamWithLevel.data });
 })
 
+//Danh sách đề thi đã lưu
+route.get('/list-exam-by-save', checkActive, async (req, res) => {
+    let infoUser = req.session;
+    let listExamBySave = await EXAM_MODEL.getList();
+    renderToView(req, res, 'pages/list-exam-by-save', { listExamBySave: listExamBySave.data, userID: infoUser.user.infoUSer._id });
+})
+
+//lịch sử thi
+route.get('/history-test', checkActive, async (req, res) => {
+    let infoUser = req.session;
+    //listResult
+    renderToView(req, res, 'pages/history-test', { userID: infoUser.user.infoUSer._id });
+})
+
 route.get('/list-exam', async (req, res) => {
     //console.log( listExamOfSubject.data )
     renderToView(req, res, 'pages/list-exam', { });
@@ -125,7 +139,7 @@ route.get('/info-exam', async (req, res) => {
     renderToView(req, res, 'pages/info-exam', { infoExamHaveQuestion: infoExamHaveQuestion.data });
 })
 
-
+//Tìm kiếm theo key và bộ đề
 route.post('/list-result-of-search', async (req, res) => {
     let { key, examID } = req.body;
     let listResultOfSearch = await RESULT_MODEL.getListStudentInResultByKey({ key, examID });

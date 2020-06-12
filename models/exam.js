@@ -3,7 +3,7 @@ const EXAM_COLL = require('../database/exam-coll');
 
 module.exports = class Exam extends EXAM_COLL {
 
-    static insert({ name, description, subjectID, level, createAt, userID }) {
+    static insert({ name, description, subjectID, level, timeDoTest, createAt, userID }) {
         return new Promise(async resolve => {
             try {
 
@@ -13,6 +13,7 @@ module.exports = class Exam extends EXAM_COLL {
                 let dataInsert = { 
                     name,
                     description,
+                    timeDoTest,
                     level,
                     createAt,
                     author: userID
@@ -112,7 +113,6 @@ module.exports = class Exam extends EXAM_COLL {
                 .populate('subjects author');
 
                 if (!listExamWithLevel) return resolve({ error: true, message: 'cannot_get_list_data' });
-
                 return resolve({ error: false, data: listExamWithLevel });
 
             } catch (error) {
@@ -122,17 +122,21 @@ module.exports = class Exam extends EXAM_COLL {
         })
     }
 
-    static getInfo({ examID }) {
+    static getInfo({ examID, userID }) {
         return new Promise(async resolve => {
             try {
                 
-                if (!ObjectID.isValid(examID))
+                if (!ObjectID.isValid(examID, userID))
                     return resolve({ error: true, message: 'params_invalid' });
 
                 let infoExam = await EXAM_COLL.findById(examID)
-                .populate('subjects question')
+                .populate('subjects question user')
 
                 if (!infoExam) return resolve({ error: true, message: 'cannot_get_info_data' });
+
+                let seenOfExam = await EXAM_COLL.findByIdAndUpdate(examID, {
+                    $push: { seen: userID }
+                }, {new: true})
 
                 return resolve({ error: false, data: infoExam });
 
@@ -161,7 +165,7 @@ module.exports = class Exam extends EXAM_COLL {
         })
     }
 
-    static update({ examID, name, description, subjectID, level, createAt, userID }) {
+    static update({ examID, name, description, subjectID, timeDoTest, level, createAt, userID }) {
         return new Promise(async resolve => {
             try {
 
@@ -175,6 +179,7 @@ module.exports = class Exam extends EXAM_COLL {
                     description, 
                     subjects: subjectID, 
                     level, 
+                    timeDoTest,
                     createAt, 
                     userUpdate: userID
                 }
@@ -185,6 +190,31 @@ module.exports = class Exam extends EXAM_COLL {
                     return resolve({ error: true, message: 'cannot_update_data' });
 
                 return resolve({ error: false, data: infoAfterUpdate, message: "update_data_success" });
+
+            } catch (error) {
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+
+    //Lưu đề thi
+    static saveExam({ examID, userID }) {
+        return new Promise(async resolve => {
+            try {
+                
+                if (!ObjectID.isValid(examID, userID))
+                    return resolve({ error: true, message: 'params_invalid' });
+
+                let infoExam = await EXAM_COLL.findById(examID)
+                .populate('subjects question user')
+
+                if (!infoExam) return resolve({ error: true, message: 'cannot_get_info_data' });
+
+                let saveExam = await EXAM_COLL.findByIdAndUpdate(examID, {
+                    $addToSet: { saveTask: userID }
+                }, {new: true})
+
+                return resolve({ error: false, data: saveExam });
 
             } catch (error) {
                 return resolve({ error: true, message: error.message });
