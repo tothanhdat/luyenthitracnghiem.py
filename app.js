@@ -3,7 +3,6 @@ const app               = express();
 const bodyParser        = require('body-parser');
 const mongoose          = require('mongoose');
 const expressSession    = require('express-session');
-const multer            = require('multer');
 
 const USER_ROUTER       = require('./routing/apps/user');
 const SUBJECT_ROUTER    = require('./routing/apps/subject');
