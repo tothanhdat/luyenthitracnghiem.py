@@ -6,17 +6,27 @@
     </nav>
     <section>
         <div class="container-fluid" id="body">
-            <nav class="third-nav">
-                <div class="row">
-                    <div class="bg">
-                        <div class="clearfix">
-                            <div class="col-xs-24 col-sm-18 col-md-18">
-                                <span id="dateTime" class="current-time"><%=moment().format('LLLL')%></span>
+        <nav class="third-nav">
+            <div class="row">
+                <div class="bg">
+                <div class="clearfix">
+                    <div class="col-xs-24 col-sm-18 col-md-18">
+                        <div class="breadcrumbs-wrap">
+                            <div class="display">
+                                <a class="show-subs-breadcrumbs hidden" href="#" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
+                                <ul class="breadcrumbs list-none"></ul>
                             </div>
+                            <ul class="subs-breadcrumbs"></ul>
+                            <ul class="temp-breadcrumbs hidden" itemscope itemtype="https://schema.org/BreadcrumbList">
+                                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item" title="Trang nhất"><span itemprop="name">Trang nhất</span></a><i class="hidden" itemprop="position" content="1"></i></li>
+                                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="" itemprop="item" title="Trắc nghiệm"><span class="txt" itemprop="name">Trắc nghiệm</span></a><i class="hidden" itemprop="position" content="2"></i></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="" itemprop="item" title="Đề thi đã lưu"><span class="txt" itemprop="name">Đề thi đã lưu</span></a><i class="hidden" itemprop="position" content="3"></i></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </nav>
+                </div>
+            </div>
+        </nav>
             <div class="row">
                 <div class="col-xs-24 col-sm-15 col-md-15">
                     <!--Start of Tawk.to Script-->
@@ -31,7 +41,7 @@
                         <div class="test viewlist">
                         <% if (listExamBySave && listExamBySave.length) { %>
                             <% listExamBySave.forEach(exam => { %>
-                            <% exam.saveTask.forEach(item => { %>
+                            <% exam.saveExam.forEach(item => { %>
                             <% if (item._id.toString() == userID.toString()) { %>
 
                             <div class="panel panel-default">
@@ -40,7 +50,7 @@
                                         <div class="pull-left cat-info">
                                             <em class="fa fa-folder-open-o">&nbsp;</em>
                                             <a style="text-transform: uppercase" href="" title="Môn học">Môn học</a> »
-                                            <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subjects.name%></a>
+                                            <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subject.name%></a>
                                         </div>
                                         <ul class="exam-info list-inline pull-right form-tooltip">
                                             <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em><%=exam.question.length%><span class="hidden-xs"> câu hỏi</span></li>
@@ -52,7 +62,7 @@
                                         <a href="" title="&#91;MIỄN PHÍ&#93;"><img src="../lttnpy_core/images/logo_new.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
                                     </div>
                                     <h2 style="text-transform: uppercase">
-                                        <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%>: <%=exam.name%></strong></a>
+                                        <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subject.name%>: <%=exam.name%></strong></a>
                                     </h2>
                                     <ul class="list-inline help-block">
                                         <li><em class="fa fa-clock-o createAt" _createAt="<%=exam.createAt%>">&nbsp;</em><%= moment(exam.createAt).format('LL');%></li>

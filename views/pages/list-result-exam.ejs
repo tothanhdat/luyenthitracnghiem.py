@@ -25,7 +25,7 @@
 						<% if (listExam && listExam.length) { %>
 							<% listExam.forEach(exam => { %>
 
-							<option value="<%=exam._id%>"><%=exam.name%> [ <%=exam.subjects.name%>
+							<option value="<%=exam._id%>"><%=exam.name%> [ <%=exam.subject.name%>
 							
 							<% LEVEL_TYPES.forEach(level => { %>
 									<% if (level.value == exam.level) { %>
@@ -59,7 +59,7 @@
                                 <td><%=listResult.indexOf(result) + 1%></td>
                                 <td><%=result.author.fullname%></td>
                                 <td>THPT Trần Quốc Tuấn - Phú Yên</td>
-                                <td><a target="_blank" href="/result-exam?resultID=<%=result._id%>&examID=<%=result.exam._id%>">[<%=result.exam.subjects.name%>] - <%=result.exam.name%></a></td>
+                                <td><a target="_blank" href="/result-exam?resultID=<%=result._id%>&examID=<%=result.exam._id%>">[<%=result.exam.subject.name%>] - <%=result.exam.name%></a></td>
                                 <td><%=Math.round(result.point * 100) / 100%></td>
                                 <% if (result.point < 5) { %>
                                 <td><span class="status-icon bg-danger"></span> Yếu</td>

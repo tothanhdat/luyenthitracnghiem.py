@@ -6,7 +6,7 @@
                 <input id="input-search" autocomplete="off" type="text" class="form-control" placeholder="Tìm kiếm câu hỏi...">
             </form>
 		<div class="box-header">
-				<h3 ><%=infoExamHaveQuestion.name%> - <%=infoExamHaveQuestion.subjects.name%> <% LEVEL_TYPES.forEach(level => { %>
+				<h3 ><%=infoExamHaveQuestion.name%> - <%=infoExamHaveQuestion.subject.name%> <% LEVEL_TYPES.forEach(level => { %>
 											<% if (level.value == infoExamHaveQuestion.level) { %>
 												<td><%=level.text%></td>
 											<% } %>

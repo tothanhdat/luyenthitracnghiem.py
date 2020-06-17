@@ -40,3 +40,36 @@
 <script type="text/javascript" src="./themes/default/js/voting.js"></script>
 </body>
 </html>
+
+<script>
+    //Phân trang
+    let page = $('#pagination').attr('_page')
+
+    let btnContainer = document.getElementById("pagination");
+    let btns = btnContainer.getElementsByClassName("page-item");
+    console.log(btns.length)
+
+    for (var i = 0; i < btns.length; i++) {
+        
+        btns[i].addEventListener("click", function() {
+        
+        let current = document.getElementsByClassName("active");
+
+        // If there's no active class
+        if (current.length > 0) {
+        current[0].className = current[0].className.replace(" active", "");
+        }
+
+        // Add the active class to the current/clicked button
+        this.className += " active";
+        });
+    }
+    
+    $(document).on('click', '#cannotLogin', function(e) {
+        e.preventDefault();
+        $("#email").addClass('notiLogin')
+        $("#email").click(function(){
+            $("#email").removeClass('notiLogin')
+        })
+    }) 
+</script>

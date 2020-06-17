@@ -56,6 +56,14 @@
 												<td><%=subject.name%></td>
 												<td></td>
 												<td><%=subject.teacher%></td>
+												<td>
+												<div class="user-panel-actions">
+													<a href="#"></a>
+													<a href="#"><i class="fas fa-pencil-alt btnEditExam" _subjectID="<%=subject._id%>"></i></a>
+													<a href="#"></a>
+													<a href="#"><i class="fas fa-trash-alt btnRemoveSubject" _subjectID="<%=subject._id%>"></i></a>
+												</div>
+											</td>
 											</tr>
 												<% }) %>
                         					<% } %>
@@ -102,6 +110,32 @@
                 },
                 error: err => console.log({ err })
             });
+        }
+    })
+
+	//Xóa môn học --------------->
+	$(document).on('click', '.btnRemoveSubject', function(e) {
+
+		let subjectID = $(this).attr('_subjectID');
+
+		if (window.confirm('Bạn có chắc chắn xóa không?')) {
+            $.ajax({
+				url: `/subject/remove-subject/${subjectID}`,
+				method: 'GET',
+				success: resp => {
+
+					if(!resp.error){
+
+						$(this).closest("tr").remove();
+						return toastr['success']('Xóa thành công', 'Thông báo');
+
+					}else{
+
+						return toastr['error']('Xóa thất bại', 'Thông báo');
+					}
+				},
+				error: err => console.log({ err })
+			});
         }
     })
 

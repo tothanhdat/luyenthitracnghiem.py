@@ -626,7 +626,7 @@
                 let password = $('#password').val().trim();
 
                 if (email.length < 1 || password.length < 1) {
-                    alert("Email va password khong duoc de trong")
+                    toastr['warning']('Email hoặc mật khẩu không được để trống', 'Thông báo');
                 } else {
                     $.ajax({
                         url: `/login`,
@@ -639,12 +639,14 @@
                             //console.log({ resp })
 
                             if (!resp.error) {
-                                alert('Đăng nhập thành công');
-                                window.location.href = `/dashboard`;
+                                toastr['success']('Đăng nhập thành công', 'Thông báo');
+                                setTimeout(function(){ 
+                                    location.href = `/dashboard`;
+                                }, 500);
 
                             } else {
 
-                                return alert('Đăng nhập thất bại');
+                                return toastr['warning']('Email hoặc mật khẩu không chính xác', 'Thông báo');
                             }
                         },
                         error: err => console.log({
@@ -653,4 +655,8 @@
                     });
                 }
             })
+            
+
         </script>
+
+       

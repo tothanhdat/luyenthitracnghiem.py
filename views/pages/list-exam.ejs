@@ -37,7 +37,7 @@
                             <% listExam.forEach(exam => { %>
                             <tr>
                                 <td><a href="/info-exam?examID=<%=exam._id%>"><span></span> <%=exam.name%></a></td>
-                                <td><span></span> <%=exam.subjects.name%></td>
+                                <td><span></span> <%=exam.subject.name%></td>
 
                                 <% LEVEL_TYPES.forEach(level => { %>
 									<% if (level.value == exam.level) { %>

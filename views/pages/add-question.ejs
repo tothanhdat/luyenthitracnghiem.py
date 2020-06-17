@@ -27,9 +27,7 @@
 									<option value>Chọn bộ đề</option>
 								<% if (listExam && listExam.length) { %>
 									<% listExam.forEach(exam => { %>
-
-									<option value="<%=exam._id%>"><%=exam.name%> [ <%=exam.subjects.name%>
-                                    
+									<option value="<%=exam._id%>"><%=exam.name%> [ <%=exam.subject.name%>
                                     <% LEVEL_TYPES.forEach(level => { %>
 											<% if (level.value == exam.level) { %>
 												<td><%=level.text%></td>
@@ -311,8 +309,8 @@
 			
 			let _urlTemp = `/test-exam?examID=${examID}`
 			window.open(_urlTemp, '_blank');
-
 		}
 	})
+	
 
 </script>

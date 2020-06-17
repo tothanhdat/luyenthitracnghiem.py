@@ -77,20 +77,20 @@
 			</div>
 			<div class="table-responsive">
 				<table class="table">
-				<% if (listUser && listUser.length) { %>
-					<% listUser.forEach(user => { %>
-						<% if (user.role.toString() == 1) { %>
-							<tbody>
-								<tr>
-									<th>Avatar</th>
-									<th>Họ Tên</th>
-									<th>Số lượng Đề</th>
-									<th>Nơi làm việc</th>
-									<th>Ngày tham gia</th>
-									<th>Loại tài khoản</th>
-									<th>Phát triển</th>
-									<th></th>
-								</tr>
+					<tbody>
+						<tr>
+							<th>Avatar</th>
+							<th>Họ Tên</th>
+							<th>Số lượng Đề</th>
+							<th>Nơi làm việc</th>
+							<th>Ngày tham gia</th>
+							<th>Loại tài khoản</th>
+							<th>Phát triển</th>
+							<th></th>
+						</tr>
+						<% if (listUser && listUser.length) { %>
+							<% listUser.forEach(user => { %>
+								<% if (user.role.toString() == 1) { %>
 								<tr>
 									<td>
 										<div class="avatar avatar-xs">
@@ -115,11 +115,11 @@
 										<a href="#" class="icon text-black-25"><i class="fas fa-ellipsis-v"></i></a>
 									</td>
 								</tr>
-							</tbody>
-							<% } %>
-						<% }) %>
-					<% } %>
-				</table>
+								<% } %>
+							<% }) %>
+						<% } %>
+						</table>
+				</tbody>
 			</div>
 		</div>
 

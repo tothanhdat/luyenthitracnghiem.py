@@ -95,6 +95,13 @@ route.post('/save-exam', checkActive, async (req, res) => {
     res.json(examBySave);
 })
 
+route.post('/cancle-save-exam', checkActive, async (req, res) => {
+    let { examID } = req.body;
+    let infoUser = req.session;
+    let cancelSaveExam = await EXAM_MODEL.cancelSaveExam({ examID, userID: infoUser.user.infoUSer._id })
+    res.json(cancelSaveExam);
+})
+
 
 
 module.exports = route;

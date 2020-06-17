@@ -107,7 +107,7 @@
 										<td><%=exam.name%></td> <!--Tên bộ đề-->
 
 											<% listSubject.forEach(subject => { %>
-												<% if (subject._id.toString() == exam.subjects._id.toString()) { %>
+												<% if (subject._id.toString() == exam.subject._id.toString()) { %>
 													<td><%=subject.name%></td> <!--Môn học-->
 												<% } %>
 											<% }) %>
@@ -267,7 +267,7 @@
 				method: 'GET',
 				success: resp => {
 
-					let { _id: id, name, description, level, timeDoTest, subjects: subjectID } = resp.data
+					let { _id: id, name, description, level, timeDoTest, subject: subjectID } = resp.data
 					
 					if(!resp.error){
 						$('#nameExam').val(name);

@@ -1,5 +1,6 @@
 const ObjectID = require('mongoose').Types.ObjectId;
 const SUBJECTS_COLL = require('../database/subject-coll');
+const EXAM_COLL = require('../database/exam-coll');
 
 module.exports = class Subjects extends SUBJECTS_COLL {
 
@@ -70,6 +71,9 @@ module.exports = class Subjects extends SUBJECTS_COLL {
 
                 if (!infoAfterRemove)
                     return resolve({ error: true, message: 'cannot_remove_data' });
+
+                let infoExamRemove = await EXAM_COLL.deleteMany({ subject: subjectID })
+                //console.log({ infoExamRemove })
 
                 return resolve({ error: false, data: infoAfterRemove, message: "remove_data_success" });
             } catch (error) {

@@ -1,5 +1,7 @@
 const ObjectID = require('mongoose').Types.ObjectId;
 const EXAM_COLL = require('../database/exam-coll');
+const SUBJECT_COLL = require('../database/subject-coll');
+const QUESTION_COLL = require('../database/question-coll');
 
 module.exports = class Exam extends EXAM_COLL {
 
@@ -7,7 +9,7 @@ module.exports = class Exam extends EXAM_COLL {
         return new Promise(async resolve => {
             try {
 
-                if (!name || isNaN(Number(level)) || !ObjectID.isValid(userID))
+                if (!name || isNaN(Number(level)) || !ObjectID.isValid(userID) || !ObjectID.isValid(subjectID))
                 return resolve({ error: true, message: 'params_invalid' });
 
                 let dataInsert = { 
@@ -16,18 +18,21 @@ module.exports = class Exam extends EXAM_COLL {
                     timeDoTest,
                     level,
                     createAt,
-                    author: userID
+                    author: userID,
+                    subject: subjectID
                 };
-                
 
-                if(subjectID && ObjectID.isValid(subjectID)){
-                    dataInsert.subjects = subjectID;
-                }
+                console.log({ dataInsert })
 
                 let infoAfterInsert = new EXAM_COLL(dataInsert);
                 let saveDataInsert = await infoAfterInsert.save();
 
                 if (!saveDataInsert) return resolve({ error: true, message: 'cannot_insert_exam' });
+
+                let pushExamToSubjects = await SUBJECT_COLL.findByIdAndUpdate(subjectID, {
+                    $addToSet: { exams: infoAfterInsert._id }
+                }, {new: true})
+
                 resolve({ error: false, data: infoAfterInsert });
 
             } catch (error) {
@@ -39,7 +44,7 @@ module.exports = class Exam extends EXAM_COLL {
     static getList() {
         return new Promise(async resolve => {
             try {
-                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 }).limit(5);
+                let listExam = await EXAM_COLL.find().populate("subject author").sort({ createAt: -1 });
 
                 if (!listExam) return resolve({ error: true, message: 'cannot_get_list_data' });
 
@@ -55,7 +60,7 @@ module.exports = class Exam extends EXAM_COLL {
     static listExamPagination({ page, perPage }){ 
         return new Promise(async resolve => {
             try {
-                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 })
+                let listExam = await EXAM_COLL.find().populate("subject author").sort({ createAt: -1 })
                     .skip((perPage * page) - perPage)
                     .limit(perPage)
 
@@ -70,7 +75,7 @@ module.exports = class Exam extends EXAM_COLL {
     static getListSideBar() {
         return new Promise(async resolve => {
             try {
-                let listExam = await EXAM_COLL.find().populate("subjects author").sort({ createAt: -1 }).limit(3);
+                let listExam = await EXAM_COLL.find().populate("subject author").sort({ createAt: -1 }).limit(3);
 
                 if (!listExam) return resolve({ error: true, message: 'cannot_get_list_data' });
 
@@ -87,8 +92,8 @@ module.exports = class Exam extends EXAM_COLL {
     static getListOfSubjects({ subjectID }) {
         return new Promise(async resolve => {
             try {
-                let listExamOfSubject = await EXAM_COLL.find({ subjects: subjectID })
-                .populate('subjects author');
+                let listExamOfSubject = await EXAM_COLL.find({ subject: subjectID })
+                .populate('subject author');
 
                 if (!listExamOfSubject) return resolve({ error: true, message: 'cannot_get_list_data' });
 
@@ -109,8 +114,8 @@ module.exports = class Exam extends EXAM_COLL {
                 if (isNaN(Number(level)) || !ObjectID.isValid(subjectID))
                 return resolve({ error: true, message: 'params_invalid' });
 
-                let listExamWithLevel = await EXAM_COLL.find({ subjects: subjectID, level })
-                .populate('subjects author');
+                let listExamWithLevel = await EXAM_COLL.find({ subject: subjectID, level })
+                .populate('subject author');
 
                 if (!listExamWithLevel) return resolve({ error: true, message: 'cannot_get_list_data' });
                 return resolve({ error: false, data: listExamWithLevel });
@@ -130,7 +135,7 @@ module.exports = class Exam extends EXAM_COLL {
                     return resolve({ error: true, message: 'params_invalid' });
 
                 let infoExam = await EXAM_COLL.findById(examID)
-                .populate('subjects question user')
+                .populate('subject question user')
 
                 if (!infoExam) return resolve({ error: true, message: 'cannot_get_info_data' });
 
@@ -154,6 +159,9 @@ module.exports = class Exam extends EXAM_COLL {
                     return resolve({ error: true, message: 'params_invalid' });
 
                 let infoAfterRemove = await EXAM_COLL.findByIdAndDelete(examID);
+                
+                let infoQuestionRemove = await QUESTION_COLL.deleteMany({ exam: examID })
+                //console.log({ infoQuestionRemove })
 
                 if (!infoAfterRemove)
                     return resolve({ error: true, message: 'cannot_remove_data' });
@@ -177,7 +185,7 @@ module.exports = class Exam extends EXAM_COLL {
                 let dataUpdate = {
                     name, 
                     description, 
-                    subjects: subjectID, 
+                    subject: subjectID, 
                     level, 
                     timeDoTest,
                     createAt, 
@@ -205,16 +213,31 @@ module.exports = class Exam extends EXAM_COLL {
                 if (!ObjectID.isValid(examID, userID))
                     return resolve({ error: true, message: 'params_invalid' });
 
-                let infoExam = await EXAM_COLL.findById(examID)
-                .populate('subjects question user')
-
-                if (!infoExam) return resolve({ error: true, message: 'cannot_get_info_data' });
-
                 let saveExam = await EXAM_COLL.findByIdAndUpdate(examID, {
-                    $addToSet: { saveTask: userID }
+                    $addToSet: { saveExam: userID }
                 }, {new: true})
 
                 return resolve({ error: false, data: saveExam });
+
+            } catch (error) {
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+
+    //Bỏ lưu
+    static cancelSaveExam({ examID, userID }) {
+        return new Promise(async resolve => {
+            try {
+                
+                if (!ObjectID.isValid(examID, userID))
+                    return resolve({ error: true, message: 'params_invalid' });
+
+                let cancelSaveExam = await EXAM_COLL.findByIdAndUpdate(examID, {
+                    $pull: { saveExam: userID }
+                }, {new: true})
+
+                return resolve({ error: false, data: cancelSaveExam });
 
             } catch (error) {
                 return resolve({ error: true, message: error.message });

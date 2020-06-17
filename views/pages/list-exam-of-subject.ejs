@@ -37,7 +37,7 @@
                                         <div class="pull-left cat-info">
                                             <em class="fa fa-folder-open-o">&nbsp;</em>
                                             <a style="text-transform: uppercase" href="" title="Môn học">Môn học</a> »
-                                            <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subjects.name%></a>
+                                            <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subject.name%></a>
                                         </div>
                                         <ul class="exam-info list-inline pull-right form-tooltip">
                                             <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em>11<span class="hidden-xs"> câu hỏi</span></li>
@@ -49,7 +49,7 @@
                                         <a href="" title="&#91;MIỄN PHÍ&#93;"><img src="../lttnpy_core/images/logo_new.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
                                     </div>
                                     <h2 style="text-transform: uppercase">
-                                        <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%>: <%=exam.name%></strong></a>
+                                        <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subject.name%>: <%=exam.name%></strong></a>
                                     </h2>
                                     <ul class="list-inline help-block">
                                         <li><em class="fa fa-clock-o createAt" _createAt="<%=exam.createAt%>">&nbsp;</em><%= moment(exam.createAt).format('LL');%></li>
@@ -68,12 +68,24 @@
                         </div>
                         <div class="text-center">
                             <ul class="pagination">
-                                <li class="disabled"><a href="#">&laquo;</a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a rel="next" title="Trắc nghiệm  -  Trang 2" href="">2</a></li>
-                                <li class="disabled"><span>...</span></li>
-                                <li><a rel="next" title="Trắc nghiệm  -  Trang 16" href="">16</a></li>
-                                <li><a rel="next" title="Trắc nghiệm  -  Trang 2" href="">&raquo;</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="/?page=<%=page - 1%>" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a value="1" class="page-link" href="?page=1">1</a></li>
+                                <li class="page-item"><a value="2" class="page-link" href="?page=2">2</a></li>
+                                <li class="page-item"><a value="3" class="page-link" href="?page=3">3</a></li>
+                                <li class="page-item"><a value="4" class="page-link" href="?page=4">4</a></li>
+                                <li class="page-item"><a value="5" class="page-link" href="?page=5">5</a></li>
+                                <li class="page-item"><a value="6" class="page-link" href="?page=6">6</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="/?page=<%= page++ %>" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

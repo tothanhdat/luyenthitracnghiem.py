@@ -15,9 +15,9 @@
                             <ul class="temp-breadcrumbs hidden">
                                 <li><a href="/" title="Trang nhất"><span>Trang nhất</span></a></li>
                             <li><a href="" title="Trắc nghiệm"><span class="txt" itemprop="title">Trắc nghiệm</span></a></li>
-                            <li><a href="/list-of-subjects?subjectID=<%=infoExam.subjects._id%>" title="<%=infoExam.subjects.name%>"><span class="txt" itemprop="title"><%=infoExam.subjects.name%></span></a></li>
+                            <li><a href="/list-of-subjects?subjectID=<%=infoExam.subject._id%>" title="<%=infoExam.subject.name%>"><span class="txt" itemprop="title"><%=infoExam.subject.name%></span></a></li>
                             <li><a href="" title="<%=infoExam.name%>"><span class="txt" itemprop="title"><%=infoExam.name%></span></a></li>
-                            <li><a href="" title="&#91;MIỄN PHÍ&#93;"><span class="txt" itemprop="title">&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu</span></a></li>
+                            <li><a href="" title="&#91;MIỄN PHÍ&#93;"><span class="txt" itemprop="title">&#91;MIỄN PHÍ&#93; </span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                 <div class="panel panel-default result_width edit_panel" data-spy="affix" data-offset-top="250">
                     <!--         <div class="panel-heading">Thông tin đề thi</div> -->
                     <div class="panel-body edit_panel">
-                        <h1 class="m-bottom affix_hidden">&#91;MIỄN PHÍ&#93; <%=infoExam.name%>: [<%=infoExam.subjects.name%>] <%=infoExam.description%></h1>
+                        <h1 class="m-bottom affix_hidden">&#91;MIỄN PHÍ&#93; <%=infoExam.name%>: [<%=infoExam.subject.name%>] - GV: <%=infoExam.subject.teacher%></h1>
                         <div class="row">
                             <div class="col-lg-8 col-xs-16 col-sm-12 col-md-8 affix_hidden">
                                 <div class="row exam-info">
@@ -55,11 +55,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8 col-xs-10 col-sm-24 col-md-8 text-center" style="position: absolute; right: 0;">
+                            <div class="col-lg-8 col-xs-10 col-sm-24 col-md-8 " style="position: absolute; right: 0;">
+                            <button type="submit" name="submit" class="btn btn-success btnSaveTest">
+                                    <em class="fa fa-floppy-o">&nbsp;</em>Lưu bài
+                                </button>&emsp;
                                 <button type="submit" name="submit" class="btn btn-success btnSendTest">
-                                    <em class="fa fa-floppy-o">&nbsp;</em>Nộp bài
+                                    <em class="fa fa-paper-plane">&nbsp;&nbsp;</em>Nộp bài
                                 </button>
-                                &nbsp; <a href="/" class="btnCancel"> Thoát </a>
+                                &nbsp; <a style="color:red"href="/" class="btnCancel"> Thoát </a>
                             </div>
                         </div>
                     </div>
@@ -234,7 +237,6 @@
                     },
                     error: err => console.log({ err })
                 });
-
 		}
 	});
 

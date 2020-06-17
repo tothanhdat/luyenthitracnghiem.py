@@ -37,7 +37,7 @@
                                         <div class="pull-left cat-info">
                                             <em class="fa fa-folder-open-o">&nbsp;</em>
                                             <a style="text-transform: uppercase" href="" title="Môn học">Môn học</a> »
-                                            <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subjects.name%></a>
+                                            <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subject.name%></a>
                                         </div>
                                         <ul class="exam-info list-inline pull-right form-tooltip">
                                             <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-star-o">&nbsp;</em><%=exam.question.length%><span class="hidden-xs"> câu hỏi</span></li>
@@ -49,7 +49,7 @@
                                         <a href="/exam?examID=<%=exam._id%>" title="&#91;MIỄN PHÍ&#93;"><img src="../lttnpy_core/images/logo_new.png" class="img-thumbnail" alt="&#91;MIỄN PHÍ&#93; Mác-Lênin: Chương Mở đầu" /></a>
                                     </div>
                                     <h2 style="text-transform: uppercase">
-                                        <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%>: <%=exam.name%></strong></a>
+                                        <a href="/exam?examID=<%=exam._id%>" value="<%=exam._id%>"><strong>&#91;MIỄN PHÍ&#93; <%=exam.subject.name%>: <%=exam.name%></strong></a>
                                     </h2>
                                     <ul class="list-inline help-block">
                                         <li><em class="fa fa-clock-o createAt" _createAt="<%=exam.createAt%>">&nbsp;</em><%= moment(exam.createAt).format('LL');%></li>
@@ -95,6 +95,7 @@
 <%- include ('../partials/footer') %>
 
 <script>
+
     $(document).on('click', '.btnDangNhap', function(e) {
         e.preventDefault();
         let email = $('#email').val().trim();
@@ -128,37 +129,5 @@
             });
         }
     })
-
-    
-        let page = $('#pagination').attr('_page')
-
-        let btnContainer = document.getElementById("pagination");
-        let btns = btnContainer.getElementsByClassName("page-item");
-        console.log(btns.length)
-
-        for (var i = 0; i < btns.length; i++) {
-            
-            btns[i].addEventListener("click", function() {
-            
-            let current = document.getElementsByClassName("active");
-
-            // If there's no active class
-            if (current.length > 0) {
-            current[0].className = current[0].className.replace(" active", "");
-            }
-
-            // Add the active class to the current/clicked button
-            this.className += " active";
-            });
-        }
-    
-    $(document).on('click', '#cannotLogin', function(e) {
-        e.preventDefault();
-        $("#email").addClass('notiLogin')
-        $("#email").click(function(){
-            $("#email").removeClass('notiLogin')
-        })
-    }) 
-    
 
 </script>

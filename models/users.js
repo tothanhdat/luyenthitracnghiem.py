@@ -25,12 +25,15 @@ module.exports = class user {
                 const infoUSer = await USER_COLL.findOne({ email });
                 if (!infoUSer)
                     return resolve({ error: true, message: 'email_not_exist' });
+                    
                 const checkPass = await compare(password, infoUSer.password);
                 if (!checkPass)
                     return resolve({ error: true, message: 'password_not_true' });
                 await delete infoUSer.password;
+
                 let token = await sign({ data: infoUSer });
                 return resolve({ error: false, data: { infoUSer, token } });
+                
             } catch (error) {
                 return resolve({ error: true, message: error.message });
             }

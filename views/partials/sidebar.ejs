@@ -36,7 +36,7 @@
                                 <% }%>
                                     
                                 </li>
-                                <li><a href="">Lịch sử thi</a></li>
+                                <li><a href="/history-test">Lịch sử thi</a></li>
                                 <li><a href="/list-exam-by-save">Các đề thi đã lưu</a></li>
                             </ul>
                         </div>
@@ -117,7 +117,7 @@
             <% if (listExemLimit && listExemLimit.length) { %>
                     <% listExemLimit.forEach(exam => { %>
                 <li class="clearfix">
-                    <a class="show" href="/exam?examID=<%=exam._id%>">&#91;MIỄN PHÍ&#93; <%=exam.subjects.name%> - <%=exam.name%> - <%=exam.description%></a>
+                    <a class="show" href="/exam?examID=<%=exam._id%>">&#91;MIỄN PHÍ&#93; <%=exam.subject.name%> - <%=exam.name%> - <%=exam.description%></a>
                 </li>
                 <% }) %>
             <% } %>

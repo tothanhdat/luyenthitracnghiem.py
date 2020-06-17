@@ -3,11 +3,6 @@ const Schema   = mongoose.Schema;
 
 const ExamSchema = new Schema({
 
-    author: {
-        type: Schema.Types.ObjectId,
-        ref : "user"
-    },
-
     /**
      * Tên
      */
@@ -15,12 +10,57 @@ const ExamSchema = new Schema({
 
     description: String,
 
+    //Loại giao diện đề
+    type: String,
+
+    //Ghi chú
+    note: String,
+
+    //Trạng thái
+    note: String,
+
+    //Người tạo
+    author: {
+        type: Schema.Types.ObjectId,
+        ref : "user"
+    },
+
+    //Người cập nhật
+    userUpdate: {
+        type: Schema.Types.ObjectId,
+        ref : "user"
+    },
+
     /**
      * Môn học
      */
-    subjects: {
+    subject: {
         type: Schema.Types.ObjectId,
-        ref: "subjects",
+        ref: "subject",
+    },
+
+     /**
+     * Tài liệu
+     */
+    documents: [{
+        type: Schema.Types.ObjectId,
+        ref: "document",
+    }],
+    
+    /**
+     * Thuộc trường nào
+     */
+    department: {
+        type: Schema.Types.ObjectId,
+        ref: "department",
+    },
+
+    /**
+     * Thuộc phòng ban/khoa nào
+     */
+    school: {
+        type: Schema.Types.ObjectId,
+        ref: "school",
     },
 
     question: [{
@@ -36,6 +76,12 @@ const ExamSchema = new Schema({
     //Thời gian đếm ngược
     timeDoTest: String,
 
+    //Độ khó---- 0: Dễ || 1: Vừa || 2: Khó
+    level_difficult: {
+        type: Number,
+        default: 1
+    },
+
     result: [{
         type: Schema.Types.ObjectId,
         ref: "result",
@@ -50,7 +96,7 @@ const ExamSchema = new Schema({
     }],
 
     //Lưu
-    saveTask: [{
+    saveExam: [{
         type: Schema.Types.ObjectId,
         ref: "user",
         default: []

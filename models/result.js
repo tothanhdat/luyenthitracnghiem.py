@@ -53,7 +53,7 @@ module.exports = class Result extends RESULT_COLL {
                 .populate({
                     path: 'exam',
                     // Get friends of friends - populate the 'friends' array for every friend
-                    populate: { path: 'subjects' }
+                    populate: { path: 'subject' }
                   });
 
                 if (!listResult) return resolve({ error: true, message: 'cannot_get_list_data' });
@@ -75,7 +75,7 @@ module.exports = class Result extends RESULT_COLL {
                 if (!ObjectID.isValid(resultID))
                     return resolve({ error: true, message: 'params_invalid' });
 
-                let infoResult = await RESULT_COLL.findById(resultID).populate('author exam subjects');
+                let infoResult = await RESULT_COLL.findById(resultID).populate('author exam subject');
 
                 if (!infoResult) return resolve({ error: true, message: 'cannot_get_info_data' });
 

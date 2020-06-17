@@ -10,13 +10,10 @@ const { renderToView }  = require('../../utils/childRouting');
 
 
 route.get('/', async (req, res) => {
-    let { page }  = req.query;
-    let perPage = 5;
     //console.log('page & perPage', page, perPage)
-    let listExamPagination = await EXAM_MODEL.listExamPagination({ page, perPage })
     //console.log({ listExamPagination })
     
-    renderToView(req, res, 'pages/home', { listExamPagination: listExamPagination.data, page })
+    renderToView(req, res, 'pages/home', { })
 })
 
 
@@ -166,6 +163,8 @@ route.post('/login', async (req, res) => {
     //req.session.isLogin = true;
     let { email, password } = req.body;
     let infoUser = await USER_MODEL.signIn(email, password);
+
+    console.log({ infoUser })
 
     if(infoUser.error)
         return res.json(infoUser);
