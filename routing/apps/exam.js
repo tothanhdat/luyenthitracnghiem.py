@@ -3,10 +3,14 @@ const EXAM_MODEL        = require('../../models/exam');
 const USER_MODEL        = require('../../models/users');
 const SUBJECT_MODEL     = require('../../models/subjects');
 const COMMENT_MODEL     = require('../../models/comment');
+const { uploadMulter }  = require('../../utils/config_multer');
 const ROLE_ADMIN        = require('../../utils/checkRole');
 const ROLE_SUPER_ADMIN  = require('../../utils/roleSuperAdmin');
 const checkActive       = require('../../utils/checkActive');
 const { renderToView }  = require('../../utils/childRouting');
+
+const fs                = require('fs');
+const path              = require('path');
 
 //TRANG BẮT ĐẦU LÀM BỘ ĐỀ
 route.get('/', checkActive, async (req, res) => {
@@ -28,17 +32,23 @@ route.get('/result', checkActive, async (req, res) => {
     renderToView(req, res, 'pages/result-test-exam', { });
 })
 
-route.post('/add-exam', ROLE_ADMIN, async (req, res) => {
+route.post('/add-exam', uploadMulter.single('file'), ROLE_ADMIN, async (req, res) => {
 
     let userIDfromSession = req.session; //Đã gán req.session.user
     let userID = userIDfromSession.user.infoUSer._id;
-    
+
     let { name, description, level, timeDoTest, subjectID } = req.body;
+    
+    let infoFile = req.file;
 
-    // Kiểm tra quyền/check về logic (nếu có)
+    let resultInsert
 
-    // Thực hiện hành động sau khi đã check logic
-    let resultInsert = await EXAM_MODEL.insert({ name, description, level, timeDoTest, subjectID, createAt: Date.now(), userID });
+    if(infoFile){
+        resultInsert = await EXAM_MODEL.insert({ name, description, level, timeDoTest, subjectID, file: infoFile.originalname, createAt: Date.now(), userID });
+    } else{
+        resultInsert = await EXAM_MODEL.insert({ name, description, level, timeDoTest, subjectID, createAt: Date.now(), userID });
+    }
+
     return res.json(resultInsert);
 })
 
@@ -66,25 +76,36 @@ route.get('/info-exam/:examID', checkActive, async (req, res) => {
     return res.json(infoExam);
 })
 
-route.get('/update-exam/:examID', ROLE_ADMIN, async (req, res) => {
-    
-})
-
-route.post('/update-exam/:examID', ROLE_ADMIN, async (req, res) => {
+route.post('/update-exam/:examID', uploadMulter.single('file'), ROLE_ADMIN, async (req, res) => {
     let userIDfromSession = req.session; //Đã gán req.session.user
     let userUpdate = userIDfromSession.user.infoUSer._id;
     let { examID } = req.params;
     let { name, description, level, subjectID, timeDoTest } = req.body;
 
-    // Kiểm tra quyền/check về logic (nếu có)
+    let infoFile = req.file;
+    
+    let resultUpdate;
 
-    let resultUpdate = await EXAM_MODEL.update({ userUpdate, name, description, level, timeDoTest, subjectID, examID, createAt: Date.now()});
+    if(infoFile){
+        resultUpdate = await EXAM_MODEL.update({ userUpdate, name, description, level, timeDoTest, subjectID, file: infoFile.originalname, examID, createAt: Date.now()});
+    }else{
+        resultUpdate = await EXAM_MODEL.update({ userUpdate, name, description, level, timeDoTest, subjectID, examID, createAt: Date.now()});
+    }
+
     return res.json(resultUpdate);
 })
 
 route.get('/remove-exam/:examID', ROLE_ADMIN, async (req, res) => {
     let { examID } = req.params;
     let resultRemove = await EXAM_MODEL.remove({ examID });
+
+    let pathOrigin = path.resolve(__dirname, `../../public/storage/images/${resultRemove.data.file}`);
+
+    fs.unlink(pathOrigin, function (err) {
+        if (err) return console.log(err);
+        console.log('file deleted successfully');
+    });
+
     res.json(resultRemove);
 })
 

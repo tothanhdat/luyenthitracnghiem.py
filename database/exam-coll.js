@@ -17,7 +17,9 @@ const ExamSchema = new Schema({
     note: String,
 
     //Trạng thái
-    note: String,
+    status: String,
+
+    file: String,
 
     //Người tạo
     author: {
@@ -38,6 +40,7 @@ const ExamSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "subject",
     },
+
 
      /**
      * Tài liệu

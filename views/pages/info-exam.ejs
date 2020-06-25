@@ -1,11 +1,11 @@
 <%- include ('../dashboard/header') %>
-		<br>
+	<br>
 		<div class="box">
             <form class="input-group">
                 <button type="submit"><div class="input-group-icon btnSearch"><i class="fas fa-search"></i></div></button>
                 <input id="input-search" autocomplete="off" type="text" class="form-control" placeholder="Tìm kiếm câu hỏi...">
             </form>
-		<div class="box-header">
+			<div class="box-header">
 				<h3 ><%=infoExamHaveQuestion.name%> - <%=infoExamHaveQuestion.subject.name%> <% LEVEL_TYPES.forEach(level => { %>
 											<% if (level.value == infoExamHaveQuestion.level) { %>
 												<td><%=level.text%></td>
@@ -18,12 +18,7 @@
 					<button class="box-actions-item"><i class="fas fa-times"></i></button>
 				</div>
 			</div>
-			<div>
-			<div>
-				
-			</div>
-				<div class="col-sm-5">
-				</div>
+		</div>
 			<div class="table-responsive">
 				<table class="table table-result">
 					<thead>
@@ -40,8 +35,8 @@
                                 <td><%-question.name%></td>
                                 <td>
                                     <div class="user-panel-actions">
-                                        <a href="#"></a>
-                                        <a href="#"><i class="fas fa-pencil-alt btnEditQuestion" ></i></a>
+                                        <a href="#<"></a>
+                                        <a href="#"><i class="fas fa-pencil-alt btnEditQuestion" _questionID="<%=question._id%>" ></i></a>
                                         <a href="#"></a>
                                         <a href="#"><i class="fas fa-trash-alt btnRemoveQuestion" _questionID="<%=question._id%>"></i></a>
                                     </div>
@@ -112,5 +107,6 @@
 		</div>
 	</div>
 </main>
+
 <%- include ('../dashboard/footer') %>
 

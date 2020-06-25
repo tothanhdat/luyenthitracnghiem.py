@@ -13,7 +13,7 @@
 
 		<div class="row">
 			<div class="col-lg-9">
-				<form class="box needs-validation" novalidate>
+				<form class="box needs-validation" novalidate enctype="multipart/form-data" action="/exam/add-exam" method="POST">
 					<div class="box-header">
 						<h3>Tạo bộ đề</h3>
 					</div>
@@ -76,7 +76,7 @@
 							<label for="" class="form-label col-3">Thêm tài liệu (không bắt buộc)</label>
 							<div class="col-9">
 								<form class="col-9" action="">
-									<input type="file" id="myFile" name="filename">
+									<input type="file" id="file_exam" name="filename">
 								</form>
 							</div>
 						</div>
@@ -167,7 +167,22 @@
 		let subjectID   = $('#subjectID').val();
 		let timeDoTest  = $('#timeDoTest').val();
 
+		let formData = new FormData();
+		let fileExam = $('#file_exam')[0].files[0];
+		console.log({ fileExam })
+
 		if(!examID){
+
+			if(fileExam){
+			formData.append('file', fileExam);
+			}
+
+			formData.append('examID', examID);
+			formData.append('name', name);
+			formData.append('description', description);
+			formData.append('level', level);
+			formData.append('subjectID', subjectID);
+			formData.append('timeDoTest', timeDoTest);
 
 			//console.log({ name, description, level, subjectID, timeDoTest })
 
@@ -179,7 +194,10 @@
 				$.ajax({
 					url: `/exam/add-exam`,
 					method: 'POST',
-					data: { name, description, level, subjectID, timeDoTest },
+					data: formData,
+					enctype: 'multipart/form-data',
+					processData: false,
+					contentType: false,
 					success: resp => {
 						
 						if(!resp.error){
@@ -200,6 +218,17 @@
 
 		} else {
 
+			if(fileExam){
+			formData.append('file', fileExam);
+			}
+
+			formData.append('examID', examID);
+			formData.append('name', name);
+			formData.append('description', description);
+			formData.append('level', level);
+			formData.append('subjectID', subjectID);
+			formData.append('timeDoTest', timeDoTest);
+
 			if(!name || !level || !subjectID){
 
 				return toastr['error']('Chưa nhập đủ trường', 'Thông báo');
@@ -208,7 +237,10 @@
 				$.ajax({
 					url: `/exam/update-exam/${examID}`,
 					method: 'POST',
-					data: { name, description, level, subjectID, timeDoTest },
+					data: formData,
+					enctype: 'multipart/form-data',
+					processData: false,
+					contentType: false,
 					success: resp => {
 						
 						if(!resp.error){
@@ -267,7 +299,9 @@
 				method: 'GET',
 				success: resp => {
 
-					let { _id: id, name, description, level, timeDoTest, subject: subjectID } = resp.data
+					let { _id: id, name, description, level, timeDoTest, subject: subjectID, file } = resp.data
+
+					console.log({ file })
 					
 					if(!resp.error){
 						$('#nameExam').val(name);
@@ -283,6 +317,9 @@
 						$('#subjectID').trigger('change');
 
 						$('.btnCreateExam').attr('_examID', id);
+
+						$('#file_exam').val(file);
+
 
 						//return toastr['success']('Thêm thành công', 'Thông báo');
 

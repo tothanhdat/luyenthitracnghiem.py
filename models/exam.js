@@ -2,10 +2,11 @@ const ObjectID = require('mongoose').Types.ObjectId;
 const EXAM_COLL = require('../database/exam-coll');
 const SUBJECT_COLL = require('../database/subject-coll');
 const QUESTION_COLL = require('../database/question-coll');
+const COMMENT_COLL = require('../database/comment-coll');
 
 module.exports = class Exam extends EXAM_COLL {
 
-    static insert({ name, description, subjectID, level, timeDoTest, createAt, userID }) {
+    static insert({ name, description, subjectID, level, timeDoTest, createAt, userID, file }) {
         return new Promise(async resolve => {
             try {
 
@@ -21,6 +22,10 @@ module.exports = class Exam extends EXAM_COLL {
                     author: userID,
                     subject: subjectID
                 };
+
+                if(file){
+                    dataInsert.file = file;
+                }
 
                 console.log({ dataInsert })
 
@@ -161,7 +166,8 @@ module.exports = class Exam extends EXAM_COLL {
                 let infoAfterRemove = await EXAM_COLL.findByIdAndDelete(examID);
                 
                 let infoQuestionRemove = await QUESTION_COLL.deleteMany({ exam: examID })
-                //console.log({ infoQuestionRemove })
+
+                let infoCommentRemove = await COMMENT_COLL.deleteMany({ exam: examID })
 
                 if (!infoAfterRemove)
                     return resolve({ error: true, message: 'cannot_remove_data' });
@@ -173,7 +179,7 @@ module.exports = class Exam extends EXAM_COLL {
         })
     }
 
-    static update({ examID, name, description, subjectID, timeDoTest, level, createAt, userID }) {
+    static update({ examID, name, description, subjectID, timeDoTest, level, createAt, userID, file }) {
         return new Promise(async resolve => {
             try {
 
@@ -190,6 +196,10 @@ module.exports = class Exam extends EXAM_COLL {
                     timeDoTest,
                     createAt, 
                     userUpdate: userID
+                }
+
+                if(file){
+                    dataUpdate.file = file;
                 }
                 
                 let infoAfterUpdate = await EXAM_COLL.findByIdAndUpdate(examID, dataUpdate, { new: true });

@@ -127,6 +127,8 @@
 <%- include ('../partials/footer') %>
 
 <script>
+
+    let saveTestArray = [];
   
     $(document).on('click', '.btnSendTest', function (e) {
 
@@ -153,13 +155,18 @@
                                         falseArr.push(arrResult[i].questionID)
                                     }
 
+                                    saveTestArray[0] = falseArr
+
                                     //Câu trả lời đúng
                                     if(arrResult[i].questionID == infoExam.question[j]._id && arrResult[i].correct.toString() == infoExam.question[j].correct.toString()){
                                         correctNumber += 1;
                                         trueArr.push(arrResult[i].questionID)
                                     }
+                                    saveTestArray[1] = trueArr
 
                                     unfinishQuestion = infoExam.question.length - arrResult.length;
+
+                                    saveTestArray[2] = unfinishQuestion
 
                                 }
                             }
@@ -176,6 +183,7 @@
 
 
                             point = (10/infoExam.question.length)*correctNumber;
+                            saveTestArray[3] = point
                             //console.log(`Điểm của bạn là: ${point}`);
 
 
@@ -239,6 +247,13 @@
                 });
 		}
 	});
+
+    //console.log({ saveTestArray });
+
+    $(document).on('click', '.btnSaveTest', function (e) {
+        e.preventDefault();
+        
+    })
 
     $(document).on('click', '.btnCancel', function (e) {
         e.preventDefault();

@@ -264,7 +264,7 @@ module.exports = class Result extends RESULT_COLL {
                 ]);
 
 
-                console.log({ infoExam });
+                //console.log({ infoExam });
                 
                 return resolve({ error: false, data: infoExam })
             } catch (error) {
