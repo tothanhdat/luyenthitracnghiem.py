@@ -27,6 +27,9 @@ const userSchema = new Schema({
 
     //Hình ảnh
     avatar: String,
+
+    //Giới tính
+    gender: { type: Number, default: 0 },
     
     //Cấp bậc
     level: { type: Number, default: 0 },
@@ -59,7 +62,10 @@ const userSchema = new Schema({
     },
 
     //Ngày tạo
-    createAt: { type: Date, default: Date.now() }
+    createAt: { type: Date, default: Date.now() },
+
+    //Ngày cập nhật
+    updateAt: { type: Date, default: Date.now() }
     
 });
 

@@ -81,6 +81,7 @@
 						<tr>
 							<th>Avatar</th>
 							<th>Họ Tên</th>
+							<th>Ngày sinh</th>
 							<th>Số lượng Đề</th>
 							<th>Nơi làm việc</th>
 							<th>Ngày tham gia</th>
@@ -94,18 +95,19 @@
 								<tr>
 									<td>
 										<div class="avatar avatar-xs">
-											<img src="../lttnpy_core/images/LOGO_LTTNPY3.png" alt="">
+											<img src="../storage/images/<%=user.avatar%>" alt="">
 										</div>
 									</td>
 									<td><%=user.fullname%></td>
+									<td><%=moment(user.birthDay).format('L'); %></td>
 									<td>5</td>
 									<td>THPT Trần Quốc Tuấn - Phú Yên</td>
-									<td>16/04/2020</td>
+									<td><%=moment(user.createAt).format('L'); %></td>
 									<td><span class="status-icon bg-primary"></span> Giáo viên</td>
 									<td>
 										<div class="d-flex justify-content-between mb-5">
 											<span class="text-sm"><b>100%</b></span>
-											<span class="text-sm text-secondary">Jun 11, 2018 - Jul 11, 2018</span>
+											<span class="text-sm text-secondary"><%=moment().format('MMMM Do YYYY, h:mm:ss');%></span>
 										</div>
 										<div class="progress progress-sm">
 											<div class="progress-bar bg-primary" style="width: 100%"></div>

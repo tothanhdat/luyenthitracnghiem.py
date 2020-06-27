@@ -1,0 +1,376 @@
+<style>
+   .config-avatar {
+      max-width: 50%;
+      height: auto;
+   }
+
+   .config-avatar img{
+      display: block;
+      max-width: 230px;
+      max-height: 230px;
+      width: 82%;
+      height: auto;
+      object-fit: cover;
+   }
+</style>
+<%- include ('../partials/header') %>
+<section>
+   <div class="container-fluid" id="body">
+      <nav class="third-nav">
+         <div class="row">
+            <div class="bg">
+               <div class="clearfix">
+                  <div class="col-xs-24 col-sm-18 col-md-18">
+                     <div class="breadcrumbs-wrap">
+                        <div class="display">
+                           <a class="show-subs-breadcrumbs hidden" href="javascript:void(0);" onclick="showSubBreadcrumbs(this, event);"><em class="fa fa-lg fa-angle-right"></em></a>
+                           <ul class="breadcrumbs list-none">
+                              <li id="brcr_0" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="/"><span itemprop="title">Trang nhất</span></a></li>
+                              <li id="brcr_1" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="/edit-info-user"><span itemprop="title">Tài khoản Sinh viên</span></a></li>
+                           </ul>
+                        </div>
+                        <ul class="subs-breadcrumbs"></ul>
+                        <ul class="temp-breadcrumbs hidden" itemscope="" itemtype="https://schema.org/BreadcrumbList">
+                           <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a href="/" itemprop="item" title="Trang nhất"><span itemprop="name">Trang nhất</span></a><i class="hidden" itemprop="position" content="1"></i></li>
+                           <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a href="/edit-info-user" itemprop="item" title="Tài khoản Sinh viên"><span class="txt" itemprop="name">Tài khoản Sinh viên</span></a><i class="hidden" itemprop="position" content="2"></i></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </nav>
+      <div class="row">
+         <div class="col-xs-24 col-sm-15 col-md-15">
+            <!--Start of Tawk.to Script-->
+            <!--End of Tawk.to Script-->
+         </div>
+         <div class="col-xs-24 col-sm-9 col-md-9">
+         </div>
+      </div>
+      <div class="row" id="users">
+         <div class="col-sm-16 col-md-18">
+            <div class="page">
+               <h2 class="margin-bottom-lg margin-top-lg">Thiết lập tài khoản</h2>
+               <ul class="users-menu nav nav-pills margin-bottom">
+                  <li class="active">
+                     <a data-toggle="tab" data-location="" href="#edit_basic">Cơ bản</a>
+                  </li>
+                  <li class="">
+                     <a data-toggle="tab" href="#edit_avatar" data-location="">Hình đại diện</a>
+                  </li>
+                  <li class="">
+                     <a data-toggle="tab" data-location="" href="#edit_email">Email</a>
+                  </li>
+                  <li class="">
+                     <a data-toggle="tab" data-location="" href="#edit_password">Mật khẩu</a>
+                  </li>
+               </ul>
+               <div class="tab-content margin-bottom-lg">
+                  <div id="edit_basic" class="tab-pane fade in active">
+                     <div class="page panel panel-default">
+                        <div class="panel-body bg-lavender">
+                           <form action="" method="post" role="form" class="form-horizontal" onsubmit="return reg_validForm(this);" autocomplete="off" novalidate="">
+                              <div class="nv-info margin-bottom" data-default="" style="display:none"></div>
+                              <div class="form-detail">
+
+                                <div class="form-group">
+                                    <label for="last_name" class="control-label col-md-6 text-normal">Ảnh đại diện</label>
+                                    <div class="col-md-12 ">
+                                       <div class="config-avatar">
+                                          <img src="../storage/images/<%=infoUser.avatar%>" alt="<%=infoUser.avatar%>">
+                                       </div>
+                                        <input type="file" id="avatar-tab1" name="" value="" style="display: none;">
+                                        <br>
+                                        <button type="button" id="file" type="file" class="btn btn-primary btnChangeAvatarTab1" >
+                                            Thay đổi hình đại diện
+                                        </button>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="last_name" class="control-label col-md-6 text-normal">Họ và tên</label>
+                                    <div class="col-md-12">
+                                       <input type="text" id="fullname" class="form-control input" placeholder="Họ và tên" value="<%=infoUser.fullname%>" name="last_name" maxlength="100">
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="last_name" class="control-label col-md-6 text-normal">Email</label>
+                                    <div class="col-md-12">
+                                       <input type="text" class="form-control input" readonly="readonly" placeholder="Email" value="<%=infoUser.email%>" name="last_name" maxlength="100">
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="gender" class="control-label col-md-6 text-normal">Giới tính</label>
+                                    <div class="col-md-12">
+                                       <div class="clearfix radio-box input" id="gender">
+                                       <% GENDER_USER.forEach(gender => { %>
+                                          <% if (gender.value.toString() == infoUser.gender.toString()) { %>
+                                             <label class="radio-box"> <input type="radio" name="gender" checked value="<%=infoUser.gender%>" class="input" onclick="validErrorHidden(this,5);"> <%=gender.text%> </label>
+                                          <% }else{ %>
+                                             <label class="radio-box"> <input type="radio" name="gender" value="<%=gender.value%>" class="input" onclick="validErrorHidden(this,5);"> <%=gender.text%> </label>
+                                          <% } %>
+                                       <% }) %>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="birthday" class="control-label col-md-6 text-normal">Ngày sinh</label>
+                                    <div class="col-md-8">
+                                       <%
+                                       let birthDay = moment(infoUser.birthDay).format('L');
+                                       let birthDayAfterFormat = birthDay.split("/").reverse().join("-");
+                                       %>
+                                       <input type="date" class="form-control" id="birthDay" name="birthDay" value="<%=birthDayAfterFormat%>" onfocus="datepickerShow(this);">
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="last_name" class="control-label col-md-6 text-normal">Số điện thoại</label>
+                                    <div class="col-md-12">
+                                       <input type="text" class="form-control input" id="phone" placeholder="Số điện thoại" value="<%=infoUser.phone%>" name="last_name" maxlength="100" onkeypress="validErrorHidden(this);">
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="last_name" class="control-label col-md-6 text-normal">Địa chỉ</label>
+                                    <div class="col-md-12">
+                                       <input type="text" class="form-control input" id="address" placeholder="Địa chỉ" value="<%=infoUser.address%>" name="last_name" maxlength="100" onkeypress="validErrorHidden(this);">
+                                    </div>
+                                 </div>
+                                 <!--<div class="form-group">
+                                    <label for="view_mail" class="control-label col-md-6 text-normal">Hiển thị email</label>
+                                    <div class="col-md-4">
+                                       <select name="view_mail" class="form-control">
+                                          <option value="0">Không</option>
+                                          <option value="1">Có</option>
+                                       </select>
+                                    </div>
+                                 </div>-->
+                                 <div class="form-group">
+                                    <div class="col-md-6">
+                                       <input type="hidden" name="checkss" value="">
+                                    </div>
+                                    <div class="col-md-10">
+                                       <input type="button" value="Thiết lập lại" class="btn btn-default">
+                                       <input type="submit" class="btn btn-primary btnEditInfoBasicUser" _userID=<%=infoUser._id%> value="Lưu lại">
+                                    </div>
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="edit_avatar" class="tab-pane fade ">
+                     <div class="page panel panel-default">
+                        <div class="panel-body bg-lavender">
+                           <div class="margin-bottom">
+                              <img id="myavatar" class="img-thumbnail bg-gainsboro" src="../lttnpy_core/images/logo_new.png" width="80" height="80" data-default="/themes/default/images/users/no_avatar.png">
+                           </div>
+                           <div>
+                              <input id="file-input" type="file" name="name" style="display: none;" />
+                              <button type="button" id="file" type="file" class="btn btn-primary btn-xs margin-right-sm btnChangeAvatar" >
+                              Thay đổi hình đại diện
+                              </button>
+                              <button type="button" class="btn btn-danger btn-xs " >
+                              Xóa
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="edit_email" class="tab-pane fade ">
+                     <div class="page panel panel-default">
+                        <div class="panel-body bg-lavender">
+                           <form action="/vi/users/editinfo/email/" method="post" role="form" class="form-horizontal" onsubmit="return changemail_validForm(this);" autocomplete="off" novalidate="">
+                              <div class="nv-info margin-bottom">
+                                 <p>Để thay đổi email, bạn cần thực hiện tuần tự các bước sau đây:</p>
+                                 <p>1.Khai báo lại mật khẩu<br>2.Khai báo địa chỉ email mới<br>3.Click vào nút Gửi Mã xác minh<br>4.Kiểm tra mail thông báo Mã xác minh được gửi đến địa chỉ mà bạn vừa khai báo, sau đó nhập mã này vào ô Mã xác minh<br>5.Click vào nút Chấp nhận.</p>
+                              </div>
+                              <div class="nv-info-default hidden">
+                                 <p>Để thay đổi email, bạn cần thực hiện tuần tự các bước sau đây:</p>
+                                 <p>1.Khai báo lại mật khẩu<br>2.Khai báo địa chỉ email mới<br>3.Click vào nút Gửi Mã xác minh<br>4.Kiểm tra mail thông báo Mã xác minh được gửi đến địa chỉ mà bạn vừa khai báo, sau đó nhập mã này vào ô Mã xác minh<br>5.Click vào nút Chấp nhận.</p>
+                              </div>
+                              <div class="form-detail">
+                                 <div class="form-group">
+                                    <div class="col-md-6 text-right">
+                                       Email hiện tại:
+                                    </div>
+                                    <div class="col-md-12">
+                                       <strong><%=infoUser.email%></strong>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="password" class="control-label col-md-6 text-normal">Mật khẩu</label>
+                                    <div class="col-md-12">
+                                       <input type="password" autocomplete="off" class="form-control" placeholder="Mật khẩu" value="" name="password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Mật khẩu đăng nhập chưa được khai báo">
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="email" class="control-label col-md-6 text-normal">Email mới</label>
+                                    <div class="col-md-12">
+                                       <input type="email" class="required form-control" placeholder="Email mới" value="" name="email" maxlength="100" onkeypress="validErrorHidden(this);" data-mess="Email chưa được khai báo">
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="verifykey" class="control-label col-md-6 text-normal">Mã xác minh</label>
+                                    <div class="col-md-12">
+                                       <div class="input-group">
+                                          <input type="text" class="form-control" placeholder="Mã xác minh" value="" name="verifykey" maxlength="32" data-pattern="/^[a-zA-Z0-9]{32,32}$/" onkeypress="validErrorHidden(this);" data-mess="Mã xác minh chưa được khai báo">
+                                          <span class="input-group-btn">
+                                          <button type="button" class="send-bt btn btn-warning pointer" onclick="verkeySend(this.form);">
+                                          Gửi mã xác minh
+                                          </button></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <div class="col-md-6">
+                                       <input type="hidden" name="checkss" value="d9c3ddf9032a56de42cafb6d1688a2bd">
+                                       <input type="hidden" name="vsend" value="0">
+                                    </div>
+                                    <div class="col-md-10">
+                                       <input type="button" value="Thiết lập lại" class="btn btn-default" onclick="validReset(this.form);return!1;">
+                                       <input type="submit" class="btn btn-primary" value="Lưu lại">
+                                    </div>
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="edit_password" class="tab-pane fade ">
+                     <div class="page panel panel-default">
+                        <div class="panel-body bg-lavender">
+                           <form action="/vi/users/editinfo/password/" method="post" role="form" class="form-horizontal" onsubmit="return reg_validForm(this);" autocomplete="off" novalidate="">
+                              <div class="nv-info margin-bottom" data-default="" style="display:none"></div>
+                              <div class="form-detail">
+                                 <div class="form-group">
+                                    <label for="nv_password" class="control-label col-md-6 text-normal">Mật khẩu cũ</label>
+                                    <div class="col-md-12">
+                                       <input type="password" autocomplete="off" class="required form-control" placeholder="Mật khẩu cũ" value="" name="nv_password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Chú ý: Bạn cần khai báo tất cả các ô có đánh dấu hoa thị (*).">
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="new_password" class="control-label col-md-6 text-normal">Mật khẩu mới</label>
+                                    <div class="col-md-12">
+                                       <input type="password" autocomplete="off" class="required form-control" placeholder="Mật khẩu mới" value="" name="new_password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Trường này là bắt buộc.">
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label for="re_password" class="control-label col-md-6 text-normal">Nhập lại mật khẩu mới</label>
+                                    <div class="col-md-12">
+                                       <input type="password" autocomplete="off" class="required form-control" placeholder="Nhập lại mật khẩu mới" value="" name="re_password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Trường này là bắt buộc.">
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <div class="col-md-6">
+                                       <input type="hidden" name="checkss" value="d9c3ddf9032a56de42cafb6d1688a2bd">
+                                    </div>
+                                    <div class="col-md-10">
+                                       <input type="button" value="Thiết lập lại" class="btn btn-default" onclick="validReset(this.form);return!1;">
+                                       <input type="submit" class="btn btn-primary" value="Chấp nhận">
+                                    </div>
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <ul class="nav navbar-nav">
+                  <li>
+                     <a href="/info-user"><em class="fa fa-caret-right margin-right-sm"></em>Thông tin thành viên</a>
+                  </li>
+                  <li>
+                     <a href="/"><em class="fa fa-caret-right margin-right-sm"></em>Thoát</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="col-sm-8 col-md-6">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  Thống kê truy cập
+               </div>
+               <div class="panel-body">
+                  <ul class="counter list-none display-table">
+                     <li><span><em class="fa fa-bolt fa-lg fa-horizon"></em>Đang truy cập</span><span>15</span></li>
+                     <li><span><em class="fa fa-user fa-lg fa-horizon"></em>Thành viên online</span><span>4</span></li>
+                     <li><span><em class="fa fa-bullseye fa-lg fa-horizon"></em>Khách viếng thăm</span><span>11</span></li>
+                     <li><span><em class="fa fa-filter fa-lg fa-horizon margin-top-lg"></em>Hôm nay</span><span class="margin-top-lg">445</span></li>
+                     <li><span><em class="fa fa-calendar-o fa-lg fa-horizon"></em>Tháng hiện tại</span><span>95,628</span></li>
+                     <li><span><em class="fa fa-bars fa-lg fa-horizon"></em>Tổng lượt truy cập</span><span>551,649</span></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+            <%- include ('../partials/sidebar') %>
+
+      </div>
+      <div class="row">
+         <!-- Global site tag (gtag.js) - Google Analytics -->
+         <div class="fb-customerchat" page_id="102478721259064"></div>
+      </div>
+   </div>
+</section>
+<%- include ('../partials/footer') %>
+
+<script>
+    $('.btnChangeAvatar').on('click', function() {
+        $('#file-input').trigger('click');
+    });
+
+    $('.btnChangeAvatarTab1').on('click', function() {
+        $('#avatar-tab1').trigger('click');
+    });
+
+   $(document).on('click', '.btnEditInfoBasicUser', function(e) {
+      e.preventDefault();
+      let userID = $(this).attr('_userID');
+      let fullname = $('#fullname').val();
+      let gender = $("input:radio[name=gender]:checked").val();
+      let birthDay = $('#birthDay').val();
+      let phone = $('#phone').val();
+      let address = $('#address').val();
+
+      //console.log({ userID, fullname, gender, birthDay, phone, address })
+
+      let formData = new FormData();
+		let infoFile = $('#avatar-tab1')[0].files[0];
+      console.log({ infoFile })
+
+      if(infoFile){
+			formData.append('avatar', infoFile);
+		}
+
+      formData.append('fullname', fullname);
+      formData.append('gender', gender);
+      formData.append('birthDay', birthDay);
+      formData.append('phone', phone);
+      formData.append('address', address);
+      
+      $.ajax({
+         url: `/edit-info-user?userID=${userID}`,
+         method: 'POST',
+         data: formData,
+         enctype: 'multipart/form-data',
+         processData: false,
+         contentType: false,
+         success: resp => {
+            console.log({ resp })
+            
+            if(!resp.error){
+               toastr['success']('Cập nhật thành công', 'Thông báo');
+               setTimeout(function() {
+                  location.reload();
+               }, 500);
+
+            }else{
+
+               return toastr['error']('Cập nhật thất bại', 'Thông báo');
+            }
+         },
+         error: err => console.log({ err })
+      });
+
+   });
+    
+</script>

@@ -2,6 +2,7 @@ const route             = require('express').Router();
 const USER_MODEL        = require('../../models/users');
 const EXAM_MODEL        = require('../../models/exam');
 const RESULT_MODEL        = require('../../models/result');
+const { uploadMulter }  = require('../../utils/config_multer');
 const ROLE_ADMIN        = require('../../utils/checkRole');
 const ROLE_SUPER_ADMIN  = require('../../utils/roleSuperAdmin');
 
@@ -14,6 +15,36 @@ route.get('/', async (req, res) => {
     //console.log({ listExamPagination })
     
     renderToView(req, res, 'pages/home', { })
+})
+
+//Thông tin user
+route.get('/info-user', async (req, res) => {
+    renderToView(req, res, 'pages/info-user', { })
+})
+
+//Chỉnh sửa Thông tin user
+route.get('/edit-info-user', async (req, res) => {
+    renderToView(req, res, 'pages/edit-info-user', { })
+})
+
+route.post('/edit-info-user', uploadMulter.single('avatar'), checkActive, async (req, res) => {
+    let userIDfromSession = req.session; //Đã gán req.session.user
+    let userUpdate = userIDfromSession.user.infoUSer._id;
+
+    let { userID } = req.query;
+    let { fullname, gender, birthDay, phone, address } = req.body;
+
+    let infoFile = req.file;
+
+    let resultUpdate;
+
+    if(infoFile){
+        resultUpdate = await USER_MODEL.updateInfoUserBasic({ userID, fullname, gender, birthDay, phone, address, userUpdate, avatar: infoFile.originalname, updateAt: Date.now() });
+    }else{
+        resultUpdate = await USER_MODEL.updateInfoUserBasic({ userID, fullname, gender, birthDay, phone, address, userUpdate, updateAt: Date.now() });
+    }
+
+    return res.json(resultUpdate);
 })
 
 
@@ -140,7 +171,7 @@ route.get('/info-exam', async (req, res) => {
 route.post('/list-result-of-search', async (req, res) => {
     let { key, examID } = req.body;
     let listResultOfSearch = await RESULT_MODEL.getListStudentInResultByKey({ key, examID });
-    console.log({ listResultOfSearch });
+    //console.log({ listResultOfSearch });
     res.json(listResultOfSearch);
 })
 

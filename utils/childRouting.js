@@ -7,8 +7,9 @@ const QUESTION_MODEL    = require('../models/question');
 const COMMENT_MODEL     = require('../models/comment');
 const RESULT_MODEL      = require('../models/result');
 
-
 const { LEVEL_TYPES }   = require('../config/constants/cf_constants');
+const { GENDER_USER }   = require('../config/constants/cf_constants');
+const { STATUS_USER }   = require('../config/constants/cf_constants');
 
 let renderToView = async function(req, res, view, data) {
     let { token } = req.session;
@@ -45,6 +46,8 @@ let renderToView = async function(req, res, view, data) {
     data.listResult             = listResult.data;
     data.listExamPagination     = listExamPagination.data;
     data.LEVEL_TYPES            = LEVEL_TYPES;
+    data.GENDER_USER            = GENDER_USER;
+    data.STATUS_USER            = STATUS_USER;
 
     return res.render(view, data);
 }

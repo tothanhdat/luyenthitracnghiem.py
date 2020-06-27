@@ -1,3 +1,4 @@
+const ObjectID = require('mongoose').Types.ObjectId;
 const USER_COLL= require('../database/user-coll');
 const { hash, compare } = require('bcrypt');
 const { sign, verify } = require('../utils/jwt');
@@ -67,6 +68,42 @@ module.exports = class user {
 
             } catch (error) {
 
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+
+    static updateInfoUserBasic({ userID, fullname, gender, birthDay, phone, address, userUpdate, avatar, updateAt }) {
+        return new Promise(async resolve => {
+            try {
+
+                console.log({ userID, fullname, gender, birthDay, phone, address, userUpdate, avatar, updateAt })
+
+                if (!ObjectID.isValid(userID))
+                    return resolve({ error: true, message: 'params_invalid' });
+
+                let dataUpdate = {
+                    fullname, 
+                    gender, 
+                    birthDay, 
+                    phone, 
+                    address,
+                    userUpdate,
+                    updateAt: Date.now(),
+                }
+
+                if(avatar){
+                    dataUpdate.avatar = avatar;
+                }
+                
+                let infoAfterUpdate = await USER_COLL.findByIdAndUpdate(userID, dataUpdate, { new: true });
+                
+                if (!infoAfterUpdate)
+                    return resolve({ error: true, message: 'cannot_update_data' });
+
+                return resolve({ error: false, data: infoAfterUpdate, message: "update_data_success" });
+
+            } catch (error) {
                 return resolve({ error: true, message: error.message });
             }
         })
