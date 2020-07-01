@@ -108,4 +108,85 @@ module.exports = class user {
             }
         })
     }
+
+    static changeEmail({ userID, password, email }) {
+        return new Promise(async resolve => {
+            try {
+
+                console.log({ userID, email, password })
+
+                if (!ObjectID.isValid(userID))
+                    return resolve({ error: true, message: 'params_invalid' });
+
+                let infoUser = await USER_COLL.findById(userID)
+
+                if (!infoUser)
+                    return resolve({ error: true, message: 'email_not_exist' });
+
+                const checkPass = await compare(password, infoUser.password);
+
+                let dataUpdate = {
+                    email
+                }
+                
+                if (!checkPass)
+                    return resolve({ error: true, message: 'password_not_true' });
+
+                else{
+
+                    let infoAfterUpdate = await USER_COLL.findByIdAndUpdate(userID, dataUpdate, { new: true });
+                
+                    if (!infoAfterUpdate)
+                        return resolve({ error: true, message: 'cannot_update_data' });
+
+                    return resolve({ error: false, data: infoAfterUpdate, message: "update_data_success" });
+                }
+
+            } catch (error) {
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+
+    static changePassword({ userID, passwordOld, passwordNew }) {
+        return new Promise(async resolve => {
+            try {
+
+                console.log({ userID, passwordOld, passwordNew })
+
+                if (!ObjectID.isValid(userID))
+                    return resolve({ error: true, message: 'params_invalid' });
+
+                let infoUser = await USER_COLL.findById(userID)
+
+                if (!infoUser)
+                    return resolve({ error: true, message: 'email_not_exist' });
+
+                let hashPassword = await hash(passwordNew, 8);
+
+                let dataUpdate = {
+                    
+                    password: hashPassword
+                }
+
+                const checkPass = await compare(passwordOld, infoUser.password);
+                
+                if (!checkPass)
+                    return resolve({ error: true, message: 'password_not_true' });
+
+                else{
+
+                    let infoAfterUpdate = await USER_COLL.findByIdAndUpdate(userID, dataUpdate, { new: true });
+                
+                    if (!infoAfterUpdate)
+                        return resolve({ error: true, message: 'cannot_update_data' });
+
+                    return resolve({ error: false, data: infoAfterUpdate, message: "update_data_success" });
+                }
+
+            } catch (error) {
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
 }

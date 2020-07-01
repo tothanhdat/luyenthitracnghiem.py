@@ -40,8 +40,8 @@
                                             <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subject.name%></a>
                                         </div>
                                         <ul class="exam-info list-inline pull-right form-tooltip">
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-star-o">&nbsp;</em><%=exam.question.length%><span class="hidden-xs"> câu hỏi</span></li>
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian"><em class="fa fa-clock-o">&nbsp;</em><%=moment(exam.createAt).startOf('hour').fromNow()%><span class="hidden-xs"></span></li>
+                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu">⭐️ <%=exam.question.length%><span class="hidden-xs"> câu hỏi</span></li>
+                                            <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian">⏱ <%=moment(exam.createAt).startOf('hour').fromNow()%><span class="hidden-xs"></span></li>
                                         </ul>
                                         <div class="clearfix"></div>
                                     </div>

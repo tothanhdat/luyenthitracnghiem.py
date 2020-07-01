@@ -4,11 +4,13 @@ const bodyParser        = require('body-parser');
 const mongoose          = require('mongoose');
 const expressSession    = require('express-session');
 
+const passport          = require('passport');
+
 const USER_ROUTER       = require('./routing/apps/user');
 const SUBJECT_ROUTER    = require('./routing/apps/subject');
 const EXAM_ROUTER       = require('./routing/apps/exam');
 const QUESTION_ROUTER   = require('./routing/apps/question');
-const COMMENT_ROUTER   = require('./routing/apps/comment');
+const COMMENT_ROUTER    = require('./routing/apps/comment');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,11 +27,33 @@ app.use(expressSession({
     }
 }))
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./models/passport')(passport)
+
 app.use('/', USER_ROUTER);
 app.use('/subject', SUBJECT_ROUTER);
 app.use('/exam', EXAM_ROUTER);
 app.use('/question', QUESTION_ROUTER);
 app.use('/comment', COMMENT_ROUTER);
+
+
+
+// app.get('/logout', function(req, res){
+//     req.logout();
+//     res.redirect('/');
+// });
+
+// passport.serializeUser((user, done) => {
+//     done(null, user.id)
+// })
+
+// passport.deserializeUser((id, done) => {
+//     User.findOne({id}, (err, user) => {
+//         done(null, user)
+//     })
+// })
 
 //Dẫn đến page 404
 app.use(function(req, res, next){

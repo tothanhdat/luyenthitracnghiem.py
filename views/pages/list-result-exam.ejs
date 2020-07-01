@@ -58,7 +58,7 @@
                             <tr _resultID="<%=result._id%>">
                                 <td><%=listResult.indexOf(result) + 1%></td>
                                 <td><%=result.author.fullname%></td>
-                                <td>THPT Trần Quốc Tuấn - Phú Yên</td>
+                                <td>Đại học Công Nghệ TP.HCM</td>
                                 <td><a target="_blank" href="/result-exam?resultID=<%=result._id%>&examID=<%=result.exam._id%>">[<%=result.exam.subject.name%>] - <%=result.exam.name%></a></td>
                                 <td><%=Math.round(result.point * 100) / 100%></td>
                                 <% if (result.point < 5) { %>
@@ -181,7 +181,7 @@
 										<tr>
 											<td>${index + 1}</td>
 											<td>${result.result.author.fullname}</td>
-											<td>THPT Trần Quốc Tuấn - Phú Yên</td>
+											<td>Đại học Công Nghệ TP.HCM</td>
 											<td>${result.result.exam.name}<a target="_blank" href="/result-exam?resultID=&examID=""></a></td>
 											<td>${Math.round(result.result.point * 100) / 100}</td>
 											<td>${learningPower}</td>

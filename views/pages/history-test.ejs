@@ -64,7 +64,7 @@
                             <td><%=result.exam.name%></td>
                             <td class="text-center" data-label="Thời gian"><%=moment(result.createAt).format('MMMM Do YYYY, h:mm');%></td>
                             <td class="text-center" data-label="Thời gian">Không giới hạn</td>
-                            <td class="text-center" data-label="Điểm"><%=result.point%></td>                
+                            <td class="text-center" data-label="Điểm"><%=Math.round(result.point * 100) / 100%></td>                
                             <% if (result.point < 5) { %>
                                 <td class="text-center"><span class="status-icon bg-danger"></span> Yếu</td>
                                 <% } else if(result.point < 7 && result.point > 4 ) {%>

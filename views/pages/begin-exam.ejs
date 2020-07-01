@@ -79,7 +79,7 @@
                                     <label>Số câu</label>: <%=infoExam.question.length%>
                                 </div>
                                 <div class="col-xs-24 col-sm-12 col-md-16">
-                                    <label>Thời gian</label>: <%=infoExam.timeDoTest%>
+                                    <label>Thời gian ⌛️</label> <%=infoExam.timeDoTest%>
                                 </div>
                                 <% if (infoExam.file) { %>
                                  
@@ -173,7 +173,11 @@
                         <% listComment.forEach(item => { %>
                         <% if (item.exam._id.toString() == infoExam._id.toString()) { %>
                             <div class="comment-panel">
-                                <img src="../lttnpy_core/images/logo_new.png" alt="logo">
+                            <% if (item.author.fullname) { %>
+                                <img style="width:40px; height: 40px" src="../storage/images/<%=item.author.avatar%>" alt="avatar">
+                            <% }else { %>
+                                <img style="width:40px; height: 40px" src="../lttnpy_core/images/admin-ac.png" alt="logo">
+                            <% } %>
                                 <br>
                                 <p><%=item.author.fullname%></p>
                                 <p style="font-size: 10px; color: gray"><%=moment(item.createAt).startOf('minutes').fromNow(); %></p>
@@ -312,6 +316,7 @@
         let examID = $(this).attr('_examID');
         let content = $('#inputComment').val();
         let author = $('#commentname').val();
+        let avatar = $('#avatar-default').attr('_avatar')
         
         $.ajax({
             url: `/comment/add-comment`,
@@ -326,7 +331,7 @@
 
                     $('.panel-body .comment').append(`
                         <div class="comment-panel">
-                            <img src="../lttnpy_core/images/logo_new.png" alt="logo">
+                            <img style="width:40px; height: 40px" src="../storage/images/${avatar}" alt="logo">
                             <br>
                             <p>${author}</p>
                             <p style="font-size: 10px; color: gray">${moment(infoComment.createAt).startOf('minutes').fromNow()}</p>

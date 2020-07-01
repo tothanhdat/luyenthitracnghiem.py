@@ -1,6 +1,6 @@
 const route             = require('express').Router();
 const EXAM_MODEL        = require('../../models/exam');
-const COMMENT_MODEL        = require('../../models/comment');
+const COMMENT_MODEL     = require('../../models/comment');
 const USER_MODEL        = require('../../models/users');
 const checkActive       = require('../../utils/checkActive');
 const { renderToView }  = require('../../utils/childRouting');

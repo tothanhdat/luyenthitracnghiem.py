@@ -1,14 +1,25 @@
 const route             = require('express').Router();
 const USER_MODEL        = require('../../models/users');
 const EXAM_MODEL        = require('../../models/exam');
-const RESULT_MODEL        = require('../../models/result');
+const RESULT_MODEL      = require('../../models/result');
 const { uploadMulter }  = require('../../utils/config_multer');
+const passport          = require('passport');
 const ROLE_ADMIN        = require('../../utils/checkRole');
 const ROLE_SUPER_ADMIN  = require('../../utils/roleSuperAdmin');
 
 const checkActive       = require('../../utils/checkActive');
 const { renderToView }  = require('../../utils/childRouting');
 
+route.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+    // xử lý sau khi user cho phép xác thực với facebook
+route.get('/auth/facebook/callback',
+    
+    passport.authenticate('facebook', {
+        
+        successRedirect: '/',
+        failureRedirect: '/'
+    })
+);
 
 route.get('/', async (req, res) => {
     //console.log('page & perPage', page, perPage)
@@ -19,19 +30,38 @@ route.get('/', async (req, res) => {
 
 //Thông tin user
 route.get('/info-user', async (req, res) => {
-    renderToView(req, res, 'pages/info-user', { })
+    let userIDfromSession = req.session; //Đã gán req.session.user
+    let authorID = userIDfromSession.user.infoUSer._id;
+    let { userID } = req.query;
+    if(authorID.toString() == userID.toString()){
+        let infoUserDb = await USER_MODEL.getInfo(userID);
+        renderToView(req, res, 'pages/info-user', { infoUserDb: infoUserDb.data })
+    }else{
+        res.json("Không được phép vào");
+    }
+    
 })
 
 //Chỉnh sửa Thông tin user
 route.get('/edit-info-user', async (req, res) => {
-    renderToView(req, res, 'pages/edit-info-user', { })
+    let userIDfromSession = req.session; //Đã gán req.session.user
+    let authorID = userIDfromSession.user.infoUSer._id;
+
+    let { userID } = req.query;
+    if(authorID.toString() == userID.toString()){
+        let infoUserDb = await USER_MODEL.getInfo(userID);
+        renderToView(req, res, 'pages/edit-info-user', { infoUserDb: infoUserDb.data })
+    }else{
+        res.json("Không được phép vào")
+    }
+    
 })
 
 route.post('/edit-info-user', uploadMulter.single('avatar'), checkActive, async (req, res) => {
     let userIDfromSession = req.session; //Đã gán req.session.user
     let userUpdate = userIDfromSession.user.infoUSer._id;
-
     let { userID } = req.query;
+
     let { fullname, gender, birthDay, phone, address } = req.body;
 
     let infoFile = req.file;
@@ -43,7 +73,6 @@ route.post('/edit-info-user', uploadMulter.single('avatar'), checkActive, async 
     }else{
         resultUpdate = await USER_MODEL.updateInfoUserBasic({ userID, fullname, gender, birthDay, phone, address, userUpdate, updateAt: Date.now() });
     }
-
     return res.json(resultUpdate);
 })
 
@@ -90,7 +119,7 @@ route.get('/test-exam', checkActive, async (req, res) => {
 route.get('/result-exam', checkActive, async (req, res) => {
     let { resultID } = req.query;
     let { examID } = req.query;
-    console.log(resultID, examID)
+    //console.log(resultID, examID)
     let infoResult = await RESULT_MODEL.getInfo({ resultID })
     let infoExam = await EXAM_MODEL.getInfo({ examID })
     renderToView(req, res, 'pages/result-test-exam', { infoResult: infoResult.data, infoExam: infoExam.data });
@@ -103,7 +132,7 @@ route.post('/result-exam', checkActive, async (req, res) => {
 
     let { point, falseArr, trueArr, examID, unfinishQuestion } = req.body;
 
-    console.log({ point, falseArr, trueArr, userID, examID })
+    //console.log({ point, falseArr, trueArr, userID, examID })
 
     // Kiểm tra quyền/check về logic (nếu có)
 
@@ -163,7 +192,7 @@ route.get('/info-exam', async (req, res) => {
     //console.log( listExamOfSubject.data )
     let { examID } = req.query;
     let infoExamHaveQuestion = await EXAM_MODEL.getInfo({ examID })
-    console.log(infoExamHaveQuestion)
+    //console.log(infoExamHaveQuestion)
     renderToView(req, res, 'pages/info-exam', { infoExamHaveQuestion: infoExamHaveQuestion.data });
 })
 
@@ -195,8 +224,6 @@ route.post('/login', async (req, res) => {
     let { email, password } = req.body;
     let infoUser = await USER_MODEL.signIn(email, password);
 
-    console.log({ infoUser })
-
     if(infoUser.error)
         return res.json(infoUser);
     
@@ -208,11 +235,46 @@ route.post('/login', async (req, res) => {
     renderToView(req, res, 'pages/dashboard-admin', { infoUser: infoUser.data })
 })
 
+//Đổi email
+route.post('/change-email', async (req, res) => {
+
+    let { email, password, userID } = req.body;
+    let infoUser = await USER_MODEL.changeEmail({ userID, email, password });
+
+    console.log({ infoUser })
+
+    if(infoUser.error)
+        return res.json(infoUser);
+
+    return res.json(infoUser);
+    
+})
+
+//Đổi mat khau
+route.post('/change-password', async (req, res) => {
+
+    let { passwordOld, passwordNew, userID } = req.body;
+    let infoUser = await USER_MODEL.changePassword({ userID, passwordOld, passwordNew });
+
+    console.log({ infoUser })
+
+    if(infoUser.error)
+        return res.json(infoUser);
+
+    return res.json(infoUser);
+    
+})
+
 //ĐĂNG XUẤT
 route.get('/logout', async (req, res) => {
     req.session.token = undefined;
     return res.redirect('/');
 })
+
+// function ensureAuthenticated(req, res, next) {
+//     if (req.isAuthenticated()) { return next(); }
+//     res.redirect('/login')
+// }
 
 
 module.exports = route;

@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "To Dat <todat999@gmail.com>",
   "license": "ISC",
@@ -23,6 +24,9 @@
     "mongoose": "^5.9.7",
     "mongoose-simple-random": "^0.4.1",
     "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth": "^2.0.0",
     "redis": "^3.0.2",
     "toastr": "^2.1.4"
   }

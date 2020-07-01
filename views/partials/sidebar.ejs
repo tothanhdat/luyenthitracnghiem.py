@@ -17,15 +17,15 @@
                     <h3 class="text-center margin-bottom-lg"><span class="lev-user text-normal margin-right">Tài khoản: </span> <%=infoUser.fullname%></h3>
                     <div class="row margin-bottom-lg">
                         <div class="col-xs-8 text-center">
-                            <a title="" href="#"><img src="../storage/images/<%=infoUser.avatar%>" alt="avatar-default" class="img-thumbnail bg-gainsboro" /></a>
+                            <a title="" href="#"><img id="avatar-default" src="../storage/images/<%=infoUser.avatar%>" _avatar="<%=infoUser.avatar%>" alt="avatar-default" class="img-thumbnail bg-gainsboro" /></a>
                         </div>
                         <div class="col-xs-16">
                             <ul class="nv-list-item sm">
                                 <li class="active">
-                                    <a href="/info-user">Thông tin tài khoản</a>
+                                    <a href="/info-user?userID=<%=infoUser._id%>">Thông tin tài khoản</a>
                                 </li>
                                 <li class="active">
-                                    <a href="/edit-info-user">Thiết lập tài khoản</a>
+                                    <a href="/edit-info-user?userID=<%=infoUser._id%>">Thiết lập tài khoản</a>
                                 </li>
                                 <li>
                                 <% if (infoUser.role == 100) { %>
@@ -82,7 +82,7 @@
                         <div class="text-center openid-btns">
                             <div class="btn-group m-bottom btn-group-justified">
                                 <button class="btn openid-facebook disabled" type="button" tabindex="-1"><i class="fa fa-fw fa-facebook"></i></button>
-                                <a class="btn openid-facebook" href="/Đăng nhập với Facebook">Đăng nhập với Facebook</a>
+                                <a class="btn openid-facebook" href="/auth/facebook">Đăng nhập với Facebook</a>
                             </div>
                             <div class="btn-group m-bottom btn-group-justified">
                                 <button class="btn openid-google disabled" type="button" tabindex="-1"><i class="fa fa-fw fa-google-plus"></i></button>

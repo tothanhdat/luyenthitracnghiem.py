@@ -40,7 +40,7 @@
                                             <a style="text-transform: uppercase" href="" title="Mác - Lênin" ><%=exam.subject.name%></a>
                                         </div>
                                         <ul class="exam-info list-inline pull-right form-tooltip">
-                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em>11<span class="hidden-xs"> câu hỏi</span></li>
+                                            <li class="pointer" data-toggle="tooltip" data-original-title="Số câu"><em class="fa fa-heart-o">&nbsp;</em><%=exam.question.length%><span class="hidden-xs"> câu hỏi</span></li>
                                             <li class="pointer" data-toggle="tooltip" data-original-title="Thời gian"><em class="fa fa-clock-o">&nbsp;</em><%=moment(exam.createAt).startOf('hour').fromNow()%><span class="hidden-xs"></span></li>
                                         </ul>
                                         <div class="clearfix"></div>
@@ -53,8 +53,8 @@
                                     </h2>
                                     <ul class="list-inline help-block">
                                         <li><em class="fa fa-clock-o createAt" _createAt="<%=exam.createAt%>">&nbsp;</em><%= moment(exam.createAt).format('LL');%></li>
-                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: 0</li>
-                                        <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: 0</li>
+                                        <li><em class="fa fa-search">&nbsp;</em>Đã xem: <%=exam.seen.length%></li>
+                                        <li><em class="fa fa-comment-o">&nbsp;</em>Bình luận: <%=exam.comments.length%></li>
                                     </ul>
                                     <p class="hometext" ><%=exam.name%>: <%=exam.description%></p>
                                     <p class="hometext" >Người tạo: <%=exam.author.fullname%></p>

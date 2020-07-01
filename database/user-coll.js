@@ -5,7 +5,7 @@ const userSchema = new Schema({
 
     fullname: String,
 
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },  // chỗ này email là bắt buộc mà ko có cho nó nên nó kêu lỗi
 
     password: String,
     
@@ -18,6 +18,13 @@ const userSchema = new Schema({
 
     //Số điện thoại
     phone: String,
+
+    facebook:{
+        id: String,
+        token: String,
+        email: String,
+        name: String,
+    },
 
     //Ngày sinh
     birthDay: Date,
@@ -35,7 +42,7 @@ const userSchema = new Schema({
     level: { type: Number, default: 0 },
 
     //Trạng thái hoạt động
-    status: { type: Number, default: 1 },
+    status: { type: Number, default: 0 },
 
     //Thuộc về phòng nào
     department: {

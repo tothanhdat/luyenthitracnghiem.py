@@ -41,13 +41,13 @@
                   <div class="row">
                      <figure class="avatar left pointer">
                         <div style="width:80px;">
-                           <p class="text-center"><img src="../../public/storage/images/<%=infoUser.avatar%>" alt="tothanhdat" title="tothanhdat" width="80" class="img-thumbnail bg-gainsboro m-bottom"></p>
+                           <p class="text-center"><img src="../storage/images/<%=infoUser.avatar%>" alt="tothanhdat" title="tothanhdat" width="80" class="img-thumbnail bg-gainsboro m-bottom"></p>
                         </div>
                      </figure>
                      <div>
                         <ul class="nv-list-item xsm">
                            <li><em class="fa fa-angle-right">&nbsp;</em> Tài khoản: <strong><%=infoUser.fullname%></strong> (<%=infoUser.email%>)</li>
-                           <li><em class="fa fa-angle-right">&nbsp;</em> Đăng nhập theo kiểu thông thường</li>
+                           <li><em class="fa fa-angle-right">&nbsp;</em> Loại tài khoản: </li>
                            <li><em class="fa fa-angle-right">&nbsp;</em> Đăng nhập vào: Thứ sáu, 12/06/2020 21:04</li>
                            <li><em class="fa fa-angle-right">&nbsp;</em> Bằng IP: 14.186.64.152</li>
                         </ul>
@@ -63,42 +63,50 @@
                   <tbody>
                      <tr>
                         <td>Họ tên</td>
-                        <td><%=infoUser.fullname%></td>
+                        <td><%=infoUserDb.fullname%></td>
                      </tr>
                      <tr>
                         <td>Ngày sinh</td>
-                        <td><%=moment(infoUser.birthDay).format('L');%></td>
+                        <% if (infoUserDb.birthDay) { %>
+                        <td><%=moment(infoUserDb.birthDay).format('L');%></td>
+                        <% }else {%>
+                        <td>NaN</td>
+                        <% } %>
                      </tr>
                      <tr>
                         <td>Giới tính</td>
-                        <td><%=infoUser.gender%></td>
+                        <% GENDER_USER.forEach(gender => { %>
+                        <% if (gender.value.toString() == infoUserDb.gender.toString()) { %>
+                           <td><%=gender.text%></td>
+                        <% } %>
+                        <% }) %>
                      </tr>
                      <tr>
                         <td>Email</td>
-                        <td><%=infoUser.email%></td>
+                        <td><%=infoUserDb.email%></td>
                      </tr>
                      <tr>
                         <td>Ngày tham gia</td>
-                        <td><%=moment(infoUser.createAt).format('LL'); %></td>
+                        <td><%=moment(infoUserDb.createAt).format('LL'); %></td>
                      </tr>
                      <tr>
                         <td>Lớp</td>
-                        <td>12a6</td>
+                        <td>NaN</td>
                      </tr>
                      <tr>
                         <td>Trường</td>
-                        <td>THPT Trần Quốc Tuấn - Phú Yên</td>
+                        <td>NaN</td>
                      </tr>
                      <tr>
                         <td>Lần cập nhật trước</td>
-                        <td><%=moment(infoUser.updateAt).format('LLLL'); %></td>
+                        <td><%=moment(infoUserDb.updateAt).format('LLLL'); %></td>
                      </tr>
                   </tbody>
                </table>
             </div>
             <ul class="nav navbar-nav">
-               <li><a href="/info-usereditinfo/"><em class="fa fa-caret-right margin-right-sm"></em>Thiếp lập tài khoản</a></li>
-               <li><a href="/info-userlogout/"><em class="fa fa-caret-right margin-right-sm"></em>Thoát</a></li>
+               <li><a href="/edit-info-user"><em class="fa fa-caret-right margin-right-sm"></em>Thiếp lập tài khoản</a></li>
+               <li><a href="/"><em class="fa fa-caret-right margin-right-sm"></em>Thoát</a></li>
             </ul>
          </div>
     <%- include ('../partials/sidebar') %>

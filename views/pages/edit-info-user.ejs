@@ -32,7 +32,7 @@
                         <ul class="subs-breadcrumbs"></ul>
                         <ul class="temp-breadcrumbs hidden" itemscope="" itemtype="https://schema.org/BreadcrumbList">
                            <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a href="/" itemprop="item" title="Trang nhất"><span itemprop="name">Trang nhất</span></a><i class="hidden" itemprop="position" content="1"></i></li>
-                           <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a href="/edit-info-user" itemprop="item" title="Tài khoản Sinh viên"><span class="txt" itemprop="name">Tài khoản Sinh viên</span></a><i class="hidden" itemprop="position" content="2"></i></li>
+                           <li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a href="/edit-info-user?userID=<%=infoUser._id%>" itemprop="item" title="Tài khoản Sinh viên"><span class="txt" itemprop="name">Tài khoản Sinh viên</span></a><i class="hidden" itemprop="position" content="2"></i></li>
                         </ul>
                      </div>
                   </div>
@@ -78,9 +78,9 @@
                                     <label for="last_name" class="control-label col-md-6 text-normal">Ảnh đại diện</label>
                                     <div class="col-md-12 ">
                                        <div class="config-avatar">
-                                          <img src="../storage/images/<%=infoUser.avatar%>" alt="<%=infoUser.avatar%>">
+                                          <img src="../storage/images/<%=infoUserDb.avatar%>" alt="<%=infoUserDb.avatar%>">
                                        </div>
-                                        <input type="file" id="avatar-tab1" name="" value="" style="display: none;">
+                                        <input type="file" id="avatar-tab1" name="" value="<%=infoUserDb.avatar%>" style="display: none;">
                                         <br>
                                         <button type="button" id="file" type="file" class="btn btn-primary btnChangeAvatarTab1" >
                                             Thay đổi hình đại diện
@@ -90,13 +90,13 @@
                                  <div class="form-group">
                                     <label for="last_name" class="control-label col-md-6 text-normal">Họ và tên</label>
                                     <div class="col-md-12">
-                                       <input type="text" id="fullname" class="form-control input" placeholder="Họ và tên" value="<%=infoUser.fullname%>" name="last_name" maxlength="100">
+                                       <input type="text" id="fullname" class="form-control input" placeholder="Họ và tên" value="<%=infoUserDb.fullname%>" name="last_name" maxlength="100">
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <label for="last_name" class="control-label col-md-6 text-normal">Email</label>
                                     <div class="col-md-12">
-                                       <input type="text" class="form-control input" readonly="readonly" placeholder="Email" value="<%=infoUser.email%>" name="last_name" maxlength="100">
+                                       <input type="text" class="form-control input" readonly="readonly" placeholder="Email" value="<%=infoUserDb.email%>" name="last_name" maxlength="100">
                                     </div>
                                  </div>
                                  <div class="form-group">
@@ -104,8 +104,8 @@
                                     <div class="col-md-12">
                                        <div class="clearfix radio-box input" id="gender">
                                        <% GENDER_USER.forEach(gender => { %>
-                                          <% if (gender.value.toString() == infoUser.gender.toString()) { %>
-                                             <label class="radio-box"> <input type="radio" name="gender" checked value="<%=infoUser.gender%>" class="input" onclick="validErrorHidden(this,5);"> <%=gender.text%> </label>
+                                          <% if (gender.value.toString() == infoUserDb.gender.toString()) { %>
+                                             <label class="radio-box"> <input type="radio" name="gender" checked value="<%=infoUserDb.gender%>" class="input" onclick="validErrorHidden(this,5);"> <%=gender.text%> </label>
                                           <% }else{ %>
                                              <label class="radio-box"> <input type="radio" name="gender" value="<%=gender.value%>" class="input" onclick="validErrorHidden(this,5);"> <%=gender.text%> </label>
                                           <% } %>
@@ -117,7 +117,7 @@
                                     <label for="birthday" class="control-label col-md-6 text-normal">Ngày sinh</label>
                                     <div class="col-md-8">
                                        <%
-                                       let birthDay = moment(infoUser.birthDay).format('L');
+                                       let birthDay = moment(infoUserDb.birthDay).format('L');
                                        let birthDayAfterFormat = birthDay.split("/").reverse().join("-");
                                        %>
                                        <input type="date" class="form-control" id="birthDay" name="birthDay" value="<%=birthDayAfterFormat%>" onfocus="datepickerShow(this);">
@@ -126,13 +126,13 @@
                                  <div class="form-group">
                                     <label for="last_name" class="control-label col-md-6 text-normal">Số điện thoại</label>
                                     <div class="col-md-12">
-                                       <input type="text" class="form-control input" id="phone" placeholder="Số điện thoại" value="<%=infoUser.phone%>" name="last_name" maxlength="100" onkeypress="validErrorHidden(this);">
+                                       <input type="text" class="form-control input" id="phone" placeholder="Số điện thoại" value="<%=infoUserDb.phone%>" name="last_name" maxlength="100" onkeypress="validErrorHidden(this);">
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <label for="last_name" class="control-label col-md-6 text-normal">Địa chỉ</label>
                                     <div class="col-md-12">
-                                       <input type="text" class="form-control input" id="address" placeholder="Địa chỉ" value="<%=infoUser.address%>" name="last_name" maxlength="100" onkeypress="validErrorHidden(this);">
+                                       <input type="text" class="form-control input" id="address" placeholder="Địa chỉ" value="<%=infoUserDb.address%>" name="last_name" maxlength="100" onkeypress="validErrorHidden(this);">
                                     </div>
                                  </div>
                                  <!--<div class="form-group">
@@ -149,8 +149,8 @@
                                        <input type="hidden" name="checkss" value="">
                                     </div>
                                     <div class="col-md-10">
-                                       <input type="button" value="Thiết lập lại" class="btn btn-default">
-                                       <input type="submit" class="btn btn-primary btnEditInfoBasicUser" _userID=<%=infoUser._id%> value="Lưu lại">
+                                       <input type="button" value="Thiết lập lại" class="btn btn-default btnClearBasic">
+                                       <input type="submit" class="btn btn-primary btnEditInfoBasicUser" _userID=<%=infoUserDb._id%> value="Lưu lại">
                                     </div>
                                  </div>
                               </div>
@@ -166,7 +166,7 @@
                            </div>
                            <div>
                               <input id="file-input" type="file" name="name" style="display: none;" />
-                              <button type="button" id="file" type="file" class="btn btn-primary btn-xs margin-right-sm btnChangeAvatar" >
+                              <button type="button" id="file-tab2" type="file" class="btn btn-primary btn-xs margin-right-sm btnChangeAvatar" >
                               Thay đổi hình đại diện
                               </button>
                               <button type="button" class="btn btn-danger btn-xs " >
@@ -194,22 +194,22 @@
                                        Email hiện tại:
                                     </div>
                                     <div class="col-md-12">
-                                       <strong><%=infoUser.email%></strong>
+                                       <strong><%=infoUserDb.email%></strong>
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <label for="password" class="control-label col-md-6 text-normal">Mật khẩu</label>
                                     <div class="col-md-12">
-                                       <input type="password" autocomplete="off" class="form-control" placeholder="Mật khẩu" value="" name="password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Mật khẩu đăng nhập chưa được khai báo">
+                                       <input id="passwordTab2" type="password" autocomplete="off" class="required form-control" placeholder="Mật khẩu" value="" name="password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Mật khẩu đăng nhập chưa được khai báo">
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <label for="email" class="control-label col-md-6 text-normal">Email mới</label>
                                     <div class="col-md-12">
-                                       <input type="email" class="required form-control" placeholder="Email mới" value="" name="email" maxlength="100" onkeypress="validErrorHidden(this);" data-mess="Email chưa được khai báo">
+                                       <input id="emailTab2" type="email" class="required form-control" placeholder="Email mới" value="" name="email" maxlength="100" onkeypress="validErrorHidden(this);" data-mess="Email chưa được khai báo">
                                     </div>
                                  </div>
-                                 <div class="form-group">
+                                 <!--<div class="form-group">
                                     <label for="verifykey" class="control-label col-md-6 text-normal">Mã xác minh</label>
                                     <div class="col-md-12">
                                        <div class="input-group">
@@ -220,7 +220,7 @@
                                           </button></span>
                                        </div>
                                     </div>
-                                 </div>
+                                 </div>-->
                                  <div class="form-group">
                                     <div class="col-md-6">
                                        <input type="hidden" name="checkss" value="d9c3ddf9032a56de42cafb6d1688a2bd">
@@ -228,7 +228,7 @@
                                     </div>
                                     <div class="col-md-10">
                                        <input type="button" value="Thiết lập lại" class="btn btn-default" onclick="validReset(this.form);return!1;">
-                                       <input type="submit" class="btn btn-primary" value="Lưu lại">
+                                       <input type="submit" class="btn btn-primary btnChangeEmail" _userID="<%=infoUserDb._id%>" value="Lưu lại">
                                     </div>
                                  </div>
                               </div>
@@ -245,19 +245,19 @@
                                  <div class="form-group">
                                     <label for="nv_password" class="control-label col-md-6 text-normal">Mật khẩu cũ</label>
                                     <div class="col-md-12">
-                                       <input type="password" autocomplete="off" class="required form-control" placeholder="Mật khẩu cũ" value="" name="nv_password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Chú ý: Bạn cần khai báo tất cả các ô có đánh dấu hoa thị (*).">
+                                       <input id="passwordOld" type="password" autocomplete="off" class="required form-control" placeholder="Mật khẩu cũ" value="" name="nv_password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Chú ý: Bạn cần khai báo tất cả các ô có đánh dấu hoa thị (*).">
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <label for="new_password" class="control-label col-md-6 text-normal">Mật khẩu mới</label>
                                     <div class="col-md-12">
-                                       <input type="password" autocomplete="off" class="required form-control" placeholder="Mật khẩu mới" value="" name="new_password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Trường này là bắt buộc.">
+                                       <input id="passwordNew" type="password" autocomplete="off" class="required form-control" placeholder="Mật khẩu mới" value="" name="new_password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Trường này là bắt buộc.">
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <label for="re_password" class="control-label col-md-6 text-normal">Nhập lại mật khẩu mới</label>
                                     <div class="col-md-12">
-                                       <input type="password" autocomplete="off" class="required form-control" placeholder="Nhập lại mật khẩu mới" value="" name="re_password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Trường này là bắt buộc.">
+                                       <input id="passwordNew2" type="password" autocomplete="off" class="required form-control" placeholder="Nhập lại mật khẩu mới" value="" name="re_password" maxlength="32" data-pattern="/^(.){5,32}$/" onkeypress="validErrorHidden(this);" data-mess="Trường này là bắt buộc.">
                                     </div>
                                  </div>
                                  <div class="form-group">
@@ -266,7 +266,7 @@
                                     </div>
                                     <div class="col-md-10">
                                        <input type="button" value="Thiết lập lại" class="btn btn-default" onclick="validReset(this.form);return!1;">
-                                       <input type="submit" class="btn btn-primary" value="Chấp nhận">
+                                       <input type="submit" class="btn btn-primary btnChangePassword" _userID="<%=infoUserDb._id%>" value="Lưu lại">
                                     </div>
                                  </div>
                               </div>
@@ -283,23 +283,6 @@
                      <a href="/"><em class="fa fa-caret-right margin-right-sm"></em>Thoát</a>
                   </li>
                </ul>
-            </div>
-         </div>
-         <div class="col-sm-8 col-md-6">
-            <div class="panel panel-primary">
-               <div class="panel-heading">
-                  Thống kê truy cập
-               </div>
-               <div class="panel-body">
-                  <ul class="counter list-none display-table">
-                     <li><span><em class="fa fa-bolt fa-lg fa-horizon"></em>Đang truy cập</span><span>15</span></li>
-                     <li><span><em class="fa fa-user fa-lg fa-horizon"></em>Thành viên online</span><span>4</span></li>
-                     <li><span><em class="fa fa-bullseye fa-lg fa-horizon"></em>Khách viếng thăm</span><span>11</span></li>
-                     <li><span><em class="fa fa-filter fa-lg fa-horizon margin-top-lg"></em>Hôm nay</span><span class="margin-top-lg">445</span></li>
-                     <li><span><em class="fa fa-calendar-o fa-lg fa-horizon"></em>Tháng hiện tại</span><span>95,628</span></li>
-                     <li><span><em class="fa fa-bars fa-lg fa-horizon"></em>Tổng lượt truy cập</span><span>551,649</span></li>
-                  </ul>
-               </div>
             </div>
          </div>
             <%- include ('../partials/sidebar') %>
@@ -319,7 +302,8 @@
     });
 
     $('.btnChangeAvatarTab1').on('click', function() {
-        $('#avatar-tab1').trigger('click');
+         $('#avatar-tab1').trigger('click');
+
     });
 
    $(document).on('click', '.btnEditInfoBasicUser', function(e) {
@@ -372,5 +356,82 @@
       });
 
    });
+
+   
+   $(document).on('click', '.btnClearBasic', function(e) {
+      e.preventDefault();
+      $('#fullname').val('');
+      $("input:radio[name=gender]:checked").val('');
+      $('#birthDay').val('');
+      $('#phone').val('');
+      $('#address').val('');
+   })
+
+   
+   $(document).on('click', '.btnChangeEmail', function(e) {
+      e.preventDefault();
+      let userID = $(this).attr('_userID');
+      let email = $('#emailTab2').val();
+      let password = $('#passwordTab2').val();
+
+      //console.log({ userID, email, password })
+
+      $.ajax({
+         url: `/change-email`,
+         method: 'POST',
+         data: { userID, email, password },
+         success: resp => {
+            console.log({ resp })
+            if(!resp.error){
+               toastr['success']('Cập nhật thành công', 'Thông báo');
+               setTimeout(function() {
+                  location.href();
+               }, 500);
+
+            }else{
+
+               return toastr['error']('Cập nhật thất bại', 'Thông báo');
+            }
+         },
+         error: err => console.log({ err })
+      });
+
+   });
+
+   $(document).on('click', '.btnChangePassword', function(e) {
+      e.preventDefault();
+      let userID = $(this).attr('_userID');
+      let passwordOld = $('#passwordOld').val();
+      let passwordNew = $('#passwordNew').val();
+      let passwordNew2 = $('#passwordNew2').val();
+
+      console.log({ userID, passwordOld, passwordNew, passwordNew2 })
+
+      if(passwordNew.toString().trim() !== passwordNew2.toString().trim()){
+         return toastr['warning']('Mật khẩu mới không khớp!! Mời bạn thử lại', 'Thông báo');
+      }
+      $.ajax({
+         url: `/change-password`,
+         method: 'POST',
+         data: { userID, passwordOld, passwordNew },
+         success: resp => {
+            console.log({ resp })
+            if(!resp.error){
+               toastr['success']('Cập nhật thành công', 'Thông báo');
+               setTimeout(function() {
+                  location.href();
+               }, 500);
+
+            }else{
+
+               return toastr['error']('Cập nhật thất bại', 'Thông báo');
+            }
+         },
+         error: err => console.log({ err })
+      });
+
+   });
+
+   
     
 </script>
