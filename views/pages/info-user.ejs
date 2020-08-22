@@ -41,13 +41,20 @@
                   <div class="row">
                      <figure class="avatar left pointer">
                         <div style="width:80px;">
-                           <p class="text-center"><img src="../storage/images/<%=infoUser.avatar%>" alt="tothanhdat" title="tothanhdat" width="80" class="img-thumbnail bg-gainsboro m-bottom"></p>
+                           <p class="text-center"><img src="../storage/images/<%=infoUserDb.avatar%>" alt="tothanhdat" title="tothanhdat" width="80" class="img-thumbnail bg-gainsboro m-bottom"></p>
                         </div>
                      </figure>
                      <div>
                         <ul class="nv-list-item xsm">
-                           <li><em class="fa fa-angle-right">&nbsp;</em> Tài khoản: <strong><%=infoUser.fullname%></strong> (<%=infoUser.email%>)</li>
-                           <li><em class="fa fa-angle-right">&nbsp;</em> Loại tài khoản: </li>
+                           <li><em class="fa fa-angle-right">&nbsp;</em> Tài khoản: <strong><%=infoUserDb.fullname%></strong> (<%=infoUserDb.email%>)</li>
+                           <li><em class="fa fa-angle-right">&nbsp;</em> Loại tài khoản:  
+                           <% if (infoUser.role == 100) { %>
+                                    Super Admin
+                                <% } else if (infoUser.role == 1){%>
+                                    Giáo viên
+                                <% } else {%>
+                                    Học sinh
+                                <% }%></li>
                            <li><em class="fa fa-angle-right">&nbsp;</em> Đăng nhập vào: Thứ sáu, 12/06/2020 21:04</li>
                            <li><em class="fa fa-angle-right">&nbsp;</em> Bằng IP: 14.186.64.152</li>
                         </ul>

@@ -74,14 +74,14 @@
                                         <span class="sr-only">Previous</span>
                                     </a>
                                 </li>
-                                <li class="page-item"><a value="1" class="page-link" href="?page=1">1</a></li>
-                                <li class="page-item"><a value="2" class="page-link" href="?page=2">2</a></li>
-                                <li class="page-item"><a value="3" class="page-link" href="?page=3">3</a></li>
-                                <li class="page-item"><a value="4" class="page-link" href="?page=4">4</a></li>
-                                <li class="page-item"><a value="5" class="page-link" href="?page=5">5</a></li>
-                                <li class="page-item"><a value="6" class="page-link" href="?page=6">6</a></li>
+                                <li class="page-item1"><a value="1" class="page-link" href="?page=1">1</a></li>
+                                <li class="page-item2"><a value="2" class="page-link" href="?page=2">2</a></li>
+                                <li class="page-item3"><a value="3" class="page-link" href="?page=3">3</a></li>
+                                <li class="page-item4"><a value="4" class="page-link" href="?page=4">4</a></li>
+                                <li class="page-item5"><a value="5" class="page-link" href="?page=5">5</a></li>
+                                <li class="page-item6"><a value="6" class="page-link" href="?page=6">6</a></li>
                                 <li class="page-item">
-                                    <a class="page-link" href="/?page=<%= page++ %>" aria-label="Next">
+                                    <a class="page-link" href="/?page=<%= parseInt(page) + 1 %>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                         <span class="sr-only">Next</span>
                                     </a>
@@ -130,4 +130,15 @@
         }
     })
 
+    $(document).ready(function(e) {
+        var url      = window.location.href;  
+
+        let page = url.substr(url.length - 1);
+
+        $(`.page-item${page}`).addClass('active')
+
+    });
+
 </script>
+
+

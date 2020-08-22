@@ -7,9 +7,11 @@ const QUESTION_MODEL    = require('../models/question');
 const COMMENT_MODEL     = require('../models/comment');
 const RESULT_MODEL      = require('../models/result');
 
-const { LEVEL_TYPES }   = require('../config/constants/cf_constants');
-const { GENDER_USER }   = require('../config/constants/cf_constants');
-const { STATUS_USER }   = require('../config/constants/cf_constants');
+const { 
+    LEVEL_TYPES, 
+    GENDER_USER, 
+    STATUS_USER 
+}   = require('../config/constants/cf_constants');
 
 let renderToView = async function(req, res, view, data) {
     let { token } = req.session;

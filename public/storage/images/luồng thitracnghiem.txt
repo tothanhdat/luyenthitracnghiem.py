@@ -1,0 +1,28 @@
+==========USER==============
+Đối với chưa đăng nhập || 
+- Không thể vào xem đề hay bất cứ gì
+- Buộc phải có tài khoản đăng nhập
+- Lọc theo lớp, lọc theo môn học
+- Thông tin bộ đề ở trang chính bao gồm:...
+- Phân trang
+- Đề luyện thi mới (sidebar)
+- Danh sách môn học (sidebar)
+Demo Đăng ký đăng nhập
+=========================
+Nếu đã đăng nhập thì thay form login thành form quản lý của học sinh
+
+- Thay form-login thành form quản lý của user
+- Bao gồm... và Demo tất cả
+- Vào trang begin, giới thiệu số câu, thời gian, file đính kèm (Thực hiện lưu đề thi, comment) và bắt đầu làm trắc nghiệm
+- Demo thời gian đếm ngược, giả vờ làm thiếu 1, 2 câu và nộp bài
+- Xem kết quả.. xem lịch sử đề thi
+
+==========ADMIN==============
+
+- Xuất hiện Trang quản lý
+- Môn học (Của supperAdmin)
+- Demo Tạo bộ đề 
+- Tạo câu hỏi (Nếu chỉ nhập 2 câu hỏi thì chỉ hiện 2 câu hỏi, form ckeditor, xem trước bộ đề)
+- Danh sách kết quả thi (Hiện xếp loại, tìm kiếm theo học sinh, bộ đề, xem chi tiết bài kiểm tra)
+- Danh sách bộ đề (chi tiết bộ đề, cho phép xóa, sửa câu hỏi)
+

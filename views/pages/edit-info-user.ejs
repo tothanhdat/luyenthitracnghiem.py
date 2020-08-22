@@ -78,9 +78,9 @@
                                     <label for="last_name" class="control-label col-md-6 text-normal">Ảnh đại diện</label>
                                     <div class="col-md-12 ">
                                        <div class="config-avatar">
-                                          <img src="../storage/images/<%=infoUserDb.avatar%>" alt="<%=infoUserDb.avatar%>">
+                                          <img src="../storage/images/<%=infoUserDb.avatar%>" id="image-avt" alt="<%=infoUserDb.avatar%>">
                                        </div>
-                                        <input type="file" id="avatar-tab1" name="" value="<%=infoUserDb.avatar%>" style="display: none;">
+                                        <input type="file" id="avatar-tab1" name="" value="<%=infoUserDb.avatar%>" onchange="document.getElementById('image-avt').src = window.URL.createObjectURL(this.files[0])" style="display: none;">
                                         <br>
                                         <button type="button" id="file" type="file" class="btn btn-primary btnChangeAvatarTab1" >
                                             Thay đổi hình đại diện
@@ -126,7 +126,7 @@
                                  <div class="form-group">
                                     <label for="last_name" class="control-label col-md-6 text-normal">Số điện thoại</label>
                                     <div class="col-md-12">
-                                       <input type="text" class="form-control input" id="phone" placeholder="Số điện thoại" value="<%=infoUserDb.phone%>" name="last_name" maxlength="100" onkeypress="validErrorHidden(this);">
+                                       <input type="number" class="form-control input" id="phone" placeholder="Số điện thoại" value="<%=infoUserDb.phone%>" name="last_name" maxlength="100" onkeypress="validErrorHidden(this);">
                                     </div>
                                  </div>
                                  <div class="form-group">
@@ -433,5 +433,7 @@
    });
 
    
-    
+
+   
+
 </script>
