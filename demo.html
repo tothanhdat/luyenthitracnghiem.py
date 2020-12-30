@@ -1,0 +1,18 @@
+
+<label for="">Nhập tên người bạn thích</label>
+<input class="txtmh" type="text">
+<button>Ngày sinh là</button>
+<h3></h3>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $( "button" ).click(function() {
+        let name = $("h3").val();
+        if(name = "Nguyễn Ngọc Quế Đoan"){
+            $("h3").text("25/09/2002");
+        }else{
+            $("h3").text("13/05/1999");
+        }
+        
+    });
+</script>
+

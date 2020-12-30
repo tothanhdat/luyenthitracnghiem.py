@@ -3,6 +3,7 @@ const EXAM_COLL = require('../database/exam-coll');
 const SUBJECT_COLL = require('../database/subject-coll');
 const QUESTION_COLL = require('../database/question-coll');
 const COMMENT_COLL = require('../database/comment-coll');
+const TESTPF_COLL = require('../database/testpf-coll');
 
 module.exports = class Exam extends EXAM_COLL {
 
@@ -54,6 +55,39 @@ module.exports = class Exam extends EXAM_COLL {
                 if (!listExam) return resolve({ error: true, message: 'cannot_get_list_data' });
 
                 return resolve({ error: false, data: listExam });
+
+            } catch (error) {
+
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+
+    static getListTestpfWithDefault() {
+        return new Promise(async resolve => {
+            try {
+                let listTestpf = await TESTPF_COLL.find();
+                console.log(listTestpf);
+
+                if (!listTestpf) return resolve({ error: true, message: 'cannot_get_list_data' });
+
+                return resolve({ error: false, data: listTestpf });
+
+            } catch (error) {
+
+                return resolve({ error: true, message: error.message });
+            }
+        })
+    }
+
+    static getListTestpfWithLean() {
+        return new Promise(async resolve => {
+            try {
+                let listTestpfWithLean = await TESTPF_COLL.find().lean();
+
+                if (!listTestpfWithLean) return resolve({ error: true, message: 'cannot_get_list_data' });
+
+                return resolve({ error: false, data: listTestpfWithLean });
 
             } catch (error) {
 

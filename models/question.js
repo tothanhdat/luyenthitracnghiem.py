@@ -58,6 +58,7 @@ module.exports = class Question extends QUESTION_COLL {
     static getList() {
         return new Promise(async resolve => {
             try {
+                
                 let listQuestion = await QUESTION_COLL.find();
 
                 if (!listQuestion) return resolve({ error: true, message: 'cannot_get_list_data' });

@@ -1,6 +1,6 @@
 const ObjectID = require('mongoose').Types.ObjectId;
 const USER_COLL= require('../database/user-coll');
-const { hash, compare } = require('bcrypt');
+const { hash, compare } = require('bcryptjs');
 const { sign, verify } = require('../utils/jwt');
 module.exports = class user {
     static register(email, password, fullname) {
