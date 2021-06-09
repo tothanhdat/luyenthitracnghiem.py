@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"luyenthitracnghiempy.questions"}],"uuid":"4a938cd587a44c59be7ad96ed839a730"}
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"d60bd3ded07e47bb8ea2b070e56dff11","collectionName":"questions"}

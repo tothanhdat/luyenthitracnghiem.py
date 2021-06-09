@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"luyenthitracnghiempy.users"},{"v":2,"unique":true,"key":{"email":1},"name":"email_1","ns":"luyenthitracnghiempy.users","background":true}],"uuid":"abe460b012d045dea1d5f85bd83b17eb"}
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"},{"v":{"$numberInt":"2"},"unique":true,"key":{"email":{"$numberInt":"1"}},"name":"email_1","background":true}],"uuid":"35a8ef10cd0b46a9b316a480e12c13e0","collectionName":"users"}

@@ -12,8 +12,8 @@
 11. [ĐÃ XONG] Chia role Supper Admin
 
 ->> Tài khoản
-Giao vien: email: 1, password: 1
-Hoc sinh: email: phanvande, password: 1
+Hocsinh: Tự đăng ký
+Giao vien: email: todat999@gmail.com, password: 123456
 Super Admin: email: 0966225624, password: tothanhdat123
 
 Số lượng câu hỏi: Lấy từ trong db (exam.question.length)
