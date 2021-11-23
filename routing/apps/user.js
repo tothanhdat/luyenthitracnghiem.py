@@ -22,9 +22,6 @@ route.get('/auth/facebook/callback',
 );
 
 route.get('/', async (req, res) => {
-    //console.log('page & perPage', page, perPage)
-    //console.log({ listExamPagination })
-    
     renderToView(req, res, 'pages/home', { })
 })
 
@@ -84,8 +81,7 @@ route.get('/create-subject', ROLE_SUPER_ADMIN, async (req, res) => {
 
 //TẠO BỘ ĐỀ
 route.get('/create-exam', ROLE_ADMIN, async (req, res) => {
-    let infoUser = req.session;
-    renderToView(req, res, 'pages/add-exam', { userID: infoUser.user.infoUSer._id })
+    renderToView(req, res, 'pages/add-exam', { })
 })
 
 //TẠO CÂU HỎI
@@ -127,8 +123,7 @@ route.get('/result-exam', checkActive, async (req, res) => {
 
 route.post('/result-exam', checkActive, async (req, res) => {
 
-    let userIDfromSession = req.session; //Đã gán req.session.user
-    let userID = userIDfromSession.user.infoUSer._id;
+    let userID = req.session.user._id;
 
     let { point, falseArr, trueArr, examID, unfinishQuestion } = req.body;
 
@@ -146,9 +141,9 @@ route.get('/list-result-exam', ROLE_ADMIN, async (req, res) => {
     renderToView(req, res, 'pages/list-result-exam', { });
 })
 
-route.get('/list-result-exam?sort', ROLE_ADMIN, async (req, res) => {
-    renderToView(req, res, 'pages/home', { });
-})
+// route.get('/list-result-exam?sort', ROLE_ADMIN, async (req, res) => {
+//     renderToView(req, res, 'pages/home', { });
+// })
 
 
 //<==========================
@@ -178,9 +173,9 @@ route.get('/list-exam-by-save', checkActive, async (req, res) => {
 
 //lịch sử thi
 route.get('/history-test', checkActive, async (req, res) => {
-    let infoUser = req.session;
+    let userID = req.session.user._id;
     //listResult
-    renderToView(req, res, 'pages/history-test', { userID: infoUser.user.infoUSer._id });
+    renderToView(req, res, 'pages/history-test', { userID });
 })
 
 route.get('/list-exam', async (req, res) => {
@@ -213,9 +208,7 @@ route.get('/register', async (req, res) => {
 route.post('/register', async (req, res) => {
     let { email, password, fullname } = req.body;
     let infoUser = await USER_MODEL.register(email, password, fullname);
-    if (infoUser.error && infoUser.message == 'email_existed')
-        renderToView(req, res, 'pages/home', { });
-    return res.redirect('/register');
+    res.json(infoUser)
 });
 
 //TRANG ĐĂNG NHẬP
@@ -224,15 +217,17 @@ route.post('/login', async (req, res) => {
     let { email, password } = req.body;
     let infoUser = await USER_MODEL.signIn(email, password);
 
-    if(infoUser.error)
-        return res.json(infoUser);
-    
-    // res.cookie('token', infoUser.data.token, { maxAge: 900000 });
-    req.session.token = infoUser.data.token; //gán token đã tạo cho session
-    req.session.email = req.body.email; 
-    req.session.user = infoUser.data; 
+    console.log({ infoUser });
 
-    renderToView(req, res, 'pages/dashboard-admin', { infoUser: infoUser.data })
+    if(!infoUser.error){
+        req.session.token = infoUser.data.token; //gán token đã tạo cho session
+        req.session.email = req.body.email;
+        req.session.user = infoUser.data.infoUser;
+        req.user = infoUser.data.infoUser;
+    }
+
+    return res.json(infoUser)
+    //renderToView(req, res, 'pages/dashboard-admin', { infoUser: infoUser.data })
 })
 
 //Đổi email

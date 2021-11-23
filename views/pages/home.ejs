@@ -75,11 +75,6 @@
                                     </a>
                                 </li>
                                 <li class="page-item1"><a value="1" class="page-link" href="?page=1">1</a></li>
-                                <li class="page-item2"><a value="2" class="page-link" href="?page=2">2</a></li>
-                                <li class="page-item3"><a value="3" class="page-link" href="?page=3">3</a></li>
-                                <li class="page-item4"><a value="4" class="page-link" href="?page=4">4</a></li>
-                                <li class="page-item5"><a value="5" class="page-link" href="?page=5">5</a></li>
-                                <li class="page-item6"><a value="6" class="page-link" href="?page=6">6</a></li>
                                 <li class="page-item">
                                     <a class="page-link" href="/?page=<%= parseInt(page) + 1 %>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
@@ -111,7 +106,7 @@
                     email, password
                 },
                 success: resp => {
-
+                    console.log({ resp });
                     if (!resp.error) {
                         toastr['success']('Đăng nhập thành công', 'Thông báo');
                         setTimeout(function(){ 
@@ -119,8 +114,7 @@
                         }, 500);
 
                     } else {
-
-                        return toastr['warning']('Email hoặc mật khẩu không chính xác', 'Thông báo');
+                        return toastr['warning'](resp.message, 'Thông báo');
                     }
                 },
                 error: err => console.log({
@@ -131,7 +125,7 @@
     })
 
     $(document).ready(function(e) {
-        var url      = window.location.href;  
+        var url  = window.location.href;  
 
         let page = url.substr(url.length - 1);
 

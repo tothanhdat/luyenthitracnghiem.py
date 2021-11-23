@@ -58,8 +58,10 @@
                             <tr _resultID="<%=result._id%>">
                                 <td><%=listResult.indexOf(result) + 1%></td>
                                 <td><%=result.author.fullname%></td>
-                                <td>Đại học Công Nghệ TP.HCM</td>
-                                <td><a target="_blank" href="/result-exam?resultID=<%=result._id%>&examID=<%=result.exam._id%>">[<%=result.exam.subject.name%>] - <%=result.exam.name%></a></td>
+                                <td>Trung tâm tin học Sao Star</td>
+								<% if (result.exam) { %>
+									<td><a target="_blank" href="/result-exam?resultID=<%=result._id%>&examID=<%=result.exam._id%>">[<%=result.exam.subject.name%>] - <%=result.exam.name%></a></td>
+								<% } %>
                                 <td><%=Math.round(result.point * 100) / 100%></td>
                                 <% if (result.point < 5) { %>
                                 <td><span class="status-icon bg-danger"></span> Yếu</td>

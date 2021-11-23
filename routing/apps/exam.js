@@ -14,10 +14,10 @@ const path              = require('path');
 
 //TRANG BẮT ĐẦU LÀM BỘ ĐỀ
 route.get('/', checkActive, async (req, res) => {
-    let infoUser = req.session
     let { examID } = req.query;
-    let infoExam = await EXAM_MODEL.getInfo({ examID, userID: infoUser.user.infoUSer._id })
-    renderToView(req, res, 'pages/begin-exam', {  infoExam: infoExam.data, userID: infoUser.user.infoUSer });
+    let userID = req.session.user._id;
+    let infoExam = await EXAM_MODEL.getInfo({ examID, userID })
+    renderToView(req, res, 'pages/begin-exam', {  infoExam: infoExam.data, userID });
 })
 
 route.get('/test-exam', checkActive, async (req, res) => {
@@ -34,8 +34,7 @@ route.get('/result', checkActive, async (req, res) => {
 
 route.post('/add-exam', uploadMulter.single('file'), ROLE_ADMIN, async (req, res) => {
 
-    let userIDfromSession = req.session; //Đã gán req.session.user
-    let userID = userIDfromSession.user.infoUSer._id;
+    let userID = req.session.user._id;
 
     let { name, description, level, timeDoTest, subjectID } = req.body;
     

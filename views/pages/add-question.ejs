@@ -169,7 +169,6 @@
         let answerC = $('#answerC').val();
         let answerD = $('#answerD').val();
 
-
 		let answer = [answerA, answerB, answerC, answerD]
 
 		console.log(answer)
@@ -233,7 +232,7 @@
 						
 						//Tăng số câu hỏi 
 						let numberCountQuestion = $('.numberCountQuestion').text();
-						let formatNumberCountQuestion = parseInt(numberCountQuestion) + 1;
+						let formatNumberCountQuestion = Number(numberCountQuestion) + 1;
 						$('.numberCountQuestion').text(formatNumberCountQuestion);
 
 
@@ -246,7 +245,6 @@
                         $('#answerD').val('');
 						
                         $('#image_question').val('');
-						
 
                     } else {
 

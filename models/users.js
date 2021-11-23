@@ -6,14 +6,22 @@ module.exports = class user {
     static register(email, password, fullname) {
         return new Promise(async resolve => {
             try {
+
+                if (password.length < 6)
+                    return resolve({ error: true, message: 'Password phải từ 6 kí tự trở lên' });
+
                 let checkExist = await USER_COLL.findOne({ email });
+
                 if (checkExist)
-                    return resolve({ error: true, message: 'email_existed' });
+                    return resolve({ error: true, message: 'Email đã tồn tại, vui lòng nhập email khác' });
+
                 let hashPassword = await hash(password, 8);
                 let newUser = new USER_COLL({ fullname, email, password: hashPassword });
-                let infoUSer = await newUser.save();
-                if (!infoUSer) return resolve({ error: true, message: 'cannot_insert' });
-                resolve({ error: false, data: infoUSer });
+                let infoUser = await newUser.save();
+
+                if (!infoUser) return resolve({ error: true, message: 'Bị lỗi trong quá trình đăng ký' });
+                resolve({ error: false, data: infoUser });
+
             } catch (error) {
                 return resolve({ error: true, message: error.message });
             }
@@ -23,17 +31,18 @@ module.exports = class user {
     static signIn(email, password) {
         return new Promise(async resolve => {
             try {
-                const infoUSer = await USER_COLL.findOne({ email });
-                if (!infoUSer)
-                    return resolve({ error: true, message: 'email_not_exist' });
+                const infoUser = await USER_COLL.findOne({ email });
+                if (!infoUser)
+                    return resolve({ error: true, message: 'Tài khoản không tồn tại' });
                     
-                const checkPass = await compare(password, infoUSer.password);
+                const checkPass = await compare(password, infoUser.password);
                 if (!checkPass)
-                    return resolve({ error: true, message: 'password_not_true' });
-                await delete infoUSer.password;
+                    return resolve({ error: true, message: 'Sai mật khẩu' });
 
-                let token = await sign({ data: infoUSer });
-                return resolve({ error: false, data: { infoUSer, token } });
+                await delete infoUser.password;
+
+                let token = await sign({ data: infoUser });
+                return resolve({ error: false, data: { infoUser, token } });
                 
             } catch (error) {
                 return resolve({ error: true, message: error.message });

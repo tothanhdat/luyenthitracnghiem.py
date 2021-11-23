@@ -8,9 +8,7 @@ const path              = require('path');
 
 route.post('/add-question', uploadMulter.single('image'), ROLE_ADMIN, async (req, res) => {
     try {
-        
-        let userIDfromSession = req.session; //Đã gán req.session.user
-        let userID = userIDfromSession.user.infoUSer._id;
+        let userID = req.session.user._id;
 
         let { nameQuestion, examID, answer, correct } = req.body;
         

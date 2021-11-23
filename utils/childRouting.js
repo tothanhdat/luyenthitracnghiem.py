@@ -50,8 +50,6 @@ let renderToView = async function(req, res, view, data) {
     let listComment = await COMMENT_MODEL.getList();
     let listResult = await RESULT_MODEL.getList();
 
-    
-
     data.moment                 = moment;
     data.page                   = page;
     data.listExam               = listExam.data;
