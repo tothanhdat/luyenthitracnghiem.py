@@ -27,8 +27,7 @@ route.get('/', async (req, res) => {
 
 //Thông tin user
 route.get('/info-user', async (req, res) => {
-    let userIDfromSession = req.session; //Đã gán req.session.user
-    let authorID = userIDfromSession.user.infoUSer._id;
+    let authorID = req.session.user._id;
     let { userID } = req.query;
     if(authorID.toString() == userID.toString()){
         let infoUserDb = await USER_MODEL.getInfo(userID);
@@ -41,9 +40,7 @@ route.get('/info-user', async (req, res) => {
 
 //Chỉnh sửa Thông tin user
 route.get('/edit-info-user', async (req, res) => {
-    let userIDfromSession = req.session; //Đã gán req.session.user
-    let authorID = userIDfromSession.user.infoUSer._id;
-
+    let authorID = req.session.user._id;
     let { userID } = req.query;
     if(authorID.toString() == userID.toString()){
         let infoUserDb = await USER_MODEL.getInfo(userID);
@@ -166,9 +163,9 @@ route.get('/list-exam-with-level', async (req, res) => {
 
 //Danh sách đề thi đã lưu
 route.get('/list-exam-by-save', checkActive, async (req, res) => {
-    let infoUser = req.session;
+    let userID = req.session.user._id;
     let listExamBySave = await EXAM_MODEL.getList();
-    renderToView(req, res, 'pages/list-exam-by-save', { listExamBySave: listExamBySave.data, userID: infoUser.user.infoUSer._id });
+    renderToView(req, res, 'pages/list-exam-by-save', { listExamBySave: listExamBySave.data, userID});
 })
 
 //lịch sử thi

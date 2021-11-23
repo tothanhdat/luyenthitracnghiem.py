@@ -6,9 +6,9 @@ const checkActive       = require('../../utils/checkActive');
 const { renderToView }  = require('../../utils/childRouting');
 
 route.post('/add-comment', checkActive, async (req, res) => {
-    let infoUser = req.session
     let { examID, content } = req.body;
-    let infoComment = await COMMENT_MODEL.insert({ examID, content, author: infoUser.user.infoUSer._id })
+    let userID = req.session.user._id;
+    let infoComment = await COMMENT_MODEL.insert({ examID, content, author: userID })
     res.json(infoComment)
 })
 
